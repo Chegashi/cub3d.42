@@ -6,35 +6,55 @@
 /*   By: mochegri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/04 06:37:44 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/11/05 06:27:52 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../ft_cub3D.h"
 
-void	*ft_read_map(char *s)
+t_game	*ft_win_init(char *s)
 {
 	int		fd;
 	char	**line;
-	t_map	*map;
-	char text;
+	t_game	*game;
+	char	text;
 
-	map = (t_map*)malloc(sizeof(t_map);
+	game = init_game();
 	line = (char**)malloc(sizeof(char*));
 	fd = open(s, O_RDONLY);
 	while(get_next_line(fd, line) > 0)
-		ft_filling(line, map);
+		ft_fill(line[0], line, game);
+	if(!(game->mlx_ptr = mlx_init()))
+		game->runing = false;
+	game->win_ptr = mlx_new_window(game->mlx_ptr,
+			game->resolution_x, game_resolution_y, "cub3D");
+	if(!(game->win_ptr))
+		game->runing = false;
+	mlx_loop();
+	return(game);
 }
 
-void	ft_filling(char **line, t_map *map);
+void	ft_fill(char c, char *line, t_map *game);
 {
 	if(line[0] == 'R')
-	{
-		map->resolution_x = ft_atoi(line);
-		map-<resolution_y = ft_atoi(line);
-	}
-	else if(line[0] =
+		ft_resolution(line, game);
+	else if(line[0] == 'N')
+		ft_north_texture(line, game);
+	else if(line[0] == 'E')
+		ft_east_texture(line, game);
+	else if(line[0] == 'W')
+		ft_west_texture(line, game);
+	else if(line[0] == 'S' && line[1] == '0')
+		ft_south_texture(line, game);
+	else if(line[0] == 'S' && line[1] == ' ')
+		ft_sprit_texture(line, game)
+	else if(line[0] == 'F')
+		ft_floor_color(line, game);
+	else if(line[0] == 'C')
+		ft_ceilling_color(line, game);
+	else
+		ft_map(line, game);
 }
 
 int main()

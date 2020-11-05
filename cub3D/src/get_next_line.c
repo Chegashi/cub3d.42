@@ -6,11 +6,11 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 21:37:16 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/04 05:08:30 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/11/05 03:16:28 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_cub3D.h"
+#include "cub3d.h"
 
 int		get_next_line(int fd, char **line)
 {

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/04 07:02:51 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/11/05 03:17:06 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
-
+# include <mlx.h>
+# define TRUE 1
+# define FALSE 0
 # define BUFFER_SIZE 64
 
 typedef struct		s_map
@@ -33,6 +35,10 @@ typedef struct		s_map
 	int		ceilling_color[3];
 	char	**map;
 	int		valid;
+	struct *s_map	ft_constructer(char *str)
+	{
+		rerturn NULL;
+	}	
 }	t_map;
 
 int			get_next_line(int fd, char **line);
