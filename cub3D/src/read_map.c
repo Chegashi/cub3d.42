@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map.c                                         :+:      :+:    :+:   */
+/*   read_cub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,110 +10,121 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "cub3d.h"
 
-t_game	*ft_win_init(char *s)
+t_cub	*ft_read_cub(char *s)
 {
 	int		fd;
-	char	**line;
-	t_game	*game;
+	char	*line;
+	t_cub	*cub;
 	char	text;
 
-	game = ft_init_game();
+	cub = ft_init_cub();
 	line = (char**)malloc(sizeof(char*));
 	fd = open(s, O_RDONLY);
-	while(get_next_line(fd, line) > 0)
-		ft_fill(*line, game);
-	game->mlx_ptr = mlx_init();
-	if(!game->mlx_ptr)
-		game->running = FALSE;
-	game->win_ptr = mlx_new_window(game->mlx_ptr ,game->resolution_x, game->resolution_y, "cub3D");
-	if(!(game->win_ptr))
-		game->running = FALSE;
-	return(game);
+	while(get_next_line(fd, &line) > 0)
+		ft_fill(*line, cub);
+	return(cub);
 }
 
-t_game	*ft_init_game()
+t_cub	*ft_init_cub()
 {
 	int i;
 
-	i = 0;
-	t_game	*game;
-	game = (t_game*)malloc(sizeof(t_game));
-	game->resolution_x = -1;
-	game->resolution_y = -1;
-	game->north_texture = ft_strdup("");
-	game->south_texture = ft_strdup("");
-	game->east_texture = ft_strdup("");
-	game->sprite_texture = ft_strdup("");
-	while(i++ < 3)
+	i = -1;
+	t_cub	*cub;
+	cub = (t_cub*)malloc(sizeof(t_cub));
+	cub->resolution_x = -1;
+	cub->resolution_y = -1;
+	cub->north_texture = ft_strdup("");
+	cub->south_texture = ft_strdup("");
+	cub->west_texture = ft_strdup("");
+	cub->east_texture = ft_strdup("");
+	cub->sprite_texture = ft_strdup("");
+	while(++i < 3)
 	{
-		game->floor_color[i] = -1;
-		game->ceilling_color[i] = -1;
+		cub->floor_color[i] = -1;
+		cub->ceilling_color[i] = -1;
 	}
-	game->map = NULL;
-	game->running = TRUE;
-	game->mlx_ptr = NULL;
-	game->win_ptr = 0;
-	return(game);
+	cub->map = (s_map*)sizeof(s_map);
+	return(map);
 }
 
-void	ft_fill(char *line, t_game *game)
+void	ft_fill(char *line, t_cub *cub)
 
 {
 	if(line[0] == 'R')
-		ft_resolution(line, game);
+		ft_resolution(line, cub);
 	else if(line[0] == 'N')
-		ft_read_texture(line, "NORTH", game);
+		ft_read_texture(line, cub->north_texture);
 	else if(line[0] == 'E')
-		ft_read_texture(line, "EAST", game);
+		ft_read_texture(line, cub->east_texture);
 	else if(line[0] == 'W')
-		ft_read_texture(line, "WEAST", game);
+		ft_read_texture(line, cub->west_testure);
 	else if(line[0] == 'S' && line[1] == 'O')
-		ft_read_texture(line, "SOUTH",  game);
+		ft_read_texture(line, cub->south_texture);
 	else if(line[0] == 'S' && line[1] == ' ')
-		ft_read_texture(line, "SPRITE ", game)
+		ft_read_texture(line, cub->sprite_texture)
 	else if(line[0] == 'F')
-		ft_read _color(line, "FLOOR", game);
+		ft_read _color(line, cub->floor_color);
 	else if(line[0] == 'C')
-		ft_read_color(line, "CEILLING", game);
+		ft_read_color(line, cub->ceilling_color);
 	else
-		ft_map(line, game);
+		ft_cub(line, cub);
 }
-void	ft_read_color(char *line, char *id, t_game)
+void	ft_read_color(char *line, char *id, t_cub)
 {
 	if(id == "FLOOR")
-		if(game->floor_color[0] != -1)
+		if(cub->floor_color[0] != -1)
 
 }
 
-void 	ft_resolution(char *line, t_game *game)
+void 	ft_resolution(char *line, t_cub *cub)
 
 {
-	if(game->resolution_x != -1 || game->resolution_y != -1)
+	if(cub->resolution_x != -1 || cub->resolution_y != -1)
 	{
 		ft_putstr("EREUR");
-		game->running = FALSE;
+		cub->valide = FALSE;
 	}
-	game->resolution_x = ft_atoi(line);
-	game->resolution_y = ft_atoi(line);
+	cub->resolution_x = ft_atoi_s(line);
+	cub->resolution_y = ft_atoi_s(line);
 }
 
-void	ft_read_texture(char *line, char *id, t_game *game)
+void	ft_read_texture(char *line, char *id, t_cub *cub)
 {
-	if(id = "NORTH" && game->(*north_texture) == "")
-			game->north_texture = ft_get_path(line);
-	else if(id = "EAST" && game->(*east_texture) == "")
-			game->east_texture = ft_get_path(line);
-	else if(id = "WEAST" && game->(*west_texture) == "")
-			game->west_texture = ft_getpath(line);
-	else if(id = "SOUTH" && game->(*south_texture) == "")
-		game->west_texture = ft_get_path(line);
-	else if(id = "SPRITE" && game->(*sprite_texture) == "")
-		game->sprite_texture = ft_get_path(line);
+	if(id = "NORTH" && cub->(north_texture) == "")
+			cub->north_texture = ft_get_path(line);
+	else if(id = "EAST" && cub->(*east_texture) == "")
+			cub->east_texture = ft_get_path(line);
+	else if(id = "WEAST" && cub->(*west_texture) == "")
+			cub->west_texture = ft_getpath(line);
+	else if(id = "SOUTH" && cub->(*south_texture) == "")
+		cub->west_texture = ft_get_path(line);
+	else if(id = "SPRITE" && cub->(*sprite_texture) == "")
+		cub->sprite_texture = ft_get_path(line);
 	else
-		game->running = FALSE;
+		cub->valide = FALSE;
+}
+int	ft_atoi_s(char *s)
+{
+	int nbr;
+	nbr = 0;
+	while (ft_isdigit(*s))
+	{
+		nbr = nbr * 10 + *s - '0';
+		s++;
+	}
+	return(nbr);
 }
 
-
+char	*ft_getpath(char *s)
+{
+	int len;
+	len = 0;
+	char *s1;
+	s1=s;
+	while(s1++)
+		len++;
+	
+}

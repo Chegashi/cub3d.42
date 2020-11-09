@@ -18,12 +18,13 @@
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
+# include "get_next_line.h"
 
 # define BUFFER_SIZE 64
 # define TRUE 1
 # define FALSE 0
 
-typedef struct		s_game
+typedef struct		s_cub
 {
 	int		resolution_x;
 	int		resolution_y;
@@ -35,36 +36,26 @@ typedef struct		s_game
 	int		floor_color[3];
 	int		ceilling_color[3];
 	char	**map;
-	int		running;
-	void	*mlx_ptr;
-	void	*win_ptr;	
-}	t_game;
+	int		valide;
+}					t_cub;
 
-typedef struct s_line
+typedef struct	s_column
 {
-	
-}	t_line;
+	char				value;
+	struct s_column		*next;
+}				t_column;
 
-typedef struct s_colomn
+typdef struct 	s_line
 {
-	char 39alti
-	3lach 
-};
+	t_column			line;
+	struct s_line		*next;
+}				t_line;
 
-
-int			get_next_line(int fd, char **line);
-int			get_buffer(int fd, char **line);
-void		ft_end(char **line, char **tmp, int end);
-char		*ft_strchr(const char *str, int c);
-char		*ft_strjoin(char *s1, char const *s2);
-size_t		ft_strlen(const char *str);
-char		*ft_char_calloc(size_t cont);
-char		*ft_strdup(const char *src);
-char		*ft_substr(char const *s, unsigned int start, size_t len);
-int			ft_the_end(char **tmp, char **line, char **end);
-t_game		*ft_win_init(char *s);
-t_game		*ft_init_game();
-void		ft_fill(char *line, t_game *game);
-void		ft_setup();
+typedef struct	s_map
+{
+	t_line		*first;
+	int			nbr_ligne ;
+	int			nbr_column;
+}				t_map;
 
 #endif
