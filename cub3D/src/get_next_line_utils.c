@@ -6,11 +6,11 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 21:37:43 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/05 01:46:42 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/11/06 00:10:26 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "cub3d.h"
 
 char	*ft_strchr(const char *s, int c)
 {
