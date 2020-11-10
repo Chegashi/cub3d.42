@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/07 01:15:22 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/11/10 18:27:48 by abort            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
-# include "get_next_line.h"
+# include "libft.h"
 
-# define BUFFER_SIZE 64
 # define TRUE 1
 # define FALSE 0
 
@@ -58,17 +57,13 @@ typedef struct		s_cub
 	int		valide;
 }					t_cub;
 
-t_cub	*ft_read_cub(char *s);
-t_cub	*ft_init_cub();
-void	ft_fill(char **line, t_cub *cub);
-void 	ft_resolution(char *line, t_cub *cub);
-int		ft_isdigit(int c);
-void	ft_read_texture(char *line, char **des);
-void	ft_putstr(char *str);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-void	ft_read_color(char *line, int **tab);
-char	*ft_strchr(const char *str, int c);
-void	ft_map(char *line, t_map *map);
-
-
+void		ft_fill(const char *line, t_cub *cub);
+void 		ft_resolution(const char *line, t_cub *cub);
+void		ft_read_texture(const char *line, char **des);
+void		ft_read_color(const char *line, int **tab);
+void		ft_map(const char *line, t_map *map);
+t_cub		*ft_read_cub(char *s);
+t_cub		*ft_init_cub();
+t_column    *read_colomn(const char *s);
+void print_cub(t_cub *cub);
 #endif

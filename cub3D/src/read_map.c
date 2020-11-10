@@ -1,16 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_cub.c                                         :+:      :+:    :+:   */
+/*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/07 01:21:17 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/11/10 18:24:48 by abort            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <stdio.h>
 
 t_cub	*ft_read_cub(char *s)
 {
@@ -23,7 +24,7 @@ t_cub	*ft_read_cub(char *s)
 	line = (char*)malloc(sizeof(char));
 	fd = open(s, O_RDONLY);
 	while(get_next_line(fd, &line) > 0)
-		ft_fill(*line, cub);
+		ft_fill(line, cub);
 	return(cub);
 }
 
@@ -55,38 +56,39 @@ t_cub	*ft_init_cub()
 	return(cub);
 }
 
-void	ft_fill(char **line, t_cub *cub)
+void	ft_fill(const char *line, t_cub *cub)
 
 {
-	if(*line[0] == 'R' && cub->resolution_x != -1)
-		ft_resolution(*line, cub);
-	else if(*line[0] == 'N' && cub->north_texture)
-		ft_read_texture(*line, &cub->north_texture);
-	else if(*line[0] == 'E' && cub->east_texture)
-		ft_read_texture(*line, &cub->east_texture);
-	else if(*line[0] == 'W' && cub->west_texture)
-		ft_read_texture(*line, &cub->west_texture);
-	else if(*line[0] == 'S' && *line[1] == 'O' && cub->south_texture)
-		ft_read_texture(*line, &cub->south_texture);
-	else if(*line[0] == 'S' && *line[1] == ' ' && cub->sprite_texture)
-		ft_read_texture(*line, &cub->sprite_texture);
-	else if(*line[0] == 'F' && cub->floor_color[0] != -1)
-		ft_read_color(*line, &cub->floor_color);
-	else if(*line[0] == 'C' && cub->ceilling_color[0] != -1)
-		ft_read_color(*line, &cub->ceilling_color);
-	else if (ft_strchr("RNFWSFC", *line[0]))
+	if(line[0] == 'R' && cub->resolution_x != -1)
+		ft_resolution(line, cub);
+	else if(line[0] == 'N' && cub->north_texture)
+		ft_read_texture(line, &cub->north_texture);
+	else if(line[0] == 'E' && cub->east_texture)
+		ft_read_texture(line, &cub->east_texture);
+	else if(line[0] == 'W' && cub->west_texture)
+		ft_read_texture(line, &cub->west_texture);
+	else if(line[0] == 'S' && line[1] == 'O' && cub->south_texture)
+		ft_read_texture(line, &cub->south_texture);
+	else if(line[0] == 'S' && line[1] == ' ' && cub->sprite_texture)
+		ft_read_texture(line, &cub->sprite_texture);
+	else if(line[0] == 'F' && cub->floor_color[0] != -1)
+		ft_read_color(line, &cub->floor_color);
+	else if(line[0] == 'C' && cub->ceilling_color[0] != -1)
+		ft_read_color(line, &cub->ceilling_color);
+	else if (ft_strchr("RNFWSFC", line[0]))
 		cub->valide = 0;
 	else
-		ft_map(*line, &cub->map);
+		ft_map(line, cub->map);
 }
-void	ft_read_color(char *line, int **tab)
+
+void	ft_read_color(const char *line, int **tab)
 {
-	if(id == "FLOOR")
-		if(cub->floor_color[0] != -1)
-
+	*tab[0] = ft_atoi_s(line);
+	*tab[1] = ft_atoi_s(line);
+	*tab[2] = ft_atoi_s(line);	
 }
 
-void 	ft_resolution(char *line, t_cub *cub)
+void 	ft_resolution(const char *line, t_cub *cub)
 
 {
 	if(cub->resolution_x != -1 || cub->resolution_y != -1)
@@ -98,7 +100,7 @@ void 	ft_resolution(char *line, t_cub *cub)
 	cub->resolution_y = ft_atoi_s(line);
 }
 
-void	ft_read_texture(char *line, char **dest)
+void	ft_read_texture(const char *line, char **dest)
 {
 	int len;
 	int start;
@@ -109,105 +111,10 @@ void	ft_read_texture(char *line, char **dest)
 	start = i + 1;
 	while(line[i++])
 		len++;
-	dest = ft_substr(line, start, ft_strlen(line));
+	*dest = ft_substr(line, start, ft_strlen(line));
 }	
-	
-	
 
-
-}
-int	ft_atoi_s(char *s)
-{
-	int nbr;
-	nbr = 0;
-	while (ft_isdigit(*s))
-	{
-		nbr = nbr * 10 + *s - '0';
-		s++;
-	}
-	return(nbr);
-}
-
-char	*ft_getpath(char *s)
-{
-	int len;
-	len = 0;
-	char *s1;
-	s1=s;
-	while(s1++)
-		len++;
-	
-}
-
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
-}
-
-void	ft_putstr(char *str)
-{
-	int i;
-
-	i = 0;
-	if (str)
-		while (str[i] != '\0')
-		{
-			write(1, &str[i], 1);
-			i++;
-		}
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*ptr_ch;
-	int		i;
-
-	i = 0;
-	ptr_ch = NULL;
-	if (!s)
-		return (NULL);
-	if (start > len)
-		len = 0;
-	ptr_ch = (char*)malloc(((int)len + 1) * sizeof(char));
-	if (ptr_ch == NULL)
-		return (0);
-	else
-	{
-		while (s[i] != '\0' && i < (int)len)
-		{
-			ptr_ch[i] = s[(int)start + i];
-			i++;
-		}
-		ptr_ch[i] = '\0';
-	}
-	return (ptr_ch);
-}
-
-char	*ft_strchr(const char *str, int c)
-{
-	int		i;
-	char	*tmp;
-	char	locate;
-
-	locate = (char)c;
-	tmp = (char*)str;
-	i = 0;
-	while (tmp[i] != '\0')
-	{
-		if (tmp[i] == locate)
-			return (tmp + i);
-		else
-			i++;
-	}
-	if (tmp[i] == '\0' && locate == '\0')
-		return (tmp + i);
-	return (NULL);
-}
-
-void ft_map(char *line, t_map *map)
+void ft_map(const char *line, t_map *map)
 {
 	t_line	*line_tmp;
 	t_line	*line_new;
@@ -217,10 +124,10 @@ void ft_map(char *line, t_map *map)
 		line_tmp = line_tmp->next;
 	line_tmp = line_new;
 	line_new->next = NULL;
-	line_new->first = read_column(line);
+	line_new->first = read_colomn(line);
 }
 
-t_column *read_colomn(char *s)
+t_column *read_colomn(const char *s)
 {
 	t_column *char_1;
 	t_column *char_2;
@@ -234,4 +141,31 @@ t_column *read_colomn(char *s)
 		char_2 = NULL;
 	}
 	return(char_1);
+}
+
+void print_cub(t_cub *cub)
+{
+    printf("\n north texture \t %s",cub->north_texture);
+    printf("\n south texture \t %s",cub->south_texture);
+    printf("\n west texture \t %s",cub->west_texture);
+    printf("\n east texture \t %s",cub->east_texture);
+    printf("\n sprit texture \t %s",cub->south_texture);
+	printf("\n floor_color \t [%d, %d, %d]", cub->floor_color[0], cub->floor_color[1], cub->floor_color[2]);
+	printf("\n ceilling_color \t [%d, %d, %d]", cub->ceilling_color[0], cub->ceilling_color[1], cub->ceilling_color[2]);
+	printf("\n is valid %d ", cub->valide);
+	t_line *l = cub->map->first ;
+	t_column *p;
+	while(l)
+	{
+		p = l->first;
+		printf("\n [");
+		while (p)
+		{
+			printf("%d, ", p->value);
+			p = p->next;
+		}
+		l = l->next;
+		printf("]");
+	}
+	
 }

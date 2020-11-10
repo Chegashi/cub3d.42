@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochegri <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/07 00:47:10 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/11/10 18:28:30 by abort            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int main(int ac, char **av)
 {
-	ft_init_cub();
+	print_cub(ft_read_cub(av[1]));
+
 	return 0;
 }
