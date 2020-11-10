@@ -15,16 +15,6 @@
 
 int main(int ac, char **av)
 {
-	t_game 	*game;
-
-	game = ft_win_init(av[1]);
-	ft_setup();
-//	while(game->running)
-//	{
-//		prossesInput();
-//		update();
-//		render()
-//	}
-	mlx_loop(game->mlx_ptr);
+	ft_init_cub();
 	return 0;
 }
