@@ -21,7 +21,6 @@ char	*ft_strchr(const char *str, int c)
 	return (NULL);
 }
 
-
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*ptr_ch;
@@ -69,14 +68,17 @@ int	ft_isdigit(int c)
 		return (0);
 }
 
-int		ft_atoi_s(const char *s)
+int		ft_atoi_s(char **s)
 {
 	int nbr;
 	nbr = 0;
-	while (ft_isdigit(*s))
+	while (!ft_isdigit(**s))
+		(*s)++;
+	
+	while (ft_isdigit(**s))
 	{
-		nbr = nbr * 10 + *s - '0';
-		s++;
+		nbr = nbr * 10 + **s - '0';
+		(*s)++;
 	}
 	return(nbr);
 }
@@ -199,3 +201,14 @@ char	*ft_char_calloc(size_t cont)
 		return (0);
 	return (str);
 }
+
+int		ft_isin(char *s, char c)
+{
+	while (*s)
+	{if (*s == c)
+		return(1);
+	else
+		s++;
+	}
+	return (0);
+} 

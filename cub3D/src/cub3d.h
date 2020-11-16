@@ -6,7 +6,7 @@
 /*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/10 18:27:48 by abort            ###   ########.fr       */
+/*   Updated: 2020/11/16 02:59:05 by abort            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,15 @@ typedef struct		s_cub
 	int		valide;
 }					t_cub;
 
-void		ft_fill(const char *line, t_cub *cub);
-void 		ft_resolution(const char *line, t_cub *cub);
-void		ft_read_texture(const char *line, char **des);
-void		ft_read_color(const char *line, int **tab);
-void		ft_map(const char *line, t_map *map);
+void		ft_fill( char *line, t_cub *cub);
+void 		ft_resolution( char *line, t_cub *cub);
+void		ft_read_texture( char *line, char **des);
+void		ft_read_color( char *line, int **tab);
+void		ft_map( char *line, t_map *map);
 t_cub		*ft_read_cub(char *s);
 t_cub		*ft_init_cub();
-t_column    *read_colomn(const char *s);
-void print_cub(t_cub *cub);
+t_column    *read_colomn( char *s);
+void		print_cub(t_cub *cub);
+t_map *ft_initmap();
+
 #endif
