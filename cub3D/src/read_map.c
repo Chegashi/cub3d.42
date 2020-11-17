@@ -6,7 +6,7 @@
 /*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/16 18:18:18 by abort            ###   ########.fr       */
+/*   Updated: 2020/11/17 14:31:32 by abort            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ t_map *ft_initmap()
 	t_line *l;
 	
 	map = (t_map*)malloc(sizeof(t_map));
-	l = (t_line*)malloc(sizeof(t_line));
-	l->first = NULL;
-	l->next = NULL;
-	map->first = l;
+	map->first = NULL;
 	map->nbr_column = 0;
 	map->nbr_ligne = 0;
 	return(map);
@@ -131,43 +128,57 @@ void	ft_read_texture( char *line, char **dest)
 
 void ft_map( char *line, t_map *map)
 {
-	int c = 0;
-	char a = 'a';
-	t_line	*line_tmp;
+	t_line	**p_line;
+	t_line	next;
 	t_line	*line_new;
-	line_tmp = map->first;
-	if(map->first->next)
-	printf("1");
-	// while(line_tmp)
-	// {
-	// line_tmp = line_tmp->next;
-	// }
-	// line_tmp->next = line_new;
-	// line_tmp->next = NULL;
-	// line_tmp->first = read_colomn(line);
+	
+	line_new = (t_line*)malloc(sizeof(t_line));
+	line_new->first = read_colomn(line);
+	line_new->next = NULL;
+	p_line = &(map->first);
+	if (*p_line)
+	{
+		while ((*p_line)->next)
+	 		p_line = &(*p_line)->next;
+		(*p_line)->next = line_new;
+		}
+	else
+		*p_line = line_new;
+
 }
 
 t_column *read_colomn( char *s)
 {
 	t_column *colomn_1;
 	t_column *colomn_tmp;
+	int		count;
 	
-	if(*s)
-	{
-		colomn_1 = (t_column*)malloc(sizeof(t_column));
-		colomn_tmp = colomn_1;
-		colomn_1->value = *s;
-		colomn_1->next = NULL;
-		s++;
+	colomn_1 = (t_column*)malloc(sizeof(t_column));
+	colomn_tmp = colomn_1;
+	if(*s == '\0')
+		colomn_1->value = '?';
+	else
 		while (*s)
 		{
-			colomn_tmp->next =  (t_column*)malloc(sizeof(t_column));
-			colomn_tmp = colomn_tmp->next;
-			colomn_tmp->value = *s;
-			colomn_tmp->next = NULL;
+			if (*s == '\t')
+			{
+				count = 0;
+				while (++count <= 4)
+				{
+					colomn_tmp->next =  (t_column*)malloc(sizeof(t_column));
+					colomn_tmp = colomn_tmp->next;
+					colomn_tmp->value = ' ';
+				}
+			}
+			else
+			{
+				colomn_tmp->next =  (t_column*)malloc(sizeof(t_column));
+				colomn_tmp = colomn_tmp->next;
+				colomn_tmp->value = *s;
+			}
 			s++;
 		}	
-	}
+		colomn_tmp->next = NULL;
 	return(colomn_1);
 }
 
@@ -184,13 +195,13 @@ void print_cub(t_cub *cub)
 	printf("\n is valid %d ", cub->valide);
 	t_line *l = cub->map->first ;
 	t_column *p;
-	while(l)
+	 while(l)
 	{
 		p = l->first;
 		printf("\n [");
 		while (p)
 		{
-			printf("%d, ", p->value);
+			printf("%c, ", p->value);
 			p = p->next;
 		}
 		l = l->next;
