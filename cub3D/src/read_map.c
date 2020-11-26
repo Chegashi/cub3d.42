@@ -6,7 +6,7 @@
 /*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/17 14:31:32 by abort            ###   ########.fr       */
+/*   Updated: 2020/11/22 19:31:11 by abort            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_cub	*ft_read_cub(char *s)
 	cub = ft_init_cub();
 	line = (char*)malloc(sizeof(char));
 	fd = open(s, O_RDONLY);
-	while(get_next_line(fd, &line) > 0)
+	while(get_next_line(fd, &line) || line)
 		ft_fill(line, cub);
 	return(cub);
 }
@@ -31,9 +31,9 @@ t_cub	*ft_read_cub(char *s)
 t_cub	*ft_init_cub()
 {
 	int i;
-
-	i = -1;
 	t_cub	*cub;
+	
+	i = -1;
 	cub = (t_cub*)malloc(sizeof(t_cub));
 	cub->resolution_x = -1;
 	cub->resolution_y = -1;
@@ -67,9 +67,7 @@ t_map *ft_initmap()
 }
 
 void	ft_fill(char *line, t_cub *cub)
-
 {
-	static int i=1;
 	if(line[0] == 'R' && cub->resolution_x == -1)
 		ft_resolution(line, cub);
 	else if(line[0] == 'N' && !cub->north_texture)
@@ -116,8 +114,9 @@ void	ft_read_texture( char *line, char **dest)
 {
 	int len;
 	int start;
+	int i;
 
-	int i = -1;
+	i = -1;
 	while(line[++i] != ' ')
 		;
 	start = i + 1;
@@ -141,7 +140,7 @@ void ft_map( char *line, t_map *map)
 		while ((*p_line)->next)
 	 		p_line = &(*p_line)->next;
 		(*p_line)->next = line_new;
-		}
+	}
 	else
 		*p_line = line_new;
 
@@ -195,17 +194,15 @@ void print_cub(t_cub *cub)
 	printf("\n is valid %d ", cub->valide);
 	t_line *l = cub->map->first ;
 	t_column *p;
-	 while(l)
+	while(l)
 	{
 		p = l->first;
-		printf("\n [");
+		printf("\n");
 		while (p)
 		{
-			printf("%c, ", p->value);
+			printf("%c", p->value);
 			p = p->next;
 		}
 		l = l->next;
-		printf("]");
 	}
-	
 }

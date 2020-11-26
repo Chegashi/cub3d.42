@@ -90,10 +90,10 @@ int		get_next_line(int fd, char **line)
 	if (fd < 0 || !line || BUFFER_SIZE < 0 || read(fd, NULL, 0))
 		return (-1);
 	n = get_buffer(fd, line);
-	return (n > 0) ? 1 : n;
+	return (n);
 }
 
-int		get_buffer(int fd, char **line)
+int			get_buffer(int fd, char **line)
 {
 	int			n;
 	static char	*tmp = NULL;
