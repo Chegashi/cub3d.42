@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/22 19:40:09 by abort            ###   ########.fr       */
+/*   Updated: 2020/12/08 19:44:27 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "cub3d.h"
-
+#include "../get_next_line/get_next_line.h"
 int main(int ac, char **av)
 {
 	int		fd;
@@ -21,9 +21,5 @@ int main(int ac, char **av)
 	char	text;
 
 	cub = ft_init_cub();
-	line = (char*)malloc(sizeof(char));
-	fd = open("1.cub", O_RDONLY);
-	while(get_next_line(fd, &line) > 0)
-		printf("%s\n", line);
  	return 0;
 }

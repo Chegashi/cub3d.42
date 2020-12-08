@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/22 19:31:11 by abort            ###   ########.fr       */
+/*   Updated: 2020/12/08 19:41:46 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_cub	*ft_read_cub(char *s)
 	cub = ft_init_cub();
 	line = (char*)malloc(sizeof(char));
 	fd = open(s, O_RDONLY);
-	while(get_next_line(fd, &line) || line)
+	while(get_next_line(fd, &line))
 		ft_fill(line, cub);
 	return(cub);
 }
@@ -32,7 +32,7 @@ t_cub	*ft_init_cub()
 {
 	int i;
 	t_cub	*cub;
-	
+
 	i = -1;
 	cub = (t_cub*)malloc(sizeof(t_cub));
 	cub->resolution_x = -1;

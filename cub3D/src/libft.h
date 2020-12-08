@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 17:21:37 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/15 03:33:18 by abort            ###   ########.fr       */
+/*   Updated: 2020/12/08 19:44:56 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include "libft.h"
-# define BUFFER_SIZE 128
 
 char	    *ft_strchr(const char *str, int c);
 char	    *ft_substr(char const *s, unsigned int start, size_t len);
@@ -33,5 +32,5 @@ char	    *ft_char_calloc(size_t cont);
 char	    *ft_strdup(const char *src);
 int		    ft_the_end(char **tmp, char **line, char **end);
 char    	*ft_strjoin(char *s1, char const *s2);
-int		ft_isin(char *s, char c);
+int	    	ft_isin(char *s, char c);
 #endif
