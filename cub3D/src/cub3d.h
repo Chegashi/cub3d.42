@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2020/11/17 13:52:56 by abort            ###   ########.fr       */
+/*   Updated: 2020/12/13 19:25:04 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include "libft.h"
 # include <string.h>
-
+# include "get_next_line/get_next_line.h"
 # define TRUE 1
 # define FALSE 0
 
@@ -45,8 +45,8 @@ typedef struct	s_map
 
 typedef struct		s_cub
 {
-	int		resolution_x;
-	int		resolution_y;
+	int		fd;
+	int		*resolution;
 	char	*north_texture;
 	char	*south_texture;
 	char	*west_texture;

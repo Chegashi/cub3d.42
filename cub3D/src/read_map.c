@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/08 19:41:46 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/13 20:37:14 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,25 @@ t_cub	*ft_read_cub(char *s)
 	int		fd;
 	char	*line;
 	t_cub	*cub;
-	char	text;
-
-	cub = ft_init_cub();
-	line = (char*)malloc(sizeof(char));
+	
 	fd = open(s, O_RDONLY);
+	cub = ft_init_cub(fd);
+	line = (char*)malloc(sizeof(char));
 	while(get_next_line(fd, &line))
 		ft_fill(line, cub);
 	return(cub);
 }
 
-t_cub	*ft_init_cub()
+t_cub	*ft_init_cub(int fd)
 {
 	int i;
 	t_cub	*cub;
 
 	i = -1;
 	cub = (t_cub*)malloc(sizeof(t_cub));
-	cub->resolution_x = -1;
-	cub->resolution_y = -1;
+	cub->resolution = (int*)malloc(sizeof(int) * 2);
+	cub->resolution[0] = -1;
+	cub->resolution[1] = -1;
 	cub->north_texture =  NULL;
 	cub->south_texture = NULL;
 	cub->west_texture = NULL;
@@ -51,13 +51,14 @@ t_cub	*ft_init_cub()
 	}
 	cub->valide = TRUE;
 	cub->map = ft_initmap();
+	cub->fd = fd;
 	return(cub);
 }
 
 t_map *ft_initmap()
 {
-	t_map *map;
-	t_line *l;
+	t_map	*map;
+	t_line	*l;
 	
 	map = (t_map*)malloc(sizeof(t_map));
 	map->first = NULL;
@@ -66,28 +67,28 @@ t_map *ft_initmap()
 	return(map);
 }
 
-void	ft_fill(char *line, t_cub *cub)
+void	ft_fill(char *line, t_cub *cub, int fd)
 {
-	if(line[0] == 'R' && cub->resolution_x == -1)
+	if(*line == 'R' && cub->resolution[0] == -1)
 		ft_resolution(line, cub);
-	else if(line[0] == 'N' && !cub->north_texture)
+	else if(*line == 'N' && !cub->north_texture)
 		ft_read_texture(line, &cub->north_texture);
-	else if(line[0] == 'E' && !cub->east_texture)
+	else if(*line == 'E' && !cub->east_texture)
 		ft_read_texture(line, &cub->east_texture);
-	else if(line[0] == 'W' && !cub->west_texture)
+	else if(*line == 'W' && !cub->west_texture)
 		ft_read_texture(line, &cub->west_texture);
-	else if(line[0] == 'S' && line[1] == 'O' && !cub->south_texture)
+	else if(*line == 'S' && line[1] == 'O' && !cub->south_texture)
 		ft_read_texture(line, &cub->south_texture);
-	else if(line[0] == 'S' && line[1] == ' ' && !cub->sprite_texture)
+	else if(*line == 'S' && line[1] == ' ' && !cub->sprite_texture)
 		ft_read_texture(line, &cub->sprite_texture);
-	else if(line[0] == 'F' && cub->floor_color[0] == -1)
+	else if(*line == 'F' && cub->floor_color[0] == -1)
 		ft_read_color(line, &cub->floor_color);
-	else if(line[0] == 'C' && cub->ceilling_color[0] == -1)
+	else if(*line == 'C' && cub->ceilling_color[0] == -1)
 		ft_read_color(line, &cub->ceilling_color);
-	else if (ft_isin("RNFWSFC", line[0]))
-		cub->valide = FALSE;
-	else
+	else if ((*line == ' ' || *line == '1') && !(cub->map->readed))
 		ft_map(line, cub->map);
+	else
+		cub->valide = FALSE;
 }
 
 void	ft_read_color(char *line, int **tab)
@@ -143,7 +144,6 @@ void ft_map( char *line, t_map *map)
 	}
 	else
 		*p_line = line_new;
-
 }
 
 t_column *read_colomn( char *s)
