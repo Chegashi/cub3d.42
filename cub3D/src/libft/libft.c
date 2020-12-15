@@ -112,13 +112,14 @@ char	*ft_strjoin(char *s1, char const *s2)
 		return (NULL);
 	s1_len = ft_strlen((char*)s1);
 	s2_len = ft_strlen((char*)s2);
-	if (!(res = malloc((s1_len + s2_len + 1) * sizeof(char))))
+	if (!(res = malloc((s1_len + s2_len + 2) * sizeof(char))))
 		return (NULL);
 	else
 	{
 		while (i < s1_len)
 			res[j++] = s1[i++];
 		i = 0;
+		res[j++] = '\n';
 		while (i < s2_len)
 			res[j++] = s2[i++];
 	}

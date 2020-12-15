@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 21:38:03 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/08 19:18:57 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/15 18:39:50 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
+#include "libft.h"
 # define BUFFER_SIZE 64
 
 int		get_next_line(int fd, char **line);
