@@ -6,14 +6,14 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/15 18:51:12 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/16 06:09:30 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __CUB3D_H
 # define __CUB3D_H
 
-# include "libft/get_next_line.h"
+# include "get_next_line/get_next_line.h"
 # include "libft/libft.h"
 # include <fcntl.h>
 # include <stdlib.h>
@@ -31,7 +31,7 @@ typedef struct		s_cub
 	int		*resolution;
 	int		*floor_color;
 	int		*ceilling_color;
-	char	**line;
+	char	*line;
 	char	*north_texture;
 	char	*south_texture;
 	char	*west_texture;
@@ -59,5 +59,6 @@ t_cub		*ft_read_cub(char *s);
 t_cub		*ft_init_cub();
 int			*ft_calloc_tab_int(int n);
 void		ft_tomap(t_cub *cub);
+char		*ft_init_str(char *strmem);
 
 #endif

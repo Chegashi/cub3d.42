@@ -6,23 +6,22 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 21:37:16 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/15 18:39:20 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/16 04:38:12 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <string.h>
 
 int		get_next_line(int fd, char **line)
 {
 	int	n;
-
-	free(*line);
+	
+	**line = '\0';
 	if (fd < 0 || !line || BUFFER_SIZE < 0 || read(fd, NULL, 0))
 		return (-1);
 	n = get_buffer(fd, line);
-	if(**line != 0 && !n)
-		return(1);
-	return n;
+	return (!n && **line !='\0') ? 1 : n;
 }
 
 int		get_buffer(int fd, char **line)
@@ -69,4 +68,42 @@ int		ft_the_end(char **tmp, char **line, char **end)
 		*tmp = NULL;
 		return (0);
 	}
+}
+
+char	*ft_strdup(const char *src)
+{
+	char	*p;
+	size_t	i;
+
+	i = -1;
+	p = (char *)malloc(sizeof(char) * ft_strlen(src) + 1);
+	if (p == 0)
+		return (0);
+	while (++i < ft_strlen(src))
+		p[i] = src[i];
+	p[i] = '\0';
+	return (p);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char	*ptr_ch;
+	int		i;
+
+	i = 0;
+	ptr_ch = NULL;
+	if (!s)
+		return (NULL);
+	if (start > len)
+		len = 0;
+	ptr_ch = (char*)malloc(((int)len + 1) * sizeof(char));
+	if (ptr_ch == NULL)
+		return (0);
+	while (s[i] != '\0' && i < (int)len)
+	{
+		ptr_ch[i] = s[(int)start + i];
+		i++;
+	}
+	ptr_ch[i] = '\0';
+	return (ptr_ch);
 }

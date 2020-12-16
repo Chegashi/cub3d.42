@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 17:21:37 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/08 19:44:56 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/16 01:27:10 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ size_t	    ft_strlen(const char *str);
 char	    *ft_char_calloc(size_t cont);
 char	    *ft_strdup(const char *src);
 int		    ft_the_end(char **tmp, char **line, char **end);
-char    	*ft_strjoin(char *s1, char const *s2);
+char    	*ft_strjoinn(char *s1, char const *s2);
 int	    	ft_isin(char *s, char c);
 #endif

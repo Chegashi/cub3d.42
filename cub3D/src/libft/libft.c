@@ -1,52 +1,5 @@
 #include "libft.h" 
 
-char	*ft_strchr(const char *str, int c)
-{
-	int		i;
-	char	*tmp;
-	char	locate;
-
-	locate = (char)c;
-	tmp = (char*)str;
-	i = 0;
-	while (tmp[i] != '\0')
-	{
-		if (tmp[i] == locate)
-			return (tmp + i);
-		else
-			i++;
-	}
-	if (tmp[i] == '\0' && locate == '\0')
-		return (tmp + i);
-	return (NULL);
-}
-
-char	*ft_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*ptr_ch;
-	int		i;
-
-	i = 0;
-	ptr_ch = NULL;
-	if (!s)
-		return (NULL);
-	if (start > len)
-		len = 0;
-	ptr_ch = (char*)malloc(((int)len + 1) * sizeof(char));
-	if (ptr_ch == NULL)
-		return (0);
-	else
-	{
-		while (s[i] != '\0' && i < (int)len)
-		{
-			ptr_ch[i] = s[(int)start + i];
-			i++;
-		}
-		ptr_ch[i] = '\0';
-	}
-	return (ptr_ch);
-}
-
 void	ft_putstr(char *str)
 {
 	int i;
@@ -83,22 +36,7 @@ int		ft_atoi_s(char **s)
 	return(nbr);
 }
 
-char	*ft_strdup(const char *src)
-{
-	char	*p;
-	size_t	i;
-
-	i = -1;
-	p = (char *)malloc(sizeof(char) * ft_strlen(src) + 1);
-	if (p == 0)
-		return (0);
-	while (++i < ft_strlen(src))
-		p[i] = src[i];
-	p[i] = '\0';
-	return (p);
-}
-
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_strjoinn(char *s1, char const *s2)
 {
 	int		s1_len;
 	int		s2_len;
@@ -119,32 +57,12 @@ char	*ft_strjoin(char *s1, char const *s2)
 		while (i < s1_len)
 			res[j++] = s1[i++];
 		i = 0;
-		res[j++] = '\n';
+		(*s1) ? res[j++] = '\n' : 0;
 		while (i < s2_len)
 			res[j++] = s2[i++];
 	}
 	res[j] = '\0';
 	return (res);
-}
-
-size_t	ft_strlen(const char *str)
-{
-	int i;
-
-	i = -1;
-	while (str[++i] != '\0')
-		;
-	return (i);
-}
-
-char	*ft_char_calloc(size_t cont)
-{
-	char	*str;
-
-	str = (char*)malloc(cont);
-	if (str == 0)
-		return (0);
-	return (str);
 }
 
 int		ft_isin(char *s, char c)
