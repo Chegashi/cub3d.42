@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/16 06:09:30 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/18 02:03:19 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 # include <unistd.h>
 # include <string.h>
+# include "mlx.h"
 
 typedef struct		s_cub
 {
@@ -39,15 +40,21 @@ typedef struct		s_cub
 	char	*sprite_texture;
 	char	**map;
 	char	*map_str;
-	
+	char	*msg;
+	char	direction;	
 }					t_cub;
 
 typedef struct s_game
 {
 	t_cub	*cube;
 	char	**map;
+	void	*win_ptr;
+	void	*mlx_ptr;
+	int		is_running;
 }				t_game;
 
+int			*ft_calloc_tab_int(int n);
+char		*ft_init_str(char *strmem);
 void		ft_fill( char *line, t_cub *cub);
 void 		ft_resolution( char *line, t_cub *cub);
 void		ft_read_texture( char *line, char **des);
@@ -55,10 +62,11 @@ void		ft_read_color( char *line, int **tab);
 void		ft_map(t_cub *cub);
 void		print_cub(t_cub *cub);
 void		ft_read_map(t_cub *cub);
+void		ft_tomap(t_cub *cub);
+void		check_map(t_cub *cub);
+void		get_err(t_cub *cub, char * msg);
 t_cub		*ft_read_cub(char *s);
 t_cub		*ft_init_cub();
-int			*ft_calloc_tab_int(int n);
-void		ft_tomap(t_cub *cub);
-char		*ft_init_str(char *strmem);
+void		ft_init_game(t_game *game);
 
 #endif

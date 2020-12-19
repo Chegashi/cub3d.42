@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/16 06:50:00 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/18 23:08:53 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_cub	*ft_read_cub(char *s)
 	cub->fd = open(s, O_RDONLY);
 	while(get_next_line(cub->fd, &(cub->line)) > 0)
 		ft_fill(cub->line, cub);
+	check_map(cub);
+	
 	return(cub);
 }
 
@@ -59,6 +61,9 @@ void	ft_map(t_cub *cub)
 	cub->map_str = (char*)malloc(sizeof(char));
 	cub->map_str[0] = '\0';
 	cub->map = NULL;
+	cub->direction = 0;
+	cub->msg = (char*)malloc(sizeof(char) * 25);
+	cub->msg = ft_strcpy(cub->msg, "ok");
 }
 
 int		*ft_calloc_tab_int(int n)
@@ -94,10 +99,7 @@ void	ft_fill(char *line, t_cub *cub)
 	else if ((*line == ' ' || *line == '1') && !(cub->map))
 		ft_read_map(cub);
 	else
-	{ 
-		cub->valide = 0;
-		ft_putstr("\tereur in cub file\n");
-	}
+		get_err(cub, "ereur in cub file\n");
 }
 
 void	ft_read_color(char *line, int **tab)
@@ -136,7 +138,7 @@ void ft_read_map(t_cub *cub)
 
 	len = 0;
 	gnl_return = 1;
-	while(gnl_return)
+	while(gnl_return && cub->valide)
 	{
 		if(*(cub->line) == ' ' || *(cub->line) == '1')
 		{
@@ -151,11 +153,7 @@ void ft_read_map(t_cub *cub)
 			gnl_return =  get_next_line(cub->fd, &(cub->line));
 		}
 		else if (!gnl_return)
-			{
-				ft_putstr("Errer in map\n");
-				cub->valide = 0;
-				break;
-			}
+			get_err(cub, "debut map erreur \n");
 	}
 	ft_tomap(cub);
 }
@@ -189,30 +187,62 @@ void ft_tomap(t_cub *cub)
 			else
 				(cub->map)[i][j] = ' ';
 		}
-	}	
+	}
 }
 
 void print_cub(t_cub *cub)
 {
 	int j,i=-1;
-	// printf("\n resolution [%d, %d]", cub->resolution[0], cub->resolution[1]);
-    // printf("\n north texture \t %s",cub->north_texture);
-    // printf("\n south texture \t %s",cub->south_texture);
-    // printf("\n west texture \t %s",cub->west_texture);
-    // printf("\n east texture \t %s",cub->east_texture);
-    // printf("\n sprit texture \t %s",cub->sprite_texture);
-	// printf("\n floor_color \t\t [%d, %d, %d]", cub->floor_color[0], cub->floor_color[1], cub->floor_color[2]);
-	// printf("\n ceilling_color \t [%d, %d, %d]", cub->ceilling_color[0], cub->ceilling_color[1], cub->ceilling_color[2]);
-	// printf("\n is valid %d", cub->valide);
-	 printf("\n line : %d, colomn : %d", cub->nbr_ligne , cub->nbr_column);
-	printf("\n map : \n%s\n\n", cub->map_str);
+	printf("\n resolution [%d, %d]", cub->resolution[0], cub->resolution[1]);
+    printf("\n north texture \t %s",cub->north_texture);
+    printf("\n south texture \t %s",cub->south_texture);
+    printf("\n west texture \t %s",cub->west_texture);
+    printf("\n east texture \t %s",cub->east_texture);
+    printf("\n sprit texture \t %s",cub->sprite_texture);
+	printf("\n floor_color \t\t [%d, %d, %d]", cub->floor_color[0], cub->floor_color[1], cub->floor_color[2]);
+	printf("\n ceilling_color \t [%d, %d, %d]", cub->ceilling_color[0], cub->ceilling_color[1], cub->ceilling_color[2]);
+	printf("\n is valid %d %c", cub->valide, cub->direction);
+	printf("\n line : %d, colomn : %d\n", cub->nbr_ligne , cub->nbr_column);
+	printf("\n map : \n%s\n\n", cub->msg);
 	while (++i < cub->nbr_ligne)
 	{
 		j=-1;
-		//ft_putstr("{");
 		while (++j < cub->nbr_column)
 			printf("%c",cub->map[i][j]);
-		//ft_putstr("{");
 		printf("\n");
 	}
+}
+
+void check_map(t_cub *cub)
+{
+	int i;
+	int j;
+	char *drct;
+
+	drct = &(cub->direction);
+	i = -1;
+	while (++i < cub->nbr_ligne && cub->valide)
+	{
+		j=-1;
+		while (++j < cub->nbr_column && cub->valide)
+		{
+			if (((i == 0 || j == 0|| i == (cub->nbr_ligne - 1)
+			|| j == (cub->nbr_column - 1)) && (cub->map[i][j] != '1'
+			&& cub->map[i][j] != ' ')) && (ft_isin("0NSWE2", cub->map[i][j])
+			&& (cub->map[i - 1][j -1] == ' ' && cub->map[i - 1][j + 1] == ' '
+			&& cub->map[i + 1][j + 1] == ' '
+			&& cub->map[i + 1][j - 1] == ' ')))
+				get_err(cub, "ereur in cub map\n");
+			if (ft_isin("NSWE", cub->map[i][j]))
+				*drct ? cub->valide = 0 : (*drct = cub->map[i][j]);				
+		}
+	}
+	if (!(cub->direction))
+		cub->valide = 0;	
+}
+
+void	get_err(t_cub *cub, char * msg)
+{
+	cub->msg = ft_strcpy(cub->msg, msg);
+	cub->valide = 0;
 }
