@@ -1,0 +1,1 @@
+gcc -Wall -Werror -Wextra main.c get_next_line/get_next_line*.c read_map.c cub.c libft/libft.c -o cub3d  -L/usr/X11/lib /usr/X11/lib/libmlx.a /lib/x86_64-linux-gnu/libbsd.so.0 -lXext -lX11  -lm  -I   ./Tools/Headers -I ./keys -g && ./cub3d ../maps/1.cub 

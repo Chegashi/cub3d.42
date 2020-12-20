@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/18 02:03:19 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/20 07:43:35 by abort            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct		s_cub
 {
 	int		fd;
 	int		valide;
-	int		nbr_ligne ;
+	int		nbr_ligne;
 	int		nbr_column;
 	int		*resolution;
 	int		*floor_color;
@@ -41,8 +41,18 @@ typedef struct		s_cub
 	char	**map;
 	char	*map_str;
 	char	*msg;
-	char	direction;	
+	char	direction;
 }					t_cub;
+
+
+typedef struct  s_data
+{
+    void        *img;
+    char        *addr;
+    int         bpp;
+    int         l_len;
+    int         endian;
+}				t_data;
 
 typedef struct s_game
 {
@@ -50,8 +60,10 @@ typedef struct s_game
 	char	**map;
 	void	*win_ptr;
 	void	*mlx_ptr;
+	t_data  img;
 	int		is_running;
 }				t_game;
+              
 
 int			*ft_calloc_tab_int(int n);
 char		*ft_init_str(char *strmem);
