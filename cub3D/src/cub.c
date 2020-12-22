@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/22 14:51:09 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/22 20:14:12 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ void    ft_init_game(t_game *game)
 	game->win_ptr = mlx_new_window(game->mlx_ptr, resol[0], resol[1], "cub3d");
     game->img.img = mlx_new_image(game->mlx_ptr,resol[0], resol[1]);
     game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bpp), &(game->img.l_len), &(game->img.endian));
- 
-    ft_draw_map(game);
-    //draw_rect(&(game->img), 0,0, 100,200,0x8b1c62);
-    
+    ft_draw_map(game);    
     mlx_loop(game->mlx_ptr);
 }
 
@@ -57,30 +54,28 @@ void    draw_rect(t_data *data, int x, int y,int lentx, int lenty, int color)
 void		ft_draw_map(t_game *game)
 {
     char **map;
-    int i = -1;
-    int j = -1;
-    double t = 0.05;
+    int i;
+    int j;
+    double t = 1;
     int tileX;
     int tileY;
-    int tile_size_x = 100;//300 / game->cube->nbr_column;
-    int tile_size_y = 100;// / game->cube->nbr_ligne; 
+    int tile_size = 8;
+    i = -1;
     map = game->cube->map;
-    printf("[%d,%d,%d,%d]\n", tile_size_x, tile_size_y,game->cube->nbr_ligne -1,game->cube->nbr_column -1);
     while(++i < game->cube->nbr_ligne)
     {
         j = -1;
-        printf("[[%d]]\n", i);
         while (++j < game->cube->nbr_column)
         {
             int color = 0x00;
-            tileX = j * tile_size_x;
-            tileY = i * tile_size_y;
+            tileX = j * tile_size;
+            tileY = i * tile_size;
             if (game->cube->map[i][j] == '1')
                 color = 0x8b1c62;
             else if (ft_isin("20NSEO", game->cube->map[i][j]))
                 color = 0xff7256;
-            printf("[%d,%d]\n",tileX,tileY);
-            draw_rect(&(game->img), tileX*t,tileY*t,tile_size_x*t, tile_size_y*t,color);
+            if(game->cube->map[i][j] != ' ')
+                draw_rect(&(game->img), tileX*t,tileY*t,tile_size*t, tile_size*t,color);
         }
     }
     mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img.img, 0, 0);
