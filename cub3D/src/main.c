@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/20 06:00:40 by abort            ###   ########.fr       */
+/*   Updated: 2020/12/20 09:18:45 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int main(int ac, char **av)
 		//ft_setup();
 		//while (game1->is_running)
 		//{
-		ft_prosesinput(game1);
+		//ft_prosesinput(game1);
 		//update()
 		//render()
 		//}

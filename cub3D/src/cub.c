@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/20 08:07:58 by abort            ###   ########.fr       */
+/*   Updated: 2020/12/22 14:51:09 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,69 @@ void    ft_init_game(t_game *game)
     int sizey;
 
     resol = game->cube->resolution;
-    game->mlx_ptr = mlx_init();
-    //mlx_get_screen_size(game->mlx_ptr, &sizex, &sizey);
-    //printf("[%d\n%d\n%d\n",sizex, sizey, t);
-    if (resol[0] < sizex || resol[1] < sizey)
+    game->mlx_ptr = mlx_init();int t =0;
+    mlx_get_screen_size(game->mlx_ptr, &sizex, &sizey);
+    if (resol[0] > sizex || resol[1] > sizey)
     {
         game->cube->resolution[0] = sizex;
         game->cube->resolution[1] = sizey;
     }
 	game->win_ptr = mlx_new_window(game->mlx_ptr, resol[0], resol[1], "cub3d");
-    game->img.img = mlx_new_image(game->mlx_ptr, resol[0], resol[1]);
+    game->img.img = mlx_new_image(game->mlx_ptr,resol[0], resol[1]);
     game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bpp), &(game->img.l_len), &(game->img.endian));
-    int i=0,j=0;
-    //ft_draw_map(game->cube);
-    // int color = 0xff0000;
-     while (i++ < 100)
+ 
+    ft_draw_map(game);
+    //draw_rect(&(game->img), 0,0, 100,200,0x8b1c62);
+    
+    mlx_loop(game->mlx_ptr);
+}
+
+void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+    char    *dst;
+
+    dst = data->addr + (y * data->l_len + x * (data->bpp / 8));
+    *(unsigned int*)dst = color;
+}
+void    draw_rect(t_data *data, int x, int y,int lentx, int lenty, int color)
+{
+    int i=x,j=y;
+    while (i++ < x + lentx)
+    {
+      j = y;
+       while (j++ < y + lenty)
+        my_mlx_pixel_put(data,i,j,color);
+    }
+    
+}
+void		ft_draw_map(t_game *game)
+{
+    char **map;
+    int i = -1;
+    int j = -1;
+    double t = 0.05;
+    int tileX;
+    int tileY;
+    int tile_size_x = 100;//300 / game->cube->nbr_column;
+    int tile_size_y = 100;// / game->cube->nbr_ligne; 
+    map = game->cube->map;
+    printf("[%d,%d,%d,%d]\n", tile_size_x, tile_size_y,game->cube->nbr_ligne -1,game->cube->nbr_column -1);
+    while(++i < game->cube->nbr_ligne)
     {
         j = -1;
-        while (j++ < 100)
-            img_ptr[i * resol[0] + j] = color;
+        printf("[[%d]]\n", i);
+        while (++j < game->cube->nbr_column)
+        {
+            int color = 0x00;
+            tileX = j * tile_size_x;
+            tileY = i * tile_size_y;
+            if (game->cube->map[i][j] == '1')
+                color = 0x8b1c62;
+            else if (ft_isin("20NSEO", game->cube->map[i][j]))
+                color = 0xff7256;
+            printf("[%d,%d]\n",tileX,tileY);
+            draw_rect(&(game->img), tileX*t,tileY*t,tile_size_x*t, tile_size_y*t,color);
+        }
     }
-    mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, img, 0, 0);
-    mlx_loop(game->mlx_ptr);
+    mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img.img, 0, 0);
 }

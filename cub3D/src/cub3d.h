@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/20 07:43:35 by abort            ###   ########.fr       */
+/*   Updated: 2020/12/22 10:37:06 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_game
 	void	*mlx_ptr;
 	t_data  img;
 	int		is_running;
+	int		tileX;
+	int		tiley;
 }				t_game;
               
 
@@ -80,5 +82,8 @@ void		get_err(t_cub *cub, char * msg);
 t_cub		*ft_read_cub(char *s);
 t_cub		*ft_init_cub();
 void		ft_init_game(t_game *game);
+void         my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void		ft_draw_map(t_game *game);
+void    draw_rect(t_data *data, int x, int y,int lentx, int lenty, int color);
 
 #endif

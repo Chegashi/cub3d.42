@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/18 23:08:53 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/22 14:06:34 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,4 +245,5 @@ void	get_err(t_cub *cub, char * msg)
 {
 	cub->msg = ft_strcpy(cub->msg, msg);
 	cub->valide = 0;
+	exit(1);
 }
