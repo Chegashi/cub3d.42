@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/22 20:14:12 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/24 12:07:30 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void    ft_init_game(t_game *game)
     int sizey;
 
     resol = game->cube->resolution;
-    game->mlx_ptr = mlx_init();int t =0;
+    game->mlx_ptr = mlx_init();
     mlx_get_screen_size(game->mlx_ptr, &sizex, &sizey);
     if (resol[0] > sizex || resol[1] > sizey)
     {
@@ -29,8 +29,7 @@ void    ft_init_game(t_game *game)
 	game->win_ptr = mlx_new_window(game->mlx_ptr, resol[0], resol[1], "cub3d");
     game->img.img = mlx_new_image(game->mlx_ptr,resol[0], resol[1]);
     game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bpp), &(game->img.l_len), &(game->img.endian));
-    ft_draw_map(game);    
-    mlx_loop(game->mlx_ptr);
+    game->is_running = 1;
 }
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
@@ -56,10 +55,9 @@ void		ft_draw_map(t_game *game)
     char **map;
     int i;
     int j;
-    double t = 1;
     int tileX;
     int tileY;
-    int tile_size = 8;
+
     i = -1;
     map = game->cube->map;
     while(++i < game->cube->nbr_ligne)

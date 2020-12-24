@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/22 14:06:34 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/24 08:02:20 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_cub	*ft_init_cub()
 	cub->floor_color = ft_calloc_tab_int(2);
 	cub->ceilling_color = ft_calloc_tab_int(3);
 	cub->resolution = ft_calloc_tab_int(3);
+	cub->player_position = (int*)malloc(sizeof(int) * 2);
 	cub->resolution[0] = -1;
 	cub->resolution[1] = -1;
 	cub->north_texture =  NULL;
@@ -48,8 +49,6 @@ t_cub	*ft_init_cub()
 		cub->floor_color[i] = -1;
 		cub->ceilling_color[i] = -1;
 	}
-	cub->valide = 1;
-	cub->fd = -1;
 	ft_map(cub);
 	return(cub);
 }
@@ -64,6 +63,10 @@ void	ft_map(t_cub *cub)
 	cub->direction = 0;
 	cub->msg = (char*)malloc(sizeof(char) * 25);
 	cub->msg = ft_strcpy(cub->msg, "ok");
+	cub->valide = 1;
+	cub->fd = -1;
+	cub->player_position[0] = -1;
+	cub->player_position[1] = -1;
 }
 
 int		*ft_calloc_tab_int(int n)
@@ -106,7 +109,7 @@ void	ft_read_color(char *line, int **tab)
 {
 	(*tab)[0] = ft_atoi_s(&line);
 	(*tab)[1] = ft_atoi_s(&line);
-	(*tab)[2] = ft_atoi_s(&line);	
+	(*tab)[2] = ft_atoi_s(&line);
 }
 
 void 	ft_resolution(char *line, t_cub *cub)
@@ -181,6 +184,8 @@ void ft_tomap(t_cub *cub)
 		{
 			if (cub->map_str[k] != '\n' && cub->map_str[k])
 			{
+				if(ft_isin("EONS",cub->map_str[k]))
+					ft_set_player(cub->map_str[k], i, j, cub);
 				cub->map[i][j] = cub->map_str[k];
 				k++;
 			}
@@ -188,6 +193,14 @@ void ft_tomap(t_cub *cub)
 				(cub->map)[i][j] = ' ';
 		}
 	}
+}
+
+void	ft_set_player(char direct, int x, int y, t_cub * cub)
+{
+	cub->direction =  direct;
+	cub->map[x][y] = '0';
+	cub->player_position[0] = x;
+	cub->player_position[1] = y;
 }
 
 void print_cub(t_cub *cub)
@@ -217,10 +230,10 @@ void check_map(t_cub *cub)
 {
 	int i;
 	int j;
-	char *drct;
 
-	drct = &(cub->direction);
 	i = -1;
+	if (!(cub->direction))
+		cub->valide = 0;
 	while (++i < cub->nbr_ligne && cub->valide)
 	{
 		j=-1;
@@ -232,18 +245,14 @@ void check_map(t_cub *cub)
 			&& (cub->map[i - 1][j -1] == ' ' && cub->map[i - 1][j + 1] == ' '
 			&& cub->map[i + 1][j + 1] == ' '
 			&& cub->map[i + 1][j - 1] == ' ')))
-				get_err(cub, "ereur in cub map\n");
-			if (ft_isin("NSWE", cub->map[i][j]))
-				*drct ? cub->valide = 0 : (*drct = cub->map[i][j]);				
+				get_err(cub, "ereur in cub map\n");			
 		}
-	}
-	if (!(cub->direction))
-		cub->valide = 0;	
+	}	
 }
 
 void	get_err(t_cub *cub, char * msg)
 {
 	cub->msg = ft_strcpy(cub->msg, msg);
+	ft_putstr(msg);
 	cub->valide = 0;
-	exit(1);
 }
