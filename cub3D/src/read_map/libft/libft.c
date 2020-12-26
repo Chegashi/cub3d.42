@@ -13,21 +13,13 @@ void	ft_putstr(char *str)
 		}
 }
 
-int	ft_isdigit(int c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
-}
-
 int		ft_atoi_s(char **s)
 {
 	int nbr;
+
 	nbr = 0;
 	while (!ft_isdigit(**s))
 		(*s)++;
-	
 	while (ft_isdigit(**s))
 	{
 		nbr = nbr * 10 + **s - '0';
@@ -68,23 +60,20 @@ char	*ft_strjoinn(char *s1, char const *s2)
 int		ft_isin(char *s, char c)
 {
 	while (*s)
-	{if (*s == c)
-		return(1);
-	else
-		s++;
-	}
+		if (*s == c)
+			return(1);
+		else
+			s++;
 	return (0);
-} 
+}
+
 char	*ft_strcpy(char *dest, char *src)
 {
 	int i;
 
-	i = 0;
-	while (src[i] != '\0')
-	{
+	i = -1;
+	while (src[++i] != '\0')
 		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = src[i];
+	dest[i] = 0;
 	return (dest);
 }

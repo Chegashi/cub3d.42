@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/24 12:07:52 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/26 05:37:16 by abort            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,37 +14,46 @@
 
 int main(int ac, char **av)
 {
-	t_game	*game1;
+	t_game	*game;
 
-	game1 = NULL;
+	game = NULL;
 	if(ac != 2)
 		ft_putstr("ereur dargument\n");
 	else
 	{
-		game1 = ft_setup(game1, av[1]);
-		ft_draw_map(game1);
-		ft_render_player(game1);
-	//	while(game1->is_running)
-	//	{
-			//ft_draw_map(game);    
-    		//mlx_loop(game->mlx_ptr);
-			//ft_prosesinput(game1);
-			//update()
-			//render()    
-    	mlx_loop(game1->mlx_ptr);
-	//	}
+		game = ft_setup(game, av[1]);
+		mlx_loop(game->mlx_ptr);
+		//while(game->is_running)
+		// {
+		// 	ft_prosesinput(game);
+		// 	ft_update(game);
+		// 	ft_render(game);
+		// }
 	}
+	//ft_destroy(game);
  	return 0;
 }
 
-t_game *ft_setup(t_game *game1, char *file)
+t_game *ft_setup(t_game *game, char *file)
 {
-	game1 = (t_game*)malloc(sizeof(t_game));
-	game1->cube = ft_read_cub(file);
-	game1->is_running = game1->cube->valide;
-	ft_init_game(game1);
-	game1->player = ft_init_player(game1->cube);
-	return(game1);
+	int		sizex;
+    int		sizey;
+    int		*resol;
+	
+	game = (t_game*)malloc(sizeof(t_game));
+	if (!game)
+		return(NULL);
+	game->cube = ft_read_cub(file);
+	resol = game->cube->resolution;
+	game->is_running = game->cube->valide;
+	game->mlx_ptr = mlx_init();
+	game->win_ptr = mlx_new_window(game->mlx_ptr, resol[0], resol[1], "Salon");
+	game->img.img = mlx_new_image(game->mlx_ptr,resol[0], resol[1]);
+	game->player = ft_init_player(game->cube);
+	game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bpp),
+	&(game->img.l_len), &(game->img.endian));
+	ft_draw_map(game);
+	return(game);
 }
 
 t_player	*ft_init_player(t_cub *cub)
@@ -70,7 +79,24 @@ t_player	*ft_init_player(t_cub *cub)
 }
 void	ft_render_player(t_game *game1)
 {
-	printf("[%d,%d]\n",game1->player->x, game1->player->y);
 	draw_rect(&(game1->img), (game1->player->y),(game1->player->x), tile_size, tile_size, 0xfff68f);
 	mlx_put_image_to_window(game1->mlx_ptr, game1->win_ptr, game1->img.img, 0, 0);
+}
+void	ft_prosesinput(t_game *game)
+{
+	///f//
+}
+
+void	ft_update(t_game *game)
+{
+	//e
+}
+
+void	ft_render(t_game *game)
+{
+	///d
+}
+void 		ft_destroy(t_game *game)
+{
+	///e
 }

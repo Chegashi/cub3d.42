@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/24 12:07:30 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/26 05:36:33 by abort            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void    ft_init_game(t_game *game)
-{
-    int *resol;
-    int sizex;
-    int sizey;
-
-    resol = game->cube->resolution;
-    game->mlx_ptr = mlx_init();
-    mlx_get_screen_size(game->mlx_ptr, &sizex, &sizey);
-    if (resol[0] > sizex || resol[1] > sizey)
-    {
-        game->cube->resolution[0] = sizex;
-        game->cube->resolution[1] = sizey;
-    }
-	game->win_ptr = mlx_new_window(game->mlx_ptr, resol[0], resol[1], "cub3d");
-    game->img.img = mlx_new_image(game->mlx_ptr,resol[0], resol[1]);
-    game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bpp), &(game->img.l_len), &(game->img.endian));
-    game->is_running = 1;
-}
 
 void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
@@ -39,6 +19,7 @@ void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
     dst = data->addr + (y * data->l_len + x * (data->bpp / 8));
     *(unsigned int*)dst = color;
 }
+
 void    draw_rect(t_data *data, int x, int y,int lentx, int lenty, int color)
 {
     int i=x,j=y;
@@ -48,7 +29,6 @@ void    draw_rect(t_data *data, int x, int y,int lentx, int lenty, int color)
        while (j++ < y + lenty)
         my_mlx_pixel_put(data,i,j,color);
     }
-    
 }
 void		ft_draw_map(t_game *game)
 {
@@ -73,7 +53,8 @@ void		ft_draw_map(t_game *game)
             else if (ft_isin("20NSEO", game->cube->map[i][j]))
                 color = 0xff7256;
             if(game->cube->map[i][j] != ' ')
-                draw_rect(&(game->img), tileX*t,tileY*t,tile_size*t, tile_size*t,color);
+                draw_rect(&(game->img), tileX * map_coef, tileY *map_coef,
+                tile_size * map_coef, tile_size * map_coef ,color);
         }
     }
     mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img.img, 0, 0);
