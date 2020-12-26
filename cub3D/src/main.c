@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/26 05:37:16 by abort            ###   ########.fr       */
+/*   Updated: 2020/12/26 12:47:49 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <math.h>
 
 int main(int ac, char **av)
 {
@@ -36,8 +37,8 @@ int main(int ac, char **av)
 
 t_game *ft_setup(t_game *game, char *file)
 {
-	int		sizex;
-    int		sizey;
+	// int		sizex;
+    // int		sizey;
     int		*resol;
 	
 	game = (t_game*)malloc(sizeof(t_game));
@@ -53,6 +54,7 @@ t_game *ft_setup(t_game *game, char *file)
 	game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bpp),
 	&(game->img.l_len), &(game->img.endian));
 	ft_draw_map(game);
+	ft_render_player(game);
 	return(game);
 }
 
@@ -79,24 +81,77 @@ t_player	*ft_init_player(t_cub *cub)
 }
 void	ft_render_player(t_game *game1)
 {
-	draw_rect(&(game1->img), (game1->player->y),(game1->player->x), tile_size, tile_size, 0xfff68f);
+	ft_draw_disque(&(game1->img), (game1->player->y) * map_coef,(game1->player->x) * map_coef, 5, 0xfff68f);
+	ft_render_line(&(game1->img), (game1->player->y) * map_coef,(game1->player->x) * map_coef, game1->player->rotationAngle,0xf0f68f );
 	mlx_put_image_to_window(game1->mlx_ptr, game1->win_ptr, game1->img.img, 0, 0);
 }
-void	ft_prosesinput(t_game *game)
+// void	ft_prosesinput(t_game *game)
+// {
+// 	///f//
+// }
+
+// void	ft_update(t_game *game)
+// {
+// 	//e
+// }
+
+// void	ft_render(t_game *game)
+// {
+// 	///d
+// }
+// void 		ft_destroy(t_game *game)
+// {
+// 	///e
+// }
+
+void ft_draw_disque(t_data *data, int x, int y, int r, int color)
 {
-	///f//
+	int i;
+	int j;
+
+	i = x - r;
+	while (++i < x + r)
+	{
+		j = y - r;
+		while (++j < y + r)
+		{
+			if (pow(i - x, 2) + pow(j - y, 2) < pow(r, 2))
+				my_mlx_pixel_put(data,i,j,color);
+		}
+	}
+}
+int abs(int n)
+{
+	return (n > 0 ? n : - 1 * n);
 }
 
-void	ft_update(t_game *game)
+void	ft_render_line(t_data *data, int x, int y, double angle, int color)
 {
-	//e
-}
+	double top_x;
+	double top_y;
+	double dx;
+	double dy;
+	double i;
+	double j;
 
-void	ft_render(t_game *game)
-{
-	///d
-}
-void 		ft_destroy(t_game *game)
-{
-	///e
+	top_x = x + cos(angle)*100;
+	top_y = y + sin(angle)*100;
+	double steps;
+	dx = (x - top_x);
+	dy = (y - top_y);	steps = (fabs(dx) > fabs(dy)) ? fabs(dx) : fabs(dy);
+
+	double xinc = dx/((double)steps);
+	double yinc = dy/((double)steps);
+	// m = (top_y - y) / (top_x - x);
+	i = x - 1;
+	j = y - 1;
+	int k = -1;
+	// printf("x:%d ,y:%d, xx:%f yy:%f angle:%f m:%f cos(angle):%f,sin(angle):%f\n",x,y,top_x,top_y,angle,m, cos(angle),sin(angle));
+	while (++k < steps)
+	{
+		i += xinc;
+		j += yinc; 
+		printf("[%f,%f]\n",i,j);
+		my_mlx_pixel_put(data,i,j,color);
+	}
 }

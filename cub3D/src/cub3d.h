@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/26 05:37:57 by abort            ###   ########.fr       */
+/*   Updated: 2020/12/26 12:29:05 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <string.h>
 # include "mlx.h"
 # define PI 3.14159265359
-# define map_coef 1
+# define map_coef 0.5
 # define tile_size  20
 
 typedef struct  s_data
@@ -113,7 +113,9 @@ t_cub		*ft_read_cub(char *s);
 t_cub		*ft_init_cub();
 t_game		*ft_setup(t_game *game1, char *file);
 t_player	*ft_init_player(t_cub *cub);
-
+void 		ft_draw_disque(t_data *data, int x, int y, int r, int color);
+void		ft_render_player(t_game *game1);
+void		ft_render_line(t_data *data, int x, int y, double angle, int color);
 
 
 #endif
