@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/26 05:32:52 by abort            ###   ########.fr       */
+/*   Updated: 2020/12/28 08:28:29 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,8 @@ void ft_tomap(t_cub *cub)
 			{
 				if(ft_isin("EWNS",cub->map_str[k]))
 					ft_set_player(cub->map_str[k], i, j, cub);
-				cub->map[i][j] = cub->map_str[k];
+				else
+					cub->map[i][j] = cub->map_str[k];
 				k++;
 			}
 			else

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/26 12:29:05 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/29 19:15:45 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include <string.h>
 # include "mlx.h"
 # define PI 3.14159265359
-# define map_coef 0.5
-# define tile_size  20
+# define map_coef 1
+# define tile_size  17
 
 typedef struct  s_data
 {
@@ -34,7 +34,6 @@ typedef struct  s_data
     int         l_len;
     int         endian;
 }				t_data;
-
 
 typedef struct s_player
 {
@@ -47,8 +46,29 @@ typedef struct s_player
     float rotationAngle;
     float walkSpeed;
     float turnSpeed;
-	t_data  img;
 }				t_player;
+
+typedef struct  s_line
+{
+	int 	color;
+	double	x;
+	double 	y;
+	double 	dx;
+	double 	dy;
+}		t_line;
+
+typedef struct s_square 
+{
+	int x;
+	int y;
+	int lent;
+}				t_square;
+
+typedef struct s_point
+{
+	double x;
+	double y;
+}			t_point;
 
 typedef struct		s_cub
 {
@@ -75,17 +95,15 @@ typedef struct		s_cub
 
 typedef struct s_game
 {
-	int		is_running;
-	char	**map;
-	void	*win_ptr;
-	void	*mlx_ptr;
-	t_cub	*cube;
-	t_data  img;
-	t_data  map_img;
-	t_player *player;
+	int			is_running;
+	char		**map;
+	void		*win_ptr;
+	void		*mlx_ptr;
+	t_cub		*cube;
+	t_data  	img;
+	t_data  	map_img;
+	t_player 	*player;
 }				t_game;
-
-
 
 int			*ft_calloc_tab_int(int n);
 char		*ft_init_str(char *strmem);
@@ -102,7 +120,7 @@ void		get_err(t_cub *cub, char * msg);
 void		ft_init_game(t_game *game);
 void         my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void		ft_draw_map(t_game *game);
-void    	draw_rect(t_data *data, int x, int y,int lentx, int lenty, int color);
+void    	draw_rect(t_data *data, t_square s, int color) ;
 void		ft_set_player(char direct, int x, int y, t_cub * cub);
 void		ft_render_player(t_game *game1);
 void		ft_prosesinput(t_game *game);
@@ -115,7 +133,6 @@ t_game		*ft_setup(t_game *game1, char *file);
 t_player	*ft_init_player(t_cub *cub);
 void 		ft_draw_disque(t_data *data, int x, int y, int r, int color);
 void		ft_render_player(t_game *game1);
-void		ft_render_line(t_data *data, int x, int y, double angle, int color);
-
-
+void		ft_render_line(t_data *data, t_point p1, t_point p2, int color);
+int			ft_key_hook(int keycode);
 #endif

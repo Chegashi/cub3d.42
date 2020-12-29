@@ -6,56 +6,54 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/26 08:22:21 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/29 19:29:37 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+#include <math.h>
 
-void            my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-    char    *dst;
-
-    dst = data->addr + (y * data->l_len + x * (data->bpp / 8));
-    *(unsigned int*)dst = color;
-}
-
-void    draw_rect(t_data *data, int x, int y,int lentx, int lenty, int color)
-{
-    int i=x,j=y;
-    while (i++ < x + lentx)
-    {
-      j = y;
-       while (j++ < y + lenty)
-        my_mlx_pixel_put(data,i,j,color);
-    }
-}
 void		ft_draw_map(t_game *game)
 {
-    char **map;
     int i;
     int j;
     int tileX;
     int tileY;
+    int color;
+    t_square sqr;
 
-    i = -1;
-    map = game->cube->map;
-    while(++i < game->cube->nbr_ligne)
-    {
-        j = -1;
-        while (++j < game->cube->nbr_column)
-        {
-            int color = 0x00;
+    i = 0;
+    // while(++i < game->cube->nbr_ligne)
+    // {
+        j = 0;
+    //     while (++j < game->cube->nbr_column)
+    //     {
+            color = 0x00;
             tileX = j * tile_size;
             tileY = i * tile_size;
-            if (game->cube->map[i][j] == '1')
-                color = 0x8b1c62;
-            else if (ft_isin("20NSEO", game->cube->map[i][j]))
-                color = 0xff7256;
-            if(game->cube->map[i][j] != ' ')
-                draw_rect(&(game->img), tileX * map_coef, tileY *map_coef,
-                tile_size * map_coef, tile_size * map_coef ,color);
-        }
-    }
-    mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img.img, 0, 0);
+            color = (game->cube->map[i][j] == '1') ? 0x8b1c62 : 0xff7256;
+            // if(game->cube->map[i][j] != ' ')
+            // {
+                sqr.x = tileX * map_coef;
+                sqr.y = tileY *map_coef;
+                sqr.lent = tile_size * map_coef;
+                draw_rect(&(game->img), sqr, color);
+    //         }
+    //     }
+    // }
+}
+
+void	ft_render_player(t_game *game1)
+{
+    t_point p1;
+    t_point p2;
+    
+    p1.x = game1->player->y;
+    p1.y = game1->player->x;
+    p2.x = game1->player->y * sin(game1->player->rotationAngle);
+    p2.y = game1->player->x * cos(game1->player->rotationAngle);
+	ft_draw_disque(&(game1->img), (game1->player->y) * map_coef,
+	(game1->player->x) * map_coef, 5, 0xfff68f);
+	ft_render_line(&(game1->img), p1,p2, 0xf0f68f);
+
 }

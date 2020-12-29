@@ -1,1 +1,1 @@
-gcc -Wall -Wextra -Werror -I /usr/local/include -o cub3d main.c read_map/libft/ft_isdigit.c read_map/libft/libft.c read_map/get_next_line/get_next_line.c read_map/get_next_line/get_next_line_utils.c cub.c read_map/*.c -I mlx.h libmlx.dylib && ./cub3d ../maps/file.cub
+gcc -Wall -Wextra -Werror -I /usr/local/include -o cub3d main.c rende.c read_map/libft/ft_isdigit.c read_map/libft/libft.c read_map/get_next_line/get_next_line.c read_map/get_next_line/get_next_line_utils.c cub.c read_map/*.c -I mlx.h libmlx.dylib && ./cub3d ../maps/file.cub
