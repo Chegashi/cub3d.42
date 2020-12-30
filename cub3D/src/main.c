@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/29 19:17:50 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/30 19:11:44 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ int main(int ac, char **av)
 	else
 	{
 		game = ft_setup(game, av[1]);
-		while(game->is_running)
-		{
-			ft_render(game);
-		 	//ft_prosesinput(game);
-		 	//ft_update(game);
-		 }
-		 mlx_loop(game->mlx_ptr);
+		// while(game->is_running)
+		// {
+		ft_prosesinput(game);
+		mlx_loop_hook(game->mlx_ptr, ft_update, game);
+		 	mlx_loop(game->mlx_ptr);
+		//  }
 	}
-	//ft_destroy(game);
+	mlx_clear_window(game->mlx_ptr, game->win_ptr);
+	//ft_destroy(1, game);
  	return 0;
 }
 
@@ -59,6 +59,7 @@ t_game		*ft_setup(t_game *game, char *file)
 	game->player = ft_init_player(game->cube);
 	game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bpp),
 	&(game->img.l_len), &(game->img.endian));
+	ft_render(game);
 	return(game);
 }
 
@@ -70,7 +71,7 @@ t_player	*ft_init_player(t_cub *cub)
 	player->x = (cub->player_position[0]) * tile_size;
 	player->y = (cub->player_position[1]) * tile_size;
 	if (cub->direction == 'N')
-		player->rotationAngle = PI *(3 / 2);
+		player->rotationAngle = PI * (3 / 2);
 	if (cub->direction == 'E')
 		player->rotationAngle = 0;
 	if (cub->direction == 'S')
@@ -84,25 +85,48 @@ t_player	*ft_init_player(t_cub *cub)
 	return (player);
 }
 
-// void	ft_prosesinput(t_game *game)
-// {
-// 	//mlx_key_hook(game->win_ptr, ft_key_hook, NULL);
-// }
-
-int	ft_key_hook(int keycode)
+void	ft_prosesinput(t_game *game)
 {
-	printf("%d\n", keycode);
+	mlx_key_hook(game->win_ptr, key_hook, game);
+	mlx_mouse_hook(game->win_ptr, mouse_hook, game);
+	mlx_hook(game->win_ptr, 17, 1L<<17, ft_destroy, game);
+}
+
+int	key_hook(int keycode, t_game *game)
+{
+	if (keycode == 13 || keycode == 126)
+		game->player->x -= cos(game->player->rotationAngle) * 10;
+	if (keycode == 0 || keycode == 123)
+		game->player->rotationAngle += 0.1;
+	if (keycode == 1 || keycode == 125)
+		game->player->x += cos(game->player->rotationAngle) * 10;
+	if (keycode == 2 || keycode == 124)
+		game->player->rotationAngle -= 0.1;
 	return 0;
 }
-//void	ft_update(t_game *game)
-// {
-// 	ft_draw_map(game);
-// 	ft_render_player(game);
-// }
 
+int mouse_hook(int button, int x,int y, t_game *game)
+{
+	if(button == 1)
+	{
+		game->player->x = x;
+		game->player->y = y;
+	}
+	return 0;
+}
 
+int			ft_update(t_game *game)
+{
+	 mlx_clear_window(game->mlx_ptr, game->win_ptr);
+	ft_render(game);
+	return 0;
+}
 
-// void 		ft_destroy(t_game *game)
-// {
-// 	///e
-// }q
+int 		ft_destroy(int keycode, t_game *game)
+{
+	game->is_running = 0;
+	printf("%d\n", keycode);
+	mlx_destroy_window(game->mlx_ptr, game->win_ptr);
+	exit(1);
+	return 0;
+}

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/29 19:15:45 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/30 18:53:51 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,9 @@ void    	draw_rect(t_data *data, t_square s, int color) ;
 void		ft_set_player(char direct, int x, int y, t_cub * cub);
 void		ft_render_player(t_game *game1);
 void		ft_prosesinput(t_game *game);
-void		ft_update(t_game *game);
+int			ft_update(t_game *game);
 void		ft_render(t_game *game);
-void		ft_destroy(t_game *game);
+int 		ft_destroy(int keycode, t_game *game);
 t_cub		*ft_read_cub(char *s);
 t_cub		*ft_init_cub();
 t_game		*ft_setup(t_game *game1, char *file);
@@ -134,5 +134,6 @@ t_player	*ft_init_player(t_cub *cub);
 void 		ft_draw_disque(t_data *data, int x, int y, int r, int color);
 void		ft_render_player(t_game *game1);
 void		ft_render_line(t_data *data, t_point p1, t_point p2, int color);
-int			ft_key_hook(int keycode);
+int			key_hook(int keycode, t_game *game);
+int mouse_hook(int button, int x,int y, t_game *game);
 #endif

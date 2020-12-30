@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/29 19:38:06 by mochegri         ###   ########.fr       */
+/*   Updated: 2020/12/30 16:59:08 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,21 +32,20 @@ void    ft_draw_disque(t_data *data, int x, int y, int r, int color)
 
 void	ft_render_line(t_data *data, t_point p1, t_point p2, int color)
 {
-	int k;
-	double xinc; 
-    double yinc;
-    double steps;
+	int		k;
+	double	xinc; 
+    double	yinc;
+    double	steps;
 
-	steps = (fabs(p2.x - p1.x) > fabs(p2.y - p1.y)) ? fabs(p2.x - p1.x)
-    :fabs(p2.y - p1.y);
-	xinc = (p2.x - p1.x) / steps;
-	yinc = (p2.y - p1.y) / steps;
+	steps = (fabs(p1.x - p2.x) > fabs(p1.y - p2.y)) ? fabs(p1.x - p2.x) : fabs(p1.y - p2.y);
+	xinc = (p2.x - p1.x) / (double)steps;
+	yinc = (p2.y - p1.y) / (double)steps;
 	k = -1;
 	while (++k < steps)
 	{
+		my_mlx_pixel_put(data, p1.y * map_coef, p1.x * map_coef, color);
 		p1.x += xinc;
 		p1.y += yinc; 
-		my_mlx_pixel_put(data, p1.x, p1.y, color);
 	}
 }
 
@@ -54,7 +53,7 @@ void	ft_render(t_game *game)
 {
 	ft_draw_map(game);
     //ft_render_rays();
-	//ft_render_player(game);
+	ft_render_player(game);
     mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img.img, 0, 0);
 }
 
@@ -65,17 +64,15 @@ void    draw_rect(t_data *data, t_square s, int color)
     
     i = s.x;
     j = s.y;
-    // while (i++ < s.x + s.lent)
-    // {
-    //     j = s.y;
-    //     while (j++ < s.y + s.lent)
-    //     {
-    //         my_mlx_pixel_put(data,i,j,color);
-    //         
-    //     }
-    // }
-    printf("%d,%d,%d\n ",s.x,s.y , s.lent);
-    printf("%d,%d", color, data->l_len);
+    while (i++ < s.x + s.lent)
+    {
+        j = s.y;
+        while (j++ < s.y + s.lent)
+        {
+            my_mlx_pixel_put(data,i,j,color);
+            
+        }
+    }
 }
 
 void    my_mlx_pixel_put(t_data *data, int x, int y, int color)
