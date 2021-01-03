@@ -6,15 +6,15 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/30 18:53:51 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/03 18:30:05 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __CUB3D_H
 # define __CUB3D_H
 
-# include "read_map/get_next_line/get_next_line.h"
-# include "read_map/libft/libft.h"
+# include "map/get_next_line/get_next_line.h"
+# include "map/libft/libft.h"
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
@@ -37,11 +37,11 @@ typedef struct  s_data
 
 typedef struct s_player
 {
-    int x;
-    int y;
+    float x;
+    float y;
     float width;
     float height;
-    int turnDirection;
+    float turnDirection;
     int walkDirection;
     float rotationAngle;
     float walkSpeed;
@@ -51,10 +51,10 @@ typedef struct s_player
 typedef struct  s_line
 {
 	int 	color;
-	double	x;
-	double 	y;
-	double 	dx;
-	double 	dy;
+	float	x;
+	float 	y;
+	float 	dx;
+	float 	dy;
 }		t_line;
 
 typedef struct s_square 
@@ -66,8 +66,8 @@ typedef struct s_square
 
 typedef struct s_point
 {
-	double x;
-	double y;
+	float x;
+	float y;
 }			t_point;
 
 typedef struct		s_cub
@@ -123,8 +123,7 @@ void		ft_draw_map(t_game *game);
 void    	draw_rect(t_data *data, t_square s, int color) ;
 void		ft_set_player(char direct, int x, int y, t_cub * cub);
 void		ft_render_player(t_game *game1);
-void		ft_prosesinput(t_game *game);
-int			ft_update(t_game *game);
+int			ft_update(t_player *p);
 void		ft_render(t_game *game);
 int 		ft_destroy(int keycode, t_game *game);
 t_cub		*ft_read_cub(char *s);
@@ -135,5 +134,6 @@ void 		ft_draw_disque(t_data *data, int x, int y, int r, int color);
 void		ft_render_player(t_game *game1);
 void		ft_render_line(t_data *data, t_point p1, t_point p2, int color);
 int			key_hook(int keycode, t_game *game);
-int mouse_hook(int button, int x,int y, t_game *game);
+int 		mouse_hook(int button, int x,int y, t_game *game);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/30 19:07:59 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/03 18:49:43 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void		ft_draw_map(t_game *game)
             if(game->cube->map[i][j] != ' ')
             {
                 sqr.x = tileX * map_coef;
-                sqr.y = tileY *map_coef;
+                sqr.y = tileY * map_coef;
                 sqr.lent = tile_size * map_coef;
                 draw_rect(&(game->img), sqr, color);
             }
@@ -43,16 +43,46 @@ void		ft_draw_map(t_game *game)
     }
 }
 
-void	ft_render_player(t_game *game1)
+int			ft_update(t_player *p)
 {
-    t_point p1;
-    t_point p2;
+	float move;
+    t_player *new_player;
+    
+    new_player = (t_player *)malloc(sizeof(t_player));
+    *new_player = *p;
+	move = p->walkDirection * p->walkSpeed;
+	new_player->x += cos(p->rotationAngle) * move;
+	new_player->y += sin(p->rotationAngle) * move;
+    new_player->rotationAngle += p->turnDirection * p->turnSpeed;
+    *p = *new_player;
+    free(new_player);
+	return 0;
+}
 
-    p1.x = game1->player->x;
-    p1.y = game1->player->y;
-    p2.x = p1.x + cos(game1->player->rotationAngle) * 40;
-    p2.y = p1.y + sin(game1->player->rotationAngle) * 40;
-	ft_draw_disque(&(game1->img), game1->player->y * map_coef,
-	game1->player->x * map_coef, 5, 0xfff68f);
-	ft_render_line(&(game1->img), p1,p2, 0xf0f68f);
+t_game		*ft_setup(t_game *game, char *file)
+{
+	// int		sizex;
+    // int		sizey;
+    int		*resol;
+
+	//mlx_get_screen_size(game->mlx_ptr, sizex, sizey);
+	// if(game->cube->resolution[0] > sizex || game->cube->resolution[1])
+	// {
+	// 	game->cube->resolution[0] = sizex;
+	// 	game->cube->resolution[1] = sizey;
+	// }
+	game = (t_game*)malloc(sizeof(t_game));
+	if (!game)
+		return(NULL);
+	game->cube = ft_read_cub(file);
+	resol = game->cube->resolution;
+	game->is_running = game->cube->valide;
+	game->mlx_ptr = mlx_init();
+	game->win_ptr = mlx_new_window(game->mlx_ptr, resol[0], resol[1], "Salon");
+	game->img.img = mlx_new_image(game->mlx_ptr,resol[0], resol[1]);
+	game->player = ft_init_player(game->cube);
+	game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bpp),
+	&(game->img.l_len), &(game->img.endian));
+	ft_render(game);
+	return(game);
 }
