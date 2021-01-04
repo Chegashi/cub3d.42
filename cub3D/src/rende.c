@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/03 16:35:12 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:31:33 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	ft_render_line(t_data *data, t_point p1, t_point p2, int color)
 
 void	ft_render(t_game *game)
 {
-	//printf("%f\n", game->player->rotationAngle);
 	mlx_clear_window(game->mlx_ptr, game->win_ptr);
 	ft_draw_map(game);
     //ft_render_rays();

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/03 18:30:05 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/04 11:57:43 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void		ft_draw_map(t_game *game);
 void    	draw_rect(t_data *data, t_square s, int color) ;
 void		ft_set_player(char direct, int x, int y, t_cub * cub);
 void		ft_render_player(t_game *game1);
-int			ft_update(t_player *p);
+int			ft_update(t_player *p, t_game *game);
 void		ft_render(t_game *game);
 int 		ft_destroy(int keycode, t_game *game);
 t_cub		*ft_read_cub(char *s);
@@ -135,5 +135,6 @@ void		ft_render_player(t_game *game1);
 void		ft_render_line(t_data *data, t_point p1, t_point p2, int color);
 int			key_hook(int keycode, t_game *game);
 int 		mouse_hook(int button, int x,int y, t_game *game);
+int ft_is_wall(float x, float y, t_game *game);
 
 #endif

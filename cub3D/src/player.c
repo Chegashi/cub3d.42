@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/03 18:29:57 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/03 19:40:42 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	        key_hook(int keycode, t_game *game)
 		p->walkDirection--;
 	if (keycode == 2 || keycode == 124)
 		p->turnDirection--;
-	ft_update(game->player);
+	ft_update(game->player, game);
 	ft_render(game);
 	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/03 18:49:43 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/04 14:31:53 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void		ft_draw_map(t_game *game)
     }
 }
 
-int			ft_update(t_player *p)
+int			ft_update(t_player *p , t_game *game)
 {
 	float move;
     t_player *new_player;
@@ -54,7 +54,8 @@ int			ft_update(t_player *p)
 	new_player->x += cos(p->rotationAngle) * move;
 	new_player->y += sin(p->rotationAngle) * move;
     new_player->rotationAngle += p->turnDirection * p->turnSpeed;
-    *p = *new_player;
+    if(ft_is_wall(new_player->x, new_player->y, game ))
+        *p = *new_player;
     free(new_player);
 	return 0;
 }
@@ -85,4 +86,15 @@ t_game		*ft_setup(t_game *game, char *file)
 	&(game->img.l_len), &(game->img.endian));
 	ft_render(game);
 	return(game);
+}
+int ft_is_wall(float x, float y, t_game *game)
+{
+    int x_index;
+    int y_index;
+
+    x_index = floor(x) / tile_size;
+    y_index = floor(y) / tile_size;
+    if(x < 0 || y < 0 || x > game->cube->resolution[1] || y > game->cube->resolution[0])
+        return (0);
+    return(game->cube->map[x_index][y_index] == '0');
 }
