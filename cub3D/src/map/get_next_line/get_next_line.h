@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 21:38:03 by mochegri          #+#    #+#             */
-/*   Updated: 2020/12/16 00:54:41 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:58:38 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@
 # include <stdio.h>
 # include <string.h>
 # include <unistd.h>
+
 # define BUFFER_SIZE 64
+
 int		get_next_line(int fd, char **line);
 int		get_buffer(int fd, char **line);
 void	ft_end(char **line, char **tmp, int end);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   init_config.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:44:17 by abort             #+#    #+#             */
-/*   Updated: 2020/12/26 02:53:14 by abort            ###   ########.fr       */
+/*   Updated: 2021/01/04 18:50:16 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-t_cub	*ft_init_cub()
+t_cub	*ft_init_cub(void)
 {
 	int		i;
 	t_cub	*cub;
@@ -26,18 +26,18 @@ t_cub	*ft_init_cub()
 	cub->player_position = (int*)malloc(sizeof(int) * 2);
 	cub->resolution[0] = -1;
 	cub->resolution[1] = -1;
-	cub->north_texture =  NULL;
+	cub->north_texture = NULL;
 	cub->south_texture = NULL;
 	cub->west_texture = NULL;
 	cub->east_texture = NULL;
 	cub->sprite_texture = NULL;
-	while(++i < 3)
+	while (++i < 3)
 	{
 		cub->floor_color[i] = -1;
 		cub->ceilling_color[i] = -1;
 	}
 	ft_map(cub);
-	return(cub);
+	return (cub);
 }
 
 void	ft_map(t_cub *cub)
@@ -61,19 +61,18 @@ int		*ft_calloc_tab_int(int n)
 	int *tab;
 
 	tab = (int*)malloc(sizeof(int) * n);
-	if(!tab)
-		return(NULL);
-	return(tab);
-	
+	if (!tab)
+		return (NULL);
+	return (tab);
 }
 
 char	*ft_init_str(char *str_mem)
 {
 	free(str_mem);
-	return(ft_strdup(""));
+	return (ft_strdup(""));
 }
 
-void	get_err(t_cub *cub, char * msg)
+void	get_err(t_cub *cub, char *msg)
 {
 	cub->msg = ft_strcpy(cub->msg, msg);
 	ft_putstr(msg);

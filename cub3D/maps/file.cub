@@ -1,4 +1,6 @@
-R 1920 1080
+
+
+R 1900 1700
 NO ./textures/1.xpm
 WE ./textures/2.xpm
 SO ./textures/3.xpm

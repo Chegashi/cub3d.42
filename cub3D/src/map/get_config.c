@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_config.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2020/12/26 02:53:52 by abort            ###   ########.fr       */
+/*   Updated: 2021/01/04 18:48:49 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,29 @@ void	ft_read_color(char *line, int **tab)
 	(*tab)[2] = ft_atoi_s(&line);
 }
 
-void 	ft_resolution(char *line, t_cub *cub)
+void	ft_resolution(char *line, t_cub *cub)
 {
 	cub->resolution[0] = ft_atoi_s(&line);
 	cub->resolution[1] = ft_atoi_s(&line);
 }
 
-void	ft_read_texture( char *line, char **dest)
+void	ft_read_texture(char *line, char **dest)
 {
-	int len;
-	int start;
-	int i;
+	int	len;
+	int	start;
+	int	i;
+
 	len = 0;
 	i = -1;
-	while(line[++i] != ' ')
+	while (line[++i] != ' ')
 		;
 	start = i + 1;
-	while(line[i++])
+	while (line[i++])
 		len++;
 	*dest = ft_substr(line, start, ft_strlen(line));
 }
 
-void    ft_read_map(t_cub *cub)
+void	ft_read_map(t_cub *cub)
 {
 	int		gnl_return;
 	int		len;
@@ -48,19 +49,19 @@ void    ft_read_map(t_cub *cub)
 
 	len = 0;
 	gnl_return = 1;
-	while(gnl_return && cub->valide)
+	while (gnl_return && cub->valide)
 	{
-		if(*(cub->line) == ' ' || *(cub->line) == '1')
+		if (*(cub->line) == ' ' || *(cub->line) == '1')
 		{
 			(cub->nbr_ligne)++;
 			len = ft_strlen(cub->line);
-			if(len > cub->nbr_column)
-				cub->nbr_column= len;
+			if (len > cub->nbr_column)
+				cub->nbr_column = len;
 			tmp = ft_strjoinn(cub->map_str, cub->line);
 			free(cub->map_str);
 			cub->map_str = tmp;
 			cub->line = ft_init_str(cub->line);
-			gnl_return =  get_next_line(cub->fd, &(cub->line));
+			gnl_return = get_next_line(cub->fd, &(cub->line));
 		}
 		else if (!gnl_return)
 			get_err(cub, "debut map erreur \n");
@@ -68,7 +69,7 @@ void    ft_read_map(t_cub *cub)
 	ft_tomap(cub);
 }
 
-void    check_map(t_cub *cub)
+void	check_map(t_cub *cub)
 {
 	int i;
 	int j;
@@ -78,16 +79,16 @@ void    check_map(t_cub *cub)
 		cub->valide = 0;
 	while (++i < cub->nbr_ligne && cub->valide)
 	{
-		j=-1;
+		j = -1;
 		while (++j < cub->nbr_column && cub->valide)
 		{
-			if (((i == 0 || j == 0|| i == (cub->nbr_ligne - 1)
+			if (((i == 0 || j == 0 || i == (cub->nbr_ligne - 1)
 			|| j == (cub->nbr_column - 1)) && (cub->map[i][j] != '1'
 			&& cub->map[i][j] != ' ')) && (ft_isin("0NSWE2", cub->map[i][j])
-			&& (cub->map[i - 1][j -1] == ' ' && cub->map[i - 1][j + 1] == ' '
+			&& (cub->map[i - 1][j - 1] == ' ' && cub->map[i - 1][j + 1] == ' '
 			&& cub->map[i + 1][j + 1] == ' '
 			&& cub->map[i + 1][j - 1] == ' ')))
-				get_err(cub, "ereur in cub map\n");			
+				get_err(cub, "ereur in cub map\n");
 		}
-	}	
+	}
 }

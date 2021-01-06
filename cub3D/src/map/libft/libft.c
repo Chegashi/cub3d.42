@@ -1,4 +1,16 @@
-#include "libft.h" 
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   libft.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/04 19:00:11 by mochegri          #+#    #+#             */
+/*   Updated: 2021/01/04 19:00:31 by mochegri         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
 
 void	ft_putstr(char *str)
 {
@@ -25,7 +37,7 @@ int		ft_atoi_s(char **s)
 		nbr = nbr * 10 + **s - '0';
 		(*s)++;
 	}
-	return(nbr);
+	return (nbr);
 }
 
 char	*ft_strjoinn(char *s1, char const *s2)
@@ -61,7 +73,7 @@ int		ft_isin(char *s, char c)
 {
 	while (*s)
 		if (*s == c)
-			return(1);
+			return (1);
 		else
 			s++;
 	return (0);

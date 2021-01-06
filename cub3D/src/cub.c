@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/04 14:31:53 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/06 17:14:12 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int			ft_update(t_player *p , t_game *game)
 	new_player->x += cos(p->rotationAngle) * move;
 	new_player->y += sin(p->rotationAngle) * move;
     new_player->rotationAngle += p->turnDirection * p->turnSpeed;
-    if(ft_is_wall(new_player->x, new_player->y, game ))
+    if(ft_is_wall(new_player->x, new_player->y, game))
         *p = *new_player;
     free(new_player);
 	return 0;
