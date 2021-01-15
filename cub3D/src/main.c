@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/14 17:19:46 by abort            ###   ########.fr       */
+/*   Updated: 2021/01/15 11:00:20 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			main(int ac, char **av)
 	{
 		game = ft_setup(game, av[1]);
 		mlx_key_hook(game->win_ptr, key_hook, game);
-		//mlx_hook(game->win_ptr, 2, 0, key_hook, game);
+		mlx_hook(game->win_ptr, 2, 0, key_hook, game);
 		mlx_loop(game->mlx_ptr);
 	}
 	//ft_destroy(1, game);

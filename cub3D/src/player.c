@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/15 01:20:04 by abort            ###   ########.fr       */
+/*   Updated: 2021/01/15 11:02:46 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ t_player	*ft_init_player(t_cub *cub)
 	player->x = (cub->player_position[1]) * tile_size;
 	player->y = (cub->player_position[0]) * tile_size;
 	if (cub->direction == 'N')
-		player->rotationAngle =  PI / 2;
+		player->rotationAngle =  (3 * PI) / 2;
 	if (cub->direction == 'E')
 		player->rotationAngle = 0;
 	if (cub->direction == 'S')
-		player->rotationAngle = (3 * PI) / 2;
+		player->rotationAngle = PI / 2;
 	if (cub->direction == 'W')
 		player->rotationAngle = PI;
 	player->turnDirection = 0;
 	player->walkDirection = 0;
 	player->walkSpeed = 5;
-	player->turnSpeed = 10 * (PI / 180);
+	player->turnSpeed = 5 * (PI / 180);
 	return (player);
 }
 
@@ -76,5 +76,5 @@ void	    ft_render_player(t_game *game1)
     p2.y = p1.y + sin(game1->player->rotationAngle) * 40;
 	ft_draw_disque(&(game1->img), game1->player->x * map_coef,
 	 game1->player->y * map_coef, 5, 0xfff68f);
-	//ft_render_line(&(game1->img), p1,p2, 0xff0000);
+	ft_render_line(&(game1->img), p1,p2, 0xff0000);
 }
