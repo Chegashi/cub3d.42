@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/15 13:01:49 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/15 19:54:13 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	ft_render_rays(t_game *game)
 void	ft_cast_rays(t_game *game, float angl)
 {
 	t_ray	ray;
-
+	//int i =0;
 	ft_normilised(&angl);
 	ray.is_facing = 0;
 	ray.is_facing |= (angl > 0 && angl < PI) ? DOWN : UP;
@@ -110,33 +110,48 @@ void	ft_cast_rays(t_game *game, float angl)
 	ray.h_start_p.y = floor(game->player->y / tile_size) * tile_size;
 	ray.h_start_p.y += (ray.is_facing & DOWN) ? tile_size : 0;
 	ray.h_start_p.x = game->player->x + (ray.h_start_p.y - game->player->y) / tan(angl);
-	ray.x_steps = tile_size / tan(fmod(angl , PI / 4));
+	ray.h_x_steps = tile_size / tan(fmod(angl , PI / 4));
+	ray.h_x_steps *= ((ray.is_facing & LEFT) && ray.h_x_steps > 0) ? - 1 : 1;
+	ray.h_x_steps *= ((ray.is_facing & RIGHT) && ray.h_x_steps < 0) ? - 1 : 1;
+	ray.h_y_steps = tile_size * (ray.is_facing & UP) ? - 1 : 1; 
 	ray.h_end_p = ray.h_start_p;
-	// while (game->cube->map[(int)(ray.h_start_p.y / tile_size)][(int)(ray.h_start_p.x / tile_size) ] != '1')
-	// {
-	// 	ray.h_end_p.x += ray.x_steps;
-	// 	ray.h_end_p.y += tile_size;
-	// }
+	ray.h_end_p.y -= (ray.is_facing & UP) ? 1 : 0;
+	while (ft_is_wall(ray.h_end_p.x , ray.h_end_p.y, game))
+	{
+	
+		ray.h_end_p.x += ray.h_x_steps;
+		ray.h_end_p.y += ray.h_y_steps;
+		// if (++i > 50)
+		// break;
+	}
+	printf("h:[%f, %f]\n", ray.h_end_p.x,ray.h_end_p.y);
+	if(ray.h_end_p.x <0)
+		ray.h_end_p.x = 0;
+	if(ray.h_end_p.x > game->cube->resolution[0])
+		ray.h_end_p.x = game->cube->resolution[0];
 	// ray.v_start_p.x = floor(game->player->x / tile_size) * tile_size;
 	// ray.v_start_p.x += (ray.is_facing & RIGHT) ? tile_size : 0;
 	// ray.v_start_p.y = game->player->y + (ray.v_start_p.y - game->player->y) * tan(angl);
 	// ray.y_steps = tile_size * tan(angl);
 	// ray.v_end_p = ray.v_start_p;
-	// while (game->cube->map[(int)(ray.v_start_p.y / tile_size)][(int)(ray.v_start_p.x / tile_size) ] != '1')
+	// while (game->cube->map[(int)(ray.v_end_p.y / tile_size)][(int)(ray.v_end_p.x / tile_size) ] != '1')
 	// {
+	// 	printf("v[%d, %d]\t %d\n", (int)(ray.v_end_p.y / tile_size), (int)(ray.v_end_p.x / tile_size) , i++);
 	// 	ray.v_end_p.x += tile_size;
 	// 	ray.v_end_p.y += ray.y_steps;
 	// }
 	// //printf("[py:%f, ay:%f] [dy:%f]\n", game->player->y, ray.h_start_p.y, game->player->y - ray.h_start_p.y);
-	// printf("[px:%f, ax:%f][dx:%f]\n", game->player->x, ray.h_start_p.x, game->player->x -  ray.h_start_p.x);
+	// //printf("[px:%f, ax:%f][dx:%f]\n", game->player->x, ray.h_start_p.x, game->player->x -  ray.h_start_p.x);
 	// //printf("dx=%f\n",game->player->x - ray.h_start_p.x);
-	// printf("%f\n", angl * (180/ PI));
-	// t_point p2, p1;
-	// p2 = ft_must_close(game, ray.h_end_p, ray.v_end_p);
-	// p1.x = game->player->x;
-	// p1.y = game->player->y;
+	// //printf("%f\n", angl * (180/ PI));
+	t_point p2, p1;
+	p2 = ft_must_close(game, ray.h_end_p, ray.v_end_p);
+	p1.x = game->player->x;
+	p1.y = game->player->y;
+	// p2.x = p1.x + cos(angl)*50;
+	// p2.y = p1.y + sin(angl)*50 ;
 	
-	//ft_render_line(&(game->img), p1, p2, 0xFFFF00);
+	ft_render_line(&(game->img), p1, p2, 0xFFFF00);
 }
 
 void	ft_normilised(float *angle)

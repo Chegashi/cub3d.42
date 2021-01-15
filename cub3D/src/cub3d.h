@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/15 12:59:41 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/15 19:14:54 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,10 @@ typedef struct	s_point
 typedef	struct	s_ray
 {
 	int		is_facing;
-	float	x_steps;
-	float	y_steps;
+	float	h_x_steps;
+	float	h_y_steps;
+	float	v_x_steps;
+	float	v_y_steps;
 	t_point	h_start_p;
 	t_point	h_end_p;
 	t_point	v_start_p;
@@ -155,6 +157,6 @@ t_cub		*ft_init_cub();
 t_game		*ft_setup(t_game *game1, char *file);
 t_player	*ft_init_player(t_cub *cub);
 void		ft_cast_rays(t_game *game, float angle);
-void	ft_normilised(float *angle);
+void		ft_normilised(float *angle);
 t_point		ft_must_close(t_game *game, t_point p1, t_point p2);
 #endif
