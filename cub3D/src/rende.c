@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rende.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/06 19:19:58 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/15 01:23:11 by abort            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	ft_render_line(t_data *data, t_point p1, t_point p2, int color)
 	k = -1;
 	while (++k < steps)
 	{
-		my_mlx_pixel_put(data, p1.y * map_coef, p1.x * map_coef, color);
+		my_mlx_pixel_put(data, p1.x * map_coef, p1.y * map_coef, color);
 		p1.x += xinc;
 		p1.y += yinc; 
 	}
@@ -94,9 +94,38 @@ void	ft_render_rays(t_game *game)
 	angl = game->player->rotationAngle - FOV / 2;
 	// while (clomn_id++ < game->cube->resolution[0])
 	// {
-	// 	p2.x = p.x + cos(angl) * 30;
-	// 	p2.y = p.y + sin(angl) * 30;
-		ft_render_line(&(game->img), p, p2, 0x11223344);
-	// 	angl += FOV / game->cube->resolution[0];
+		ft_normilised(&angl);
+		ft_cast_rays(game, angl);
+	 	angl += FOV / game->cube->resolution[0];
 	// }
+}
+// tn w = dy/dx => dx = dy/tn => xa- xp = dy/tn => xa = xp + (py - ay)tanw
+void	ft_cast_rays(t_game *game, float angl)
+{
+	t_ray	ray;
+
+	ft_normilised(&angl);
+	ray.is_facing = 0;
+	ray.is_facing |= (angl > 0 && angl < PI) ? DOWN : UP;
+	ray.is_facing |= (angl > PI / 2 && angl < (3 * PI) / 2) ? LEFT : RIGHT;
+	ray.h_start_p.y = floor(game->player->y / tile_size) * tile_size;
+	ray.h_start_p.y += (ray.is_facing & DOWN) ? tile_size : 0;
+	ray.h_start_p.x = game->player->x + abs(ray.h_start_p.y - game->player->y) / tan(-angl);
+	//printf("[px:%f, ax:%f]\n", game->player->x, ray.h_start_p.x);
+	printf("dx=%f\n",game->player->x - ray.h_start_p.x);
+	//printf("%f\n", angl);
+	t_point p2, p1;
+	p1.x = game->player->x;
+	p1.y = game->player->y;
+	p2.x = p1.x + cos(angl)*50;
+	p2.y = p1.y + sin(angl)*50;
+	
+	ft_render_line(&(game->img), p1, p2, 0xFFFF00);
+}
+
+void	ft_normilised(float *angle)
+{
+	if(*angle < 0)
+	*angle += 2 * PI;
+	*angle = (float)fmod(*angle, 2 * PI);
 }

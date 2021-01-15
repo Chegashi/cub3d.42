@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/06 19:16:06 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/14 17:45:30 by abort            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,12 @@
 # include "mlx.h"
 # define PI 3.14159265359
 # define map_coef 1
-# define tile_size  32
-#define FOV (60 * PI) / 180
+# define tile_size  40
+# define FOV (60 * PI) / 180
+# define UP 1
+# define RIGHT 2
+# define DOWN 4
+# define LEFT 8
 
 typedef struct  s_data
 {
@@ -71,17 +75,17 @@ typedef struct	s_point
 	float y;
 }				t_point;
 
-typedef struct s_ray
+typedef	struct	s_ray
 {
-	t_point	origin;
-	float	angle;
-	float	wall_h_x;
-	float	wall_h_y;
-	int 	is_facinge;
-	int		was_hit;
-	
-	
-}				t_rays;
+	int		is_facing;
+	float	x_steps;
+	float	y_steps;
+	t_point	h_start_p;
+	t_point	h_end_p;
+	t_point	v_start_p;
+	t_point v_end_p;
+
+}				t_ray;
 
 typedef struct		s_cub
 {
@@ -145,11 +149,11 @@ void		ft_render(t_game *game);
 void		ft_draw_disque(t_data *data, int x, int y, int r, int color);
 void		ft_render_player(t_game *game1);
 void		ft_render_line(t_data *data, t_point p1, t_point p2, int color);
-void	ft_render_rays(t_game *game);
+void		ft_render_rays(t_game *game);
 t_cub		*ft_read_cub(char *s);
 t_cub		*ft_init_cub();
 t_game		*ft_setup(t_game *game1, char *file);
 t_player	*ft_init_player(t_cub *cub);
-t_point		ft_cast_rays(t_game *game, float angle);
-
+void		ft_cast_rays(t_game *game, float angle);
+void	ft_normilised(float *angle);
 #endif

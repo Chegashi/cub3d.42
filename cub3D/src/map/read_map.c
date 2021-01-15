@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/04 18:54:41 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/14 16:24:37 by abort            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,13 @@ void	ft_tomap(t_cub *cub)
 
 void	ft_set_player(char direct, int x, int y, t_cub *cub)
 {
-	cub->direction = direct;
-	cub->map[x][y] = '0';
-	cub->player_position[0] = x;
-	cub->player_position[1] = y;
+	if(!cub->direction)
+	{
+		cub->direction = direct;
+		cub->map[x][y] = '0';
+		cub->player_position[0] = x;
+		cub->player_position[1] = y;
+	}
+	else
+		cub->valide = 0;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/06 17:14:12 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/14 17:59:49 by abort            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int			ft_update(t_player *p , t_game *game)
 	new_player->x += cos(p->rotationAngle) * move;
 	new_player->y += sin(p->rotationAngle) * move;
     new_player->rotationAngle += p->turnDirection * p->turnSpeed;
+    ft_normilised(&(new_player->rotationAngle));
     if(ft_is_wall(new_player->x, new_player->y, game))
         *p = *new_player;
     free(new_player);
@@ -94,7 +95,7 @@ int ft_is_wall(float x, float y, t_game *game)
 
     x_index = floor(x) / tile_size;
     y_index = floor(y) / tile_size;
-    if(x < 0 || y < 0 || x > game->cube->resolution[1] || y > game->cube->resolution[0])
+    if(x < 0 || y < 0 || x > game->cube->resolution[0] || y > game->cube->resolution[1])
         return (0);
-    return(game->cube->map[x_index][y_index] == '0');
+    return(game->cube->map[y_index][x_index] == '0');
 }
