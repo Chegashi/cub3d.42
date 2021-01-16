@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/15 19:14:54 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/16 18:21:19 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "mlx.h"
 # define PI 3.14159265359
 # define map_coef 1
-# define tile_size  40
+# define tile_size  50
 # define FOV (60 * PI) / 180
 # define UP 1
 # define RIGHT 2

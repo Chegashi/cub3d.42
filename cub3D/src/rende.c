@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rende.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/15 22:56:44 by abort            ###   ########.fr       */
+/*   Updated: 2021/01/16 19:19:02 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	ft_render_rays(t_game *game)
 	 	angl += FOV / game->cube->resolution[0];
 	// }
 }
-// tn w = dy/dx => dx = dy/tn => xa- xp = dy/tn => xa = xp + (py - ay)tanw
+
 void	ft_cast_rays(t_game *game, float angl)
 {
 	t_ray	ray;
@@ -110,54 +110,50 @@ void	ft_cast_rays(t_game *game, float angl)
 	ray.h_start_p.y = floor(game->player->y / tile_size) * tile_size;
 	ray.h_start_p.y += (ray.is_facing & DOWN) ? tile_size : 0;
 	ray.h_start_p.x = game->player->x + (ray.h_start_p.y - game->player->y) / tan(angl);
+	ray.h_y_steps = tile_size;
+	ray.h_y_steps *= (ray.is_facing & UP) ? - 1 : 1;
 	ray.h_x_steps = tile_size / tan(angl);
 	ray.h_x_steps *= ((ray.is_facing & LEFT) && ray.h_x_steps > 0) ? - 1 : 1;
 	ray.h_x_steps *= ((ray.is_facing & RIGHT) && ray.h_x_steps < 0) ? - 1 : 1;
-	ray.h_y_steps = tile_size * (ray.is_facing & UP) ? - 1 : 1; 
 	ray.h_end_p = ray.h_start_p;
-	ray.h_end_p.y -= (ray.is_facing & UP) ? 1 : 0;
-	while (ft_is_wall(ray.h_end_p.x , ray.h_end_p.y, game))
+	while (ft_is_wall(ray.h_end_p.x , ray.h_end_p.y, game) == 1)
 	{
-	
 		ray.h_end_p.x += ray.h_x_steps;
 		ray.h_end_p.y += ray.h_y_steps;
-		// if (++i > 50)
-		// break;
 	}
 	if(ray.h_end_p.x > game->cube->resolution[0])
 	ray.h_end_p.x = game->cube->resolution[0];
 	if(ray.h_end_p.x <0)
 		ray.h_end_p.x = 0;
-	printf("S\tis_f:%d , start:(%f,%f) end(%f,%f) steps:[%f, %f]\n",ray.is_facing,ray.h_start_p.x, ray.h_start_p.y,ray.h_end_p.x,ray.h_start_p.y,ray.h_x_steps,ray.h_y_steps);
-
-
 	ray.v_start_p.x = floor(game->player->x / tile_size) * tile_size;
 	ray.v_start_p.x += (ray.is_facing & RIGHT) ? tile_size : 0;
-	ray.v_start_p.y = game->player->y + (ray.v_start_p.y - game->player->y) * tan(angl);
-	ray.v_x_steps = tile_size ;
-	ray.v_y_steps = tile_size * tan(angl);
-	ray.v_x_steps *= ((ray.is_facing & UP) && ray.v_y_steps > 0) ? - 1 : 1;
-	ray.v_x_steps *= ((ray.is_facing & DOWN) && ray.h_y_steps < 0) ? - 1 : 1;
+	ray.v_start_p.y = game->player->y + (ray.v_start_p.y - game->player->y) / tan(angl);
+	ray.v_x_steps = tile_size;
+	ray.v_x_steps *= ((ray.is_facing & RIGHT) && ray.v_y_steps < 0) ? - 1 : 1;
+	ray.v_x_steps *= ((ray.is_facing & LEFT) && ray.h_y_steps > 0) ? - 1 : 1;
+	ray.h_y_steps = tile_size / tan(angl);
 	ray.v_end_p = ray.v_start_p;
 	while (ft_is_wall(ray.v_end_p.x, ray.v_end_p.y, game))
 	{
 		ray.v_end_p.x += ray.v_x_steps;
 		ray.v_end_p.y += ray.v_y_steps;
 	}
-	printf("V\tis_f:%d , start:(%f,%f) end(%f,%f) steps:[%f, %f]\n",ray.is_facing,ray.v_start_p.x, ray.v_start_p.y,ray.v_end_p.x,ray.v_start_p.y,ray.v_x_steps,ray.v_y_steps);
-
-	if(ray.v_end_p.x > game->cube->resolution[0])
-		ray.v_end_p.x = game->cube->resolution[0];
-	if(ray.v_end_p.x <0)
-		ray.v_end_p.x = 0;
+	// printf("V\tis_f:%d , start:(%f,%f) end(%f,%f) steps:[%f, %f]\n",ray.is_facing,ray.v_start_p.x, ray.v_start_p.y,ray.v_end_p.x,ray.v_start_p.y,ray.v_x_steps,ray.v_y_steps);
+	// if(ray.v_end_p.x > game->cube->resolution[0])
+	// 	ray.v_end_p.x = game->cube->resolution[0];
+	// if(ray.v_end_p.x <0)
+	// 	ray.v_end_p.x = 0;
 	// //printf("[py:%f, ay:%f] [dy:%f]\n", game->player->y, ray.h_start_p.y, game->player->y - ray.h_start_p.y);
 	// //printf("[px:%f, ax:%f][dx:%f]\n", game->player->x, ray.h_start_p.x, game->player->x -  ray.h_start_p.x);
 	// //printf("dx=%f\n",game->player->x - ray.h_start_p.x);
 	// //printf("%f\n", angl * (180/ PI));
 	t_point p2, p1;
-	p2 = ft_must_close(game, ray.h_end_p, ray.v_end_p);
+	//p2 = ft_must_close(game, ray.h_end_p, ray.v_end_p);
 	p1.x = game->player->x;
 	p1.y = game->player->y;
+	p2 = ray.v_end_p;
+	// float dis1 = sqrt(pow(game->player->x - p2.x, 2) + pow(game->player->y - p2.y, 2));
+	// printf("%f", dis1);
 	// p2.x = p1.x + cos(angl)*50;
 	// p2.y = p1.y + sin(angl)*50 ;
 	
@@ -178,5 +174,6 @@ t_point		ft_must_close(t_game *game, t_point p1, t_point p2)
 
 	dis1 = sqrt(pow(game->player->x - p1.x, 2) + pow(game->player->y - p1.y, 2));
 	dis2 = sqrt(pow(game->player->x - p2.x, 2) + pow(game->player->y - p2.y, 2));
+	//printf("%f\t%f\n", dis1, dis2);
 	return ( (dis1 < dis2) ? p1 : p2);
 }
