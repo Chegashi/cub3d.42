@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/18 12:13:50 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/18 18:34:42 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ int			ft_update(t_player *p , t_game *game)
     free(new_player);
 	return 0;
 }
-
-
 
 int ft_is_wall(float x, float y, t_game *game)
 {
