@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/17 12:39:24 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/18 11:31:43 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,87 +80,9 @@ void    my_mlx_pixel_put(t_data *data, int x, int y, int color)
     *(unsigned int*)dst = color;
 }
 
-void	ft_render_rays(t_game *game)
-{
-	float angl;
-	int clomn_id;
-	t_point p;
-	//t_point p2;
 
-	p.x = game->player->x;
-	p.y = game->player->y;
-	clomn_id = -1;
-	angl = game->player->rotationAngle - FOV / 2;
-	// while (clomn_id++ < game->cube->resolution[0])
-	// {
-		ft_normilised(&angl);
-		ft_cast_rays(game, angl);
-	 	angl += FOV / game->cube->resolution[0];
-	// }
-}
 
-void	ft_cast_rays(t_game *game, float angl)
-{
-	t_ray	ray;
-	//int i =0;
-	ft_normilised(&angl);
-	ray.is_facing = 0;
-	ray.is_facing |= (angl > 0 && angl < PI) ? DOWN : UP;
-	ray.is_facing |= (angl > PI / 2 && angl < (3 * PI) / 2) ? LEFT : RIGHT;
-	// angl = (ray.is_facing == 12) ? 
-	ray.h_start_p.y = floor(game->player->y / tile_size) * tile_size;
-	ray.h_start_p.y += (ray.is_facing & DOWN) ? tile_size : 0;
-	ray.h_start_p.x = game->player->x + (ray.h_start_p.y - game->player->y) / tan(angl);
-	ray.h_y_steps = tile_size;
-	ray.h_y_steps *= (ray.is_facing & UP) ? - 1 : 1;
-	ray.h_x_steps = tile_size / tan(angl);
-	ray.h_x_steps *= ((ray.is_facing & LEFT) && ray.h_x_steps > 0) ? - 1 : 1;
-	ray.h_x_steps *= ((ray.is_facing & RIGHT) && ray.h_x_steps < 0) ? - 1 : 1;
-	ray.h_end_p = ray.h_start_p;
-	while (ft_is_wall(ray.h_end_p.x , ray.h_end_p.y, game) == 1)
-	{
-		ray.h_end_p.x += ray.h_x_steps;
-		ray.h_end_p.y += ray.h_y_steps;
-	}
-	if(ray.h_end_p.x > game->cube->resolution[0])
-	ray.h_end_p.x = game->cube->resolution[0];
-	if(ray.h_end_p.x <0)
-		ray.h_end_p.x = 0;
-	ray.v_start_p.x = floor(game->player->x / tile_size) * tile_size;
-	ray.v_start_p.x += (ray.is_facing & RIGHT) ? tile_size : 0;
-	ray.v_start_p.y = game->player->y + (ray.v_start_p.x - game->player->x) * tan(angl);
-	ray.v_x_steps = tile_size;
-	ray.v_x_steps *= (ray.is_facing & LEFT) ? - 1 : 1; 
-	ray.h_y_steps = tile_size * tan(angl);
-	ray.v_y_steps *= ((ray.is_facing & UP) && ray.v_y_steps > 0) ? - 1 : 1;
-	ray.v_y_steps *= ((ray.is_facing & DOWN) && ray.h_y_steps < 0) ? - 1 : 1;
-	ray.v_end_p = ray.v_start_p;
-	while (ft_is_wall(ray.v_end_p.x, ray.v_end_p.y, game))
-	{
-		ray.v_end_p.x += ray.v_x_steps;
-		ray.v_end_p.y += ray.v_y_steps;
-	}
-	printf("angl : %f\n",angl * (180/PI));
-	if(ray.v_end_p.x > game->cube->resolution[0])
-		ray.v_end_p.x = game->cube->resolution[0];
-	if(ray.v_end_p.x <0)
-		ray.v_end_p.x = 0;
-	// //printf("[py:%f, ay:%f] [dy:%f]\n", game->player->y, ray.h_start_p.y, game->player->y - ray.h_start_p.y);
-	// //printf("[px:%f, ax:%f][dx:%f]\n", game->player->x, ray.h_start_p.x, game->player->x -  ray.h_start_p.x);
-	// //printf("dx=%f\n",game->player->x - ray.h_start_p.x);
-	// //printf("%f\n", angl * (180/ PI));
-	t_point p2, p1;
-	//p2 = ft_must_close(game, ray.h_end_p, ray.v_end_p);
-	p1.x = game->player->x;
-	p1.y = game->player->y;
-	p2 = ray.h_end_p;
-	// float dis1 = sqrt(pow(game->player->x - p2.x, 2) + pow(game->player->y - p2.y, 2));
-	// printf("%f", dis1);
-	// p2.x = p1.x + cos(angl)*50;
-	// p2.y = p1.y + sin(angl)*50 ;
-	
-	ft_render_line(&(game->img), p1, p2, 0xFFFF00);
-}
+
 
 void	ft_normilised(float *angle)
 {
@@ -169,15 +91,3 @@ void	ft_normilised(float *angle)
 	*angle = (float)fmod(*angle, 2 * PI);
 }
 
-t_point		ft_must_close(t_game *game, t_point p1, t_point p2)
-{
-	float dis1;
-	float dis2;
-
-	dis1 = sqrt(pow(game->player->x - p1.x, 2) + pow(game->player->y - p1.y, 2));
-	dis2 = sqrt(pow(game->player->x - p2.x, 2) + pow(game->player->y - p2.y, 2));
-	//printf("h:%f\tv:%f\n", dis1, dis2);
-	printf("h: (x:%f y:%f) dis:%f\n",p1.x,p1.y,dis1);
-	//printf("v: (x:%f y:%f) dis:%f\n",p2.x,p2.y,dis2);
-	return ( (dis1 < dis2) ? p1 : p2);
-}

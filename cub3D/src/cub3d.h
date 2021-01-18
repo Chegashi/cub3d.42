@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/17 12:07:18 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/18 12:58:36 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,9 @@
 # define RIGHT 2
 # define DOWN 4
 # define LEFT 8
+# define HIT_HORIS 16
+# define HIT_VERTI 32
+# define INT_MAX 2147483647
 
 typedef struct  s_data
 {
@@ -78,10 +81,13 @@ typedef struct	s_point
 typedef	struct	s_ray
 {
 	int		is_facing;
+	float	angl;
 	float	h_x_steps;
 	float	h_y_steps;
 	float	v_x_steps;
 	float	v_y_steps;
+	float	h_dist;
+	float	v_dist;
 	t_point	h_start_p;
 	t_point	h_end_p;
 	t_point	v_start_p;
@@ -129,6 +135,7 @@ int			key_hook(int keycode, t_game *game);
 int			*ft_calloc_tab_int(int n);
 int			mouse_hook(int button, int x, int y, t_game *game);
 int			ft_is_wall(float x, float y, t_game *game);
+int     	ft_is_in_map(t_point p, t_game *game);
 char		*ft_init_str(char *strmem);
 void		ft_fill(char *line, t_cub *cub);
 void		ft_resolution(char *line, t_cub *cub);
@@ -152,11 +159,14 @@ void		ft_draw_disque(t_data *data, int x, int y, int r, int color);
 void		ft_render_player(t_game *game1);
 void		ft_render_line(t_data *data, t_point p1, t_point p2, int color);
 void		ft_render_rays(t_game *game);
+void     ft_horis_interst(t_game *game, t_ray *ray);
 t_cub		*ft_read_cub(char *s);
 t_cub		*ft_init_cub();
 t_game		*ft_setup(t_game *game1, char *file);
 t_player	*ft_init_player(t_cub *cub);
 void		ft_cast_rays(t_game *game, float angle);
 void		ft_normilised(float *angle);
-t_point		ft_must_close(t_game *game, t_point p1, t_point p2);
+t_point		ft_must_close(t_point p, t_point p1, t_point p2);
+float	ft_dis_2point(t_point p1, t_point p2);
+float	ft_min(float x1, float x2);
 #endif
