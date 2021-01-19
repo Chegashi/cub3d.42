@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/19 17:17:46 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/19 19:17:10 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void			ft_render_rays(t_game *game)
 	{
 		ft_normilised(&ray.angl);
 		ft_cast_rays(game, &ray);
+		ft_render_3d(game, &ray);
 		ray.angl += FOV / game->cube->resolution[0];
 	}
 }
@@ -102,6 +103,7 @@ void			ft_cast_rays(t_game *game, t_ray *ray)
 	ray->v_dist = (ray->is_facing & HIT_VERTI) ? ft_dis_2point(p1, ray->v_end_p)
 	: INT_MAX;
 	p2 = (ray->h_dist < ray->v_dist) ? ray->h_end_p : ray->v_end_p;
+	ray->dist = (ray->h_dist < ray->v_dist) ? ray->h_dist : ray->v_dist;
 	p1.x *= COEF;
 	p1.y *= COEF;
 	p2.x *= COEF;

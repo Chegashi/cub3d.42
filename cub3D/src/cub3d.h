@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/19 17:20:03 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/19 19:16:16 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef	struct	s_ray
 	float		v_y_steps;
 	float		h_dist;
 	float		v_dist;
+	float		dist;
 	t_point		h_start_p;
 	t_point		h_end_p;
 	t_point		v_start_p;
@@ -163,6 +164,7 @@ void			ft_horis_interst(t_game *game, t_ray *ray);
 void			ft_cast_rays(t_game *game, t_ray *ray);
 void			ft_normilised(float *angle);
 void			ft_destroy_cub(t_cub *cub);
+void    		ft_render_3d(t_game *game, t_ray *ray);
 float			ft_dis_2point(t_point p1, t_point p2);
 float			ft_min(float x1, float x2);
 float			ft_max(float x1, float x2);
