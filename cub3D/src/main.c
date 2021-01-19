@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/18 10:12:25 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/19 11:07:05 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,27 +43,27 @@ int			ft_destroy(int keycode, t_game *game)
 t_game		*ft_setup(t_game *game, char *file)
 {
 	// int		sizex;
-    // int		sizey;
-    int		*resol;
+	// int		sizey;
+	int		*resol;
 
-	//mlx_get_screen_size(game->mlx_ptr, sizex, sizey);
-	// if(game->cube->resolution[0] > sizex || game->cube->resolution[1])
+	//mlx_get_screen_size(game->mlx_ptr, &sizex, &sizey);
+	// if (game->cube->resolution[0] > sizex || game->cube->resolution[1])
 	// {
 	// 	game->cube->resolution[0] = sizex;
 	// 	game->cube->resolution[1] = sizey;
 	// }
 	game = (t_game*)malloc(sizeof(t_game));
 	if (!game)
-		return(NULL);
+		return (NULL);
 	game->cube = ft_read_cub(file);
 	resol = game->cube->resolution;
 	game->is_running = game->cube->valide;
 	game->mlx_ptr = mlx_init();
 	game->win_ptr = mlx_new_window(game->mlx_ptr, resol[0], resol[1], "Salon");
-	game->img.img = mlx_new_image(game->mlx_ptr,resol[0], resol[1]);
+	game->img.img = mlx_new_image(game->mlx_ptr, resol[0], resol[1]);
 	game->player = ft_init_player(game->cube);
 	game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bpp),
 	&(game->img.l_len), &(game->img.endian));
 	ft_render(game);
-	return(game);
+	return (game);
 }

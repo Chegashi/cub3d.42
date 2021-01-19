@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abort <abort@student.42.fr>                +#+  +:+       +#+        */
+/*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/14 16:24:37 by abort            ###   ########.fr       */
+/*   Updated: 2021/01/19 11:23:27 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,31 @@ t_cub	*ft_read_cub(char *s)
 	while (get_next_line(cub->fd, &(cub->line)) > 0)
 		ft_fill(cub->line, cub);
 	check_map(cub);
+	if (!cub->valide)
+	{
+		ft_putstr(cub->msg);
+		ft_destroy_cub(cub);
+		exit(1);
+	}
 	return (cub);
+}
+
+void	ft_destroy_cub(t_cub *cub)
+{
+	free(cub->line);
+	free(cub->floor_color);
+	free(cub->ceilling_color);
+	free(cub->resolution);
+	free(cub->player_position);
+	free(cub->north_texture);
+	free(cub->south_texture);
+	free(cub->west_texture);
+	free(cub->east_texture);
+	free(cub->sprite_texture);
+	free(cub->map_str);
+	free(cub->map);
+	free(cub->msg);
+	free(cub);
 }
 
 void	ft_fill(char *line, t_cub *cub)
@@ -30,15 +54,15 @@ void	ft_fill(char *line, t_cub *cub)
 		return ;
 	else if (*line == 'R' && cub->resolution[0] == -1)
 		ft_resolution(line, cub);
-	else if (*line == 'N' && !(cub->north_texture))
+	else if (*line == 'N' && !(*cub->north_texture))
 		ft_read_texture(line, &(cub->north_texture));
-	else if (*line == 'E' && !(cub->east_texture))
+	else if (*line == 'E' && !(*cub->east_texture))
 		ft_read_texture(line, &(cub->east_texture));
-	else if (*line == 'W' && !(cub->west_texture))
+	else if (*line == 'W' && !(*cub->west_texture))
 		ft_read_texture(line, &(cub->west_texture));
-	else if (*line == 'S' && line[1] == 'O' && !(cub->south_texture))
+	else if (*line == 'S' && line[1] == 'O' && !(*cub->south_texture))
 		ft_read_texture(line, &cub->south_texture);
-	else if (*line == 'S' && line[1] == ' ' && !(cub->sprite_texture))
+	else if (*line == 'S' && line[1] == ' ' && !(*cub->sprite_texture))
 		ft_read_texture(line, &(cub->sprite_texture));
 	else if (*line == 'F' && (cub->floor_color[0] == -1))
 		ft_read_color(line, &(cub->floor_color));
@@ -47,7 +71,7 @@ void	ft_fill(char *line, t_cub *cub)
 	else if ((*line == ' ' || *line == '1') && !(cub->map))
 		ft_read_map(cub);
 	else
-		get_err(cub, "ereur in cub file\n start line\n");
+		get_err(cub, "ereur in cub file\t start of a line\n");
 }
 
 void	ft_tomap(t_cub *cub)
@@ -80,7 +104,7 @@ void	ft_tomap(t_cub *cub)
 
 void	ft_set_player(char direct, int x, int y, t_cub *cub)
 {
-	if(!cub->direction)
+	if (!cub->direction)
 	{
 		cub->direction = direct;
 		cub->map[x][y] = '0';
@@ -88,5 +112,8 @@ void	ft_set_player(char direct, int x, int y, t_cub *cub)
 		cub->player_position[1] = y;
 	}
 	else
+	{
 		cub->valide = 0;
+		get_err(cub, "Multiplayer or missing player\n");
+	}
 }

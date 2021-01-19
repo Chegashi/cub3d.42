@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/01/04 18:48:49 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/19 11:22:06 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_read_map(t_cub *cub)
 			gnl_return = get_next_line(cub->fd, &(cub->line));
 		}
 		else if (!gnl_return)
-			get_err(cub, "debut map erreur \n");
+			get_err(cub, "the map must tart with '1' or ' '\n");
 	}
 	ft_tomap(cub);
 }
@@ -88,7 +88,7 @@ void	check_map(t_cub *cub)
 			&& (cub->map[i - 1][j - 1] == ' ' && cub->map[i - 1][j + 1] == ' '
 			&& cub->map[i + 1][j + 1] == ' '
 			&& cub->map[i + 1][j - 1] == ' ')))
-				get_err(cub, "ereur in cub map\n");
+				get_err(cub, "the map must be ontoured by 1\n");
 		}
 	}
 }
