@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/19 12:51:06 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/19 17:17:46 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,18 @@
 
 void			ft_render_rays(t_game *game)
 {
-	float		angl;
-	int			clomn_id;
+	t_ray		ray;
 	t_point		p;
 
 	p.x = game->player->x;
 	p.y = game->player->y;
-	clomn_id = -1;
-	angl = game->player->rotationangle - FOV / 2;
-	while (clomn_id++ < game->cube->resolution[0])
+	ray.clomn_id = -1;
+	ray.angl = game->player->rotationangle - FOV / 2;
+	while (++ray.clomn_id < game->cube->resolution[0])
 	{
-		ft_normilised(&angl);
-		ft_cast_rays(game, angl);
-		angl += FOV / game->cube->resolution[0];
+		ft_normilised(&ray.angl);
+		ft_cast_rays(game, &ray);
+		ray.angl += FOV / game->cube->resolution[0];
 	}
 }
 
@@ -85,26 +84,28 @@ void			ft_verti_intersect(t_game *game, t_ray *ray)
 	}
 }
 
-void			ft_cast_rays(t_game *game, float angl)
+void			ft_cast_rays(t_game *game, t_ray *ray)
 {
-	t_ray		ray;
 	t_point		p2;
 	t_point		p1;
 
-	ray.angl = angl;
-	ft_normilised(&(ray.angl));
-	ray.is_facing = 0;
-	ray.is_facing |= (angl > 0 && angl < PI) ? DOWN : UP;
-	ray.is_facing |= (angl > PI / 2 && angl < (3 * PI) / 2) ? LEFT : RIGHT;
-	ft_horis_interst(game, &ray);
-	ft_verti_intersect(game, &ray);
+	ray->is_facing = 0;
+	ray->is_facing |= (ray->angl > 0 && ray->angl < PI) ? DOWN : UP;
+	ray->is_facing |= (ray->angl > PI / 2 && ray->angl < (3 * PI) / 2)
+	? LEFT : RIGHT;
+	ft_horis_interst(game, ray);
+	ft_verti_intersect(game, ray);
 	p1.x = game->player->x;
 	p1.y = game->player->y;
-	ray.h_dist = (ray.is_facing & HIT_HORIS) ? ft_dis_2point(p1, ray.h_end_p)
+	ray->h_dist = (ray->is_facing & HIT_HORIS) ? ft_dis_2point(p1, ray->h_end_p)
 	: INT_MAX;
-	ray.v_dist = (ray.is_facing & HIT_VERTI) ? ft_dis_2point(p1, ray.v_end_p)
+	ray->v_dist = (ray->is_facing & HIT_VERTI) ? ft_dis_2point(p1, ray->v_end_p)
 	: INT_MAX;
-	p2 = (ray.h_dist < ray.v_dist) ? ray.h_end_p : ray.v_end_p;
+	p2 = (ray->h_dist < ray->v_dist) ? ray->h_end_p : ray->v_end_p;
+	p1.x *= COEF;
+	p1.y *= COEF;
+	p2.x *= COEF;
+	p2.y *= COEF;
 	ft_render_line(&(game->img), p1, p2, 0xFFFF00);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/19 12:52:29 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/19 17:19:36 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_player		*ft_init_player(t_cub *cub)
 	t_player	*player;
 
 	player = (t_player*)malloc(sizeof(t_player));
-	player->x = (cub->player_position[1]) * TILE_SIZE;
-	player->y = (cub->player_position[0]) * TILE_SIZE;
+	player->x = (cub->player_position[1]) * TILE_SIZE + 10;
+	player->y = (cub->player_position[0]) * TILE_SIZE + 10;
 	if (cub->direction == 'N')
 		player->rotationangle = (3 * PI) / 2;
 	if (cub->direction == 'E')
@@ -72,9 +72,13 @@ void			ft_render_player(t_game *game1)
 
 	p1.x = game1->player->x;
 	p1.y = game1->player->y;
-	p2.x = p1.x + cos(game1->player->rotationangle) * 40;
-	p2.y = p1.y + sin(game1->player->rotationangle) * 40;
-	ft_draw_disque(&(game1->img), game1->player->x * MAP_COEF,
-	game1->player->y * MAP_COEF, 0xfff68f);
-	ft_render_line(&(game1->img), p1, p2, 0xff0000);
+	p2.x = (p1.x + cos(game1->player->rotationangle) * 20 * (1 / COEF));
+	p2.y = (p1.y + sin(game1->player->rotationangle) * 20 * (1 / COEF));
+	ft_draw_disque(&(game1->img), game1->player->x * COEF,
+	game1->player->y * COEF, 0xfff68f);
+	p1.x *= COEF;
+	p1.y *= COEF;
+	p2.x *= COEF;
+	p2.y *= COEF;
+	ft_render_line(&(game1->img), p1, p2, 0xf00000);
 }

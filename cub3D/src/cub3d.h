@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/19 12:57:29 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/19 17:20:03 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 # include <unistd.h>
 # include "mlx.h"
 # define PI 3.14159265359
-# define MAP_COEF 1
-# define TILE_SIZE  50
+# define COEF 1
+# define TILE_SIZE  20
 # define FOV 1.0471975512
 # define UP 1
 # define RIGHT 2
@@ -80,6 +80,7 @@ typedef struct	s_point
 typedef	struct	s_ray
 {
 	int			is_facing;
+	int			clomn_id;
 	float		angl;
 	float		h_x_steps;
 	float		h_y_steps;
@@ -135,6 +136,7 @@ int				mouse_hook(int button, int x, int y, t_game *game);
 int				ft_is_wall(float x, float y, t_game *game);
 int				ft_is_in_map(t_point p, t_game *game);
 int				ft_update(t_player *p, t_game *game);
+int				ft_antoured_bywall(float x, float y, t_game *game);
 char			*ft_init_str(char *strmem);
 void			ft_fill(char *line, t_cub *cub);
 void			ft_resolution(char *line, t_cub *cub);
@@ -158,7 +160,7 @@ void			ft_render_player(t_game *game1);
 void			ft_render_line(t_data *data, t_point p1, t_point p2, int color);
 void			ft_render_rays(t_game *game);
 void			ft_horis_interst(t_game *game, t_ray *ray);
-void			ft_cast_rays(t_game *game, float angle);
+void			ft_cast_rays(t_game *game, t_ray *ray);
 void			ft_normilised(float *angle);
 void			ft_destroy_cub(t_cub *cub);
 float			ft_dis_2point(t_point p1, t_point p2);

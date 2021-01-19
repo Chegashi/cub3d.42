@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/19 12:59:28 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:41:02 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void			ft_draw_map(t_game *game)
 		j = -1;
 		while (++j < game->cube->nbr_column)
 		{
-			tilex = j * TILE_SIZE;
-			tiley = i * TILE_SIZE;
+			tilex = j * TILE_SIZE * COEF;
+			tiley = i * TILE_SIZE * COEF;
 			sqr.color = (game->cube->map[i][j] == '1') ? 0x8b1c62 : 0xff7256;
 			if (game->cube->map[i][j] != ' ')
 			{
-				sqr.x = tilex * MAP_COEF;
-				sqr.y = tiley * MAP_COEF;
-				sqr.lent = TILE_SIZE * MAP_COEF;
+				sqr.x = tilex;
+				sqr.y = tiley;
+				sqr.lent = TILE_SIZE;
 				draw_rect(&(game->img), sqr);
 			}
 		}
@@ -53,7 +53,7 @@ int				ft_update(t_player *p, t_game *game)
 	new_player->y += sin(p->rotationangle) * move;
 	new_player->rotationangle += p->turndirection * p->turnspeed;
 	ft_normilised(&(new_player->rotationangle));
-	if (!ft_is_wall(new_player->x, new_player->y, game))
+	if (!ft_antoured_bywall(new_player->x, new_player->y, game))
 		*p = *new_player;
 	free(new_player);
 	return (0);
@@ -70,4 +70,14 @@ int				ft_is_wall(float x, float y, t_game *game)
 			|| y > game->cube->resolution[1])
 		return (0);
 	return (game->cube->map[y_index][x_index] != '0');
+}
+
+int				ft_antoured_bywall(float x, float y, t_game *game)
+{
+	if (ft_is_wall(x, y, game) || ft_is_wall(x - 1, y - 1, game) ||
+			ft_is_wall(x - 1, y, game) || ft_is_wall(x, y - 1, game) ||
+			ft_is_wall(x + 1, y, game) || ft_is_wall(x, y + 1, game) ||
+			ft_is_wall(x + 1, y + 1, game))
+		return (1);
+	return (0);
 }

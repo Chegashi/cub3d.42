@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/19 12:46:39 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:57:54 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void		ft_render_line(t_data *data, t_point p1, t_point p2, int color)
 	k = -1;
 	while (++k < steps)
 	{
-		my_mlx_pixel_put(data, p1.x * MAP_COEF, p1.y * MAP_COEF, color);
+		my_mlx_pixel_put(data, p1.x, p1.y, color);
 		p1.x += xinc;
 		p1.y += yinc;
 	}
@@ -70,8 +70,7 @@ void		draw_rect(t_data *data, t_square s)
 	{
 		j = s.y - 1;
 		while (++j < s.y + s.lent)
-			my_mlx_pixel_put(data, i, j, (i == s.x || j == s.y)
-			? 0x00 : s.color);
+			my_mlx_pixel_put(data, i, j, s.color);
 	}
 }
 
