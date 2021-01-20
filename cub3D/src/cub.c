@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/20 10:14:39 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/20 19:33:04 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int				ft_update(t_player *p, t_game *game)
 	if (!ft_antoured_bywall(new_player->x, new_player->y, game))
 		*p = *new_player;
 	free(new_player);
-	ft_clean_win(game);
 	return (0);
 }
 

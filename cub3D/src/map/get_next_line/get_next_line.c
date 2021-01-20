@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 21:37:16 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/04 18:58:25 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/20 17:37:56 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	ptr_ch = (char*)malloc(((int)len + 1) * sizeof(char));
 	if (ptr_ch == NULL)
 		return (0);
-	while (s[i] != '\0' && i < (int)len)
+	if (start > ft_strlen(s))
+	{
+		ptr_ch[0] = '\0';
+		return (0);
+	}
+	while (i < (int)len && s[start + i])
 	{
 		ptr_ch[i] = s[(int)start + i];
 		i++;

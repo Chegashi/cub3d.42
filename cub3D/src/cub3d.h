@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/20 10:15:19 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/20 19:35:37 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include "mlx.h"
-# define PI 3.14159265359
+# define PI 3.4159265359
 # define COEF 1
 # define TILE_SIZE  20
 # define FOV 1.0471975512
@@ -39,6 +39,8 @@ typedef struct	s_data
 	int			bpp;
 	int			l_len;
 	int			endian;
+	int			width;
+	int			height;
 }				t_data;
 
 typedef struct	s_player

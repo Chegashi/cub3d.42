@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:44:17 by abort             #+#    #+#             */
-/*   Updated: 2021/01/19 11:19:26 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/20 17:39:13 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_cub	*ft_init_cub(void)
 
 	cub = (t_cub*)malloc(sizeof(t_cub));
 	cub->line = (char*)malloc(sizeof(char));
-	cub->floor_color = ft_calloc_tab_int(2);
+	cub->floor_color = ft_calloc_tab_int(3);
 	cub->ceilling_color = ft_calloc_tab_int(3);
 	cub->resolution = ft_calloc_tab_int(3);
 	cub->player_position = (int*)malloc(sizeof(int) * 2);
@@ -55,7 +55,7 @@ void	ft_map(t_cub *cub)
 	cub->fd = -1;
 	cub->player_position[0] = -1;
 	cub->player_position[1] = -1;
-	while (++i < 3)
+	while (++i < 2)
 	{
 		cub->floor_color[i] = -1;
 		cub->ceilling_color[i] = -1;
@@ -67,8 +67,6 @@ int		*ft_calloc_tab_int(int n)
 	int *tab;
 
 	tab = (int*)malloc(sizeof(int) * n);
-	if (!tab)
-		return (NULL);
 	return (tab);
 }
 

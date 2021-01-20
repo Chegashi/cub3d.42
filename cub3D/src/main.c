@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/19 11:07:05 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/20 19:22:49 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ t_game		*ft_setup(t_game *game, char *file)
 	game->player = ft_init_player(game->cube);
 	game->img.addr = mlx_get_data_addr(game->img.img, &(game->img.bpp),
 	&(game->img.l_len), &(game->img.endian));
+	game->img.width = game->cube->resolution[0];
+	game->img.height = game->cube->resolution[1];
 	ft_render(game);
 	return (game);
 }

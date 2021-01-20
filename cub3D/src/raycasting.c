@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/20 10:23:55 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/20 19:34:44 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void			ft_render_rays(t_game *game)
 	while (++ray.clomn_id < game->cube->resolution[0])
 	{
 		ft_normilised(&ray.angl);
-		ft_render_3d(game, &ray);
+		//ft_render_3d(game, &ray);
 		ft_cast_rays(game, &ray);
 		ray.angl += FOV / game->cube->resolution[0];
 	}
@@ -56,6 +56,7 @@ void			ft_horis_interst(t_game *game, t_ray *ray)
 			ray->h_end_p.y += ray->h_y_steps;
 		}
 	}
+	ray->h_end_p.y += (ray->is_facing & UP) ? 1 : 0;
 }
 
 void			ft_verti_intersect(t_game *game, t_ray *ray)
@@ -83,6 +84,7 @@ void			ft_verti_intersect(t_game *game, t_ray *ray)
 			ray->v_end_p.y += ray->v_y_steps;
 		}
 	}
+	ray->v_end_p.x += (ray->is_facing & LEFT) ? 1 : 0;
 }
 
 void			ft_cast_rays(t_game *game, t_ray *ray)

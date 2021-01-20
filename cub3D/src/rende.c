@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/20 12:15:34 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/20 19:34:26 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void		ft_render_line(t_data *data, t_point p1, t_point p2, int color)
 
 void		ft_render(t_game *game)
 {
-	mlx_clear_window(game->mlx_ptr, game->win_ptr);
+	ft_clean_win(game);
 	ft_render_rays(game);
 	ft_draw_map(game);
 	ft_render_player(game);
@@ -82,6 +82,10 @@ void		my_mlx_pixel_put(t_data *data, int x, int y, int color)
 		x = 0;
 	if(y < 0)
 		y = 0;
+	if(x > data->width)
+		x = data->width;
+	if (y > data->height)
+		y = data->height;
 	dst = data->addr + (y * data->l_len + x * (data->bpp / 8));
 	*(unsigned int*)dst = color;
 }

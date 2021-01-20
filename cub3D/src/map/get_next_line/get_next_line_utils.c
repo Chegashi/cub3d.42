@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 21:37:43 by mochegri          #+#    #+#             */
-/*   Updated: 2019/11/24 21:45:36 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/20 17:27:41 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,12 @@ size_t	ft_strlen(const char *str)
 char	*ft_char_calloc(size_t cont)
 {
 	char	*str;
+	size_t i;
 
+	i = 0;
 	str = (char*)malloc(cont);
+	while (i < cont)
+		str[i++] = 0;
 	if (str == 0)
 		return (0);
 	return (str);

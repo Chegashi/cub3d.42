@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/01/19 11:22:06 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/20 17:30:03 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void	ft_read_texture(char *line, char **dest)
 	int	i;
 
 	len = 0;
-	i = -1;
-	while (line[++i] != ' ')
-		;
-	start = i + 1;
+	i = 0;
+	while (line[i] && line[i] != ' ')
+		i++;
+	start = line[i] ? i + 1 : i;
 	while (line[i++])
 		len++;
 	*dest = ft_substr(line, start, ft_strlen(line));
