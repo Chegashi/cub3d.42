@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/20 10:24:41 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/20 12:15:34 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,12 @@ void		draw_rect(t_data *data, t_square s)
 
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	char	*dst;
-
+	char	*dst;	
+	
+	if(x < 0)
+		x = 0;
+	if(y < 0)
+		y = 0;
 	dst = data->addr + (y * data->l_len + x * (data->bpp / 8));
 	*(unsigned int*)dst = color;
 }
@@ -87,12 +91,16 @@ void		ft_render_g_rect(t_data *data, t_rectangle rect)
 	int i;
 	int j;
 
-	i = rect.x - 1;
-	while (++i < rect.x + rect.lent_x)
+	i = rect.x;
+	while (i < rect.x + rect.lent_x)
 	{
-		j = rect.y - 1;
-		while (++j < rect.y + rect.lent_y)
+		j = rect.y;
+		while (j < rect.y + rect.lent_y)
+		{
 			my_mlx_pixel_put(data, i, j, rect.color);
+			j++;
+		}
+			i++;
 	}
 }
 
