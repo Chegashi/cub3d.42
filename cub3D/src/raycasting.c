@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/19 19:17:10 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/20 10:23:55 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void			ft_render_rays(t_game *game)
 	while (++ray.clomn_id < game->cube->resolution[0])
 	{
 		ft_normilised(&ray.angl);
-		ft_cast_rays(game, &ray);
 		ft_render_3d(game, &ray);
+		ft_cast_rays(game, &ray);
 		ray.angl += FOV / game->cube->resolution[0];
 	}
 }

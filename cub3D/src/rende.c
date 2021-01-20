@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/19 16:57:54 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/20 10:24:41 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ void		ft_render_line(t_data *data, t_point p1, t_point p2, int color)
 void		ft_render(t_game *game)
 {
 	mlx_clear_window(game->mlx_ptr, game->win_ptr);
-	ft_draw_map(game);
 	ft_render_rays(game);
+	ft_draw_map(game);
 	ft_render_player(game);
 	mlx_put_image_to_window(game->mlx_ptr, game->win_ptr, game->img.img, 0, 0);
 }
@@ -80,4 +80,32 @@ void		my_mlx_pixel_put(t_data *data, int x, int y, int color)
 
 	dst = data->addr + (y * data->l_len + x * (data->bpp / 8));
 	*(unsigned int*)dst = color;
+}
+
+void		ft_render_g_rect(t_data *data, t_rectangle rect)
+{
+	int i;
+	int j;
+
+	i = rect.x - 1;
+	while (++i < rect.x + rect.lent_x)
+	{
+		j = rect.y - 1;
+		while (++j < rect.y + rect.lent_y)
+			my_mlx_pixel_put(data, i, j, rect.color);
+	}
+}
+
+void	ft_clean_win(t_game *game)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < game->cube->resolution[0])
+	{
+		j = -1;
+		while (++j < game->cube->resolution[1])
+			my_mlx_pixel_put(&(game->img) , i, j, 0x0);
+	}	
 }

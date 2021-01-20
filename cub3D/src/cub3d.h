@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/19 19:16:16 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/20 10:15:19 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,15 @@ typedef struct	s_square
 	int			lent;
 	int			color;
 }				t_square;
+
+typedef struct	s_rectangle
+{
+	float		x;
+	float		y;
+	float		lent_x;
+	float		lent_y;
+	int			color;
+}				t_rectangle;
 
 typedef struct	s_point
 {
@@ -165,6 +174,8 @@ void			ft_cast_rays(t_game *game, t_ray *ray);
 void			ft_normilised(float *angle);
 void			ft_destroy_cub(t_cub *cub);
 void    		ft_render_3d(t_game *game, t_ray *ray);
+void			ft_render_g_rect(t_data *data, t_rectangle rect);
+void			ft_clean_win(t_game *game);
 float			ft_dis_2point(t_point p1, t_point p2);
 float			ft_min(float x1, float x2);
 float			ft_max(float x1, float x2);
