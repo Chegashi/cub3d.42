@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 23:25:25 by abort             #+#    #+#             */
-/*   Updated: 2021/01/19 12:22:12 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/27 15:27:07 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,11 @@ void	ft_normilised(float *angle)
 float	ft_max(float x1, float x2)
 {
 	return ((x1 > x2) ? x1 : x2);
+}
+
+t_point	ft_translate_point(t_point p, float x, float y)
+{
+	p.x += x;
+	p.y += y;
+	return (p);
 }

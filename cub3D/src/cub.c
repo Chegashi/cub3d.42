@@ -6,14 +6,14 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/20 19:33:04 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/27 18:58:41 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 
-void			ft_draw_map(t_game *game)
+void			ft_render_map()
 {
 	int			i;
 	int			j;
@@ -22,26 +22,26 @@ void			ft_draw_map(t_game *game)
 	t_square	sqr;
 
 	i = -1;
-	while (++i < game->cube->nbr_ligne)
+	while (++i < g_game->cube->nbr_ligne)
 	{
 		j = -1;
-		while (++j < game->cube->nbr_column)
+		while (++j < g_game->cube->nbr_column)
 		{
 			tilex = j * TILE_SIZE * COEF;
 			tiley = i * TILE_SIZE * COEF;
-			sqr.color = (game->cube->map[i][j] == '1') ? 0x8b1c62 : 0xff7256;
-			if (game->cube->map[i][j] != ' ')
+			sqr.color = (g_game->cube->map[i][j] == '1') ? 0x8b1c62 : 0xff7256;
+			if (g_game->cube->map[i][j] != ' ')
 			{
 				sqr.x = tilex;
 				sqr.y = tiley;
 				sqr.lent = TILE_SIZE;
-				draw_rect(&(game->img), sqr);
+				draw_rect(&(g_game->img), sqr);
 			}
 		}
 	}
 }
 
-int				ft_update(t_player *p, t_game *game)
+int				ft_update(t_player *p)
 {
 	float		move;
 	t_player	*new_player;
@@ -53,31 +53,55 @@ int				ft_update(t_player *p, t_game *game)
 	new_player->y += sin(p->rotationangle) * move;
 	new_player->rotationangle += p->turndirection * p->turnspeed;
 	ft_normilised(&(new_player->rotationangle));
-	if (!ft_antoured_bywall(new_player->x, new_player->y, game))
+	if (!ft_antoured_bywall(new_player->x, new_player->y))
+	{
 		*p = *new_player;
+		g_game->plyr.x = new_player->x;
+		g_game->plyr.y = new_player->y;
+	}
+	
 	free(new_player);
 	return (0);
 }
 
-int				ft_is_wall(float x, float y, t_game *game)
+int				ft_is_wall(float x, float y)
 {
 	int			x_index;
 	int			y_index;
 
 	x_index = floor(x) / TILE_SIZE;
 	y_index = floor(y) / TILE_SIZE;
-	if (x < 0 || y < 0 || x > game->cube->resolution[0]
-			|| y > game->cube->resolution[1])
+	if (x < 0 || y < 0 || x > g_game->cube->resolution[0]
+			|| y > g_game->cube->resolution[1])
 		return (0);
-	return (game->cube->map[y_index][x_index] != '0');
+	return (g_game->cube->map[y_index][x_index] != '0');
 }
 
-int				ft_antoured_bywall(float x, float y, t_game *game)
+int				ft_antoured_bywall(float x, float y)
 {
-	if (ft_is_wall(x, y, game) || ft_is_wall(x - 1, y - 1, game) ||
-			ft_is_wall(x - 1, y, game) || ft_is_wall(x, y - 1, game) ||
-			ft_is_wall(x + 1, y, game) || ft_is_wall(x, y + 1, game) ||
-			ft_is_wall(x + 1, y + 1, game))
+	if (ft_is_wall(x, y) || ft_is_wall(x - 1, y - 1) ||
+			ft_is_wall(x - 1, y) || ft_is_wall(x, y - 1) ||
+			ft_is_wall(x + 1, y) || ft_is_wall(x, y + 1) ||
+			ft_is_wall(x + 1, y + 1))
 		return (1);
 	return (0);
+}
+
+int				ft_is_in_map(t_point p)
+{
+	if (p.x < 0 || p.y < 0 || floor(p.x / TILE_SIZE) > g_game->cube->nbr_column
+	- 1 || floor(p.y / TILE_SIZE) > g_game->cube->nbr_ligne - 1)
+		return (0);
+	return (1);
+}
+
+void	ft_render_rays()
+{
+	int		i;
+
+	i = -1;
+	while (++i < g_game->width)
+	{
+		ft_render_line(&(g_game->img), g_game->plyr, g_game->rays[i].end , 0xff1245);
+	}
 }

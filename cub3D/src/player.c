@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/20 19:25:54 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/27 18:31:52 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ t_player		*ft_init_player(t_cub *cub)
 		player->rotationangle = PI;
 	player->turndirection = 0;
 	player->walkdirection = 0;
-	player->walkspeed = 2;
+	player->walkspeed = 5;
 	player->turnspeed = 5 * (PI / 180);
 	return (player);
 }
 
-int				key_hook(int keycode, t_game *game)
+int				key_hook(int keycode)
 {
 	t_player *p;
 
-	p = game->player;
+	p = g_game->player;
 	p->turndirection = 0;
 	p->walkdirection = 0;
 	if (keycode == 13 || keycode == 126 || keycode == 65362)
@@ -50,35 +50,35 @@ int				key_hook(int keycode, t_game *game)
 		p->walkdirection--;
 	if (keycode == 2 || keycode == 124 || keycode == 65361)
 		p->turndirection++;
-	ft_update(game->player, game);
-	ft_render(game);
+	ft_update(g_game->player);
+	ft_render();
 	return (0);
 }
 
-int				mouse_hook(int button, int x, int y, t_game *game)
+int				mouse_hook(int button, int x, int y)
 {
 	if (button == 1)
 	{
-		game->player->x = x;
-		game->player->y = y;
+		g_game->player->x = x;
+		g_game->player->y = y;
 	}
 	return (0);
 }
 
-void			ft_render_player(t_game *game1)
+void			ft_render_player()
 {
 	t_point		p1;
 	t_point		p2;
 
-	p1.x = game1->player->x;
-	p1.y = game1->player->y;
-	p2.x = (p1.x + cos(game1->player->rotationangle) * 20 * (1 / COEF));
-	p2.y = (p1.y + sin(game1->player->rotationangle) * 20 * (1 / COEF));
-	ft_draw_disque(&(game1->img), game1->player->x * COEF,
-	game1->player->y * COEF, 0xfff68f);
+	p1.x = g_game->player->x;
+	p1.y = g_game->player->y;
+	p2.x = (p1.x + cos(g_game->player->rotationangle) * 20 * (1 / COEF));
+	p2.y = (p1.y + sin(g_game->player->rotationangle) * 20 * (1 / COEF));
+	ft_draw_disque(&(g_game->img), g_game->player->x * COEF,
+	g_game->player->y * COEF, 0xfff68f);
 	p1.x *= COEF;
 	p1.y *= COEF;
 	p2.x *= COEF;
 	p2.y *= COEF;
-	ft_render_line(&(game1->img), p1, p2, 0xf00000);
+	ft_render_line(&(g_game->img), p1, p2, 0xf00000);
 }
