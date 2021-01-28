@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/27 18:31:52 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/28 14:18:52 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_player		*ft_init_player(t_cub *cub)
 	player->walkdirection = 0;
 	player->walkspeed = 5;
 	player->turnspeed = 5 * (PI / 180);
+	player->z = 0;
 	return (player);
 }
 
@@ -42,14 +43,18 @@ int				key_hook(int keycode)
 	p = g_game->player;
 	p->turndirection = 0;
 	p->walkdirection = 0;
-	if (keycode == 13 || keycode == 126 || keycode == 65362)
+	if (keycode == 13 || keycode == 65362)
 		p->walkdirection++;
 	if (keycode == 0 || keycode == 123 || keycode == 65363)
 		p->turndirection--;
-	if (keycode == 1 || keycode == 125 || keycode == 65364)
+	if (keycode == 1 || keycode == 65364)
 		p->walkdirection--;
 	if (keycode == 2 || keycode == 124 || keycode == 65361)
 		p->turndirection++;
+	if (keycode == 126)
+		p->z += 20;
+	if (keycode == 125)
+		p->z -= 20;
 	ft_update(g_game->player);
 	ft_render();
 	return (0);

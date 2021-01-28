@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/28 11:34:48 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/28 14:44:50 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ typedef	struct	s_ray
 	int			is_facing;
 	float		angl;
 	float		dist;
+	float		wall_start;
+	float		wall_end;
 	t_point		end;
 }				t_ray;
 
@@ -138,6 +140,7 @@ int				ft_is_wall(float x, float y);
 int				ft_is_in_map(t_point p);
 int				ft_update(t_player *p);
 int				ft_antoured_bywall(float x, float y);
+int				ft_create_trgb(int t, int r, int g, int b);
 char			*ft_init_str(char *strmem);
 void			ft_fill(char *line, t_cub *cub);
 void			ft_resolution(char *line, t_cub *cub);
@@ -177,5 +180,7 @@ t_cub			*ft_init_cub();
 void			ft_setup(char *file);
 t_player		*ft_init_player(t_cub *cub);
 t_point			ft_translate_point(t_point p, float x, float y);
+void		    ft_render_celing();
+void    		ft_render_floor();
 t_game			*g_game;
 #endif

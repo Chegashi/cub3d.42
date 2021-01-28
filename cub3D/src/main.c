@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/27 19:11:09 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:03:33 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ int			main(int ac, char **av)
 	else
 	{
 		ft_setup(av[1]);
-		mlx_key_hook(g_game->win_ptr, key_hook, g_game);
+		//mlx_key_hook(g_game->win_ptr, key_hook, g_game);
 		mlx_hook(g_game->win_ptr, 2, 0, key_hook, g_game);
+		//mlx_loop_hook(g_game->mlx_ptr, key_hook, g_game);
 		mlx_loop(g_game->mlx_ptr);
 	}
 	//ft_destroy(1, game);
@@ -70,8 +71,8 @@ void		ft_render()
 	ft_clean_win();
 	ft_raycasting();
 	ft_render_wall();
-	// ft_render_celing();
-	// ft_render_floor();
+	ft_render_celing();
+	ft_render_floor();
 	// ft_render_sprite();
 	ft_render_map();
 	ft_render_rays();

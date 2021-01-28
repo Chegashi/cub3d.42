@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/28 11:50:46 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/28 12:19:52 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ int				ft_update(t_player *p)
 		g_game->plyr.x = new_player->x;
 		g_game->plyr.y = new_player->y;
 	}
-	
+	if (g_game->player->z > g_game->height || g_game->player->z < -1 * g_game->height)
+		g_game->player->z *= -1;
 	free(new_player);
 	return (0);
 }

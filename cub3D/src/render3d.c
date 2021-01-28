@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:08:20 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/28 11:32:08 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/28 14:48:36 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,58 @@ void    ft_render_wall()
         p1.y *= (p1.y < 0) ? 0 : 1;
         p2.x = i;
         p2.y = p1.y + wall_h;
+        p1.y += g_game->player->z;
+        p2.y += g_game->player->z;
+        g_game->rays[i].wall_start = p1.y;
+        g_game->rays[i].wall_end = p2.y;
         ft_render_line(&(g_game->img), p1, p2, 0xffaabb); 
-        //printf("%d\t%f\n",i, g_game->rays[i].dist);
     }
-  
+}
+
+void    ft_render_celing()
+{
+    int         i;
+    int         color;
+    t_point     p1;
+    t_point     p2;
+    int         *tab;
+
+    i = -1;
+    tab = g_game->cube->ceilling_color;
+    color = ft_create_trgb(1,tab[0], tab[1], tab[2]);
+    while (++i < g_game->cube->resolution[0])
+    {
+        p1.x = i;
+        p1.y = 0;
+        p2.x = i;
+        p2.y = g_game->rays[i].wall_start;
+        ft_render_line(&(g_game->img), p1, p2, color); 
+    }
+}
+
+void    ft_render_floor()
+{
+    int         i;
+       int         *tab;
+    int         color;
+
+    t_point     p1;
+    t_point     p2;
+
+    i = -1;
+        tab = g_game->cube->floor_color;
+    color = ft_create_trgb(1,tab[0], tab[1], tab[2]);
+    while (++i < g_game->cube->resolution[0])
+    {
+        p1.x = i;
+        p1.y = g_game->rays[i].wall_end;
+        p2.x = i;
+        p2.y = g_game->height;
+        ft_render_line(&(g_game->img), p1, p2, color); 
+    }
+}
+
+int		ft_create_trgb(int t, int r, int g, int b)
+{
+	return(t << 24 | r << 16 | g << 8 | b);
 }
