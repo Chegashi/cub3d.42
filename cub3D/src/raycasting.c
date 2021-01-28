@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/27 18:04:22 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/28 11:31:50 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void			ft_cast_ray(t_ray *ray)
 	t_point		v_pnt;
 	float		h_dist;
 	float		v_dist;
-
+	static int i =0;
 	ray->is_facing = 0;
 	ray->is_facing |= (ray->angl > 0 && ray->angl < PI) ? DOWN : UP;
 	ray->is_facing |= (ray->angl > PI / 2 && ray->angl < (3 * PI) / 2)
@@ -94,8 +94,10 @@ void			ft_cast_ray(t_ray *ray)
 	h_pnt = ft_horis_interst(ray);
 	v_pnt = ft_verti_intersect(ray);
 	h_dist = (ray->is_facing & HIT_HORIS) ?
-	ft_dis_2point(g_game->plyr, h_pnt) : INT_MAX;;
+	ft_dis_2point(g_game->plyr, h_pnt) : INT_MAX;
 	v_dist = (ray->is_facing & HIT_VERTI) ?
 	ft_dis_2point(g_game->plyr, v_pnt) : INT_MAX;
 	ray->end = (h_dist < v_dist) ? h_pnt : v_pnt;
+	ray->dist = (h_dist < v_dist) ? h_dist : v_dist;
+	//printf("%d\t%f\n",i++,ray->dist);
 }

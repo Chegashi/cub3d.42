@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:08:20 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/27 19:31:47 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/28 11:32:08 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void    ft_render_wall()
         p1.y *= (p1.y < 0) ? 0 : 1;
         p2.x = i;
         p2.y = p1.y + wall_h;
-        ft_render_line(&(g_game->img), p1, p2, 0xffaabb);
+        ft_render_line(&(g_game->img), p1, p2, 0xffaabb); 
+        //printf("%d\t%f\n",i, g_game->rays[i].dist);
     }
+  
 }

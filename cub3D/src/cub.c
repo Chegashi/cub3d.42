@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/27 18:58:41 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/28 11:50:46 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,10 +98,16 @@ int				ft_is_in_map(t_point p)
 void	ft_render_rays()
 {
 	int		i;
+	t_point	p1;
+	t_point p2;
 
 	i = -1;
 	while (++i < g_game->width)
 	{
-		ft_render_line(&(g_game->img), g_game->plyr, g_game->rays[i].end , 0xff1245);
+		p1.x = g_game->plyr.x * COEF;
+		p1.y = g_game->plyr.y * COEF;
+		p2.x = (g_game->rays[i].end.x) * COEF;
+		p2.y = g_game->rays[i].end.y * COEF;
+		ft_render_line(&(g_game->img), p1, p2, 0xff1245);
 	}
 }

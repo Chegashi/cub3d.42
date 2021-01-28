@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/27 19:29:13 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/28 11:34:48 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <unistd.h>
 # include "mlx.h"
 # define PI 3.14159265359
-# define COEF 1
+# define COEF 0.5
 # define TILE_SIZE  30
 # define FOV 1.0471975512
 # define UP 1
