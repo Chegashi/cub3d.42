@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/28 14:44:50 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/29 19:23:30 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include "mlx.h"
 # define PI 3.14159265359
 # define COEF 0.5
-# define TILE_SIZE  30
+# define TILE_SIZE  32
 # define FOV 1.0471975512
 # define UP 1
 # define RIGHT 2
@@ -182,5 +182,7 @@ t_player		*ft_init_player(t_cub *cub);
 t_point			ft_translate_point(t_point p, float x, float y);
 void		    ft_render_celing();
 void    		ft_render_floor();
+float	rad_to_deg(float x1);
+float	deg_to_rad(float x1);
 t_game			*g_game;
 #endif

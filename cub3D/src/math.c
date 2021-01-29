@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 23:25:25 by abort             #+#    #+#             */
-/*   Updated: 2021/01/27 15:27:07 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/29 19:22:53 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,14 @@ t_point	ft_translate_point(t_point p, float x, float y)
 	p.x += x;
 	p.y += y;
 	return (p);
+}
+
+float	deg_to_rad(float x1)
+{
+	return (x1 * PI / 180);
+}
+
+float	rad_to_deg(float x1)
+{
+	return (x1 * 180 / PI);
 }
