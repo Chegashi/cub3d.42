@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/28 11:31:50 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/30 09:24:57 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void			ft_raycasting()
 t_point			ft_horis_interst(t_ray *ray)
 {
 	t_point		a;
-	float		x_step;
-	float		y_step;
+	double		x_step;
+	double		y_step;
 
 	a.y = floor(g_game->player->y / TILE_SIZE) * TILE_SIZE;
 	a.y += (ray->is_facing & DOWN) ? TILE_SIZE : 0;
@@ -57,8 +57,8 @@ t_point			ft_horis_interst(t_ray *ray)
 t_point			ft_verti_intersect(t_ray *ray)
 {
 	t_point		a;
-	float		x_step;
-	float		y_step;
+	double		x_step;
+	double		y_step;
 
 	a.x = floor(g_game->player->x / TILE_SIZE) * TILE_SIZE;
 	a.x += (ray->is_facing & RIGHT) ? TILE_SIZE : 0;
@@ -84,8 +84,8 @@ void			ft_cast_ray(t_ray *ray)
 {
 	t_point		h_pnt;
 	t_point		v_pnt;
-	float		h_dist;
-	float		v_dist;
+	double		h_dist;
+	double		v_dist;
 	static int i =0;
 	ray->is_facing = 0;
 	ray->is_facing |= (ray->angl > 0 && ray->angl < PI) ? DOWN : UP;

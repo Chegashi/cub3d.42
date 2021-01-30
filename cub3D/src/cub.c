@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/28 12:19:52 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/30 09:24:57 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			ft_render_map()
 
 int				ft_update(t_player *p)
 {
-	float		move;
+	double		move;
 	t_player	*new_player;
 
 	new_player = (t_player *)malloc(sizeof(t_player));
@@ -65,7 +65,7 @@ int				ft_update(t_player *p)
 	return (0);
 }
 
-int				ft_is_wall(float x, float y)
+int				ft_is_wall(double x, double y)
 {
 	int			x_index;
 	int			y_index;
@@ -78,7 +78,7 @@ int				ft_is_wall(float x, float y)
 	return (g_game->cube->map[y_index][x_index] != '0');
 }
 
-int				ft_antoured_bywall(float x, float y)
+int				ft_antoured_bywall(double x, double y)
 {
 	if (ft_is_wall(x, y) || ft_is_wall(x - 1, y - 1) ||
 			ft_is_wall(x - 1, y) || ft_is_wall(x, y - 1) ||

@@ -6,27 +6,29 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:08:20 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/29 19:44:00 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/30 11:34:25 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "cub3d.h"
 
+#define PV(x, y) printf("%s = " y, #x, x)
+
 void    ft_render_wall()
 {
-    float       dis_wall_p;
-    float       wall_h;
-    float       corect_dist;
+    double       dis_wall_p;
+    double       wall_h;
+    double       corect_dist;
     int         i;
     t_point     p1;
     t_point     p2;
     int x,y,bp,s_l,en,j;
-    float x_off;
-    float y_off;
-    float dst_top;
+    double x_off;
+    double y_off;
+    double dst_top;
     i = -1;   
-    float y_step;    
+    double y_step;    
     void *t = mlx_xpm_file_to_image(g_game->mlx_ptr, g_game->cube->north_texture, &x, &y);
     int *tab = (int*)mlx_get_data_addr(t, &bp, &s_l, &en);
     
@@ -47,28 +49,41 @@ void    ft_render_wall()
         g_game->rays[i].wall_start = p1.y;
         g_game->rays[i].wall_end = p2.y;
         j = p1.y -1;
-       // x_off = (g_game->rays[i].is_facing & HIT_VERTI) ? fmod(g_game->rays[i].end.y,TILE_SIZE)
+        // x_off = (g_game->rays[i].is_facing & HIT_VERTI) ? fmod(g_game->rays[i].end.y,TILE_SIZE)
         // : fmod(g_game->rays[i].end.x,TILE_SIZE);
-       //x_off = (g_game->rays[i].is_facing & HIT_VERTI) ? (int)g_game->rays[i].end.x % TILE_SIZE : (int)g_game->rays[i].end.y;
-        x_off = (g_game->rays[i].is_facing & HIT_HORIS) ? fmod(g_game->rays[i].end.x, TILE_SIZE) : fmod(g_game->rays[i].end.y,TILE_SIZE);
-        y_off = 0;
-        y_step = (float)y / (float)(p2.y - p1.y);
-        printf("%d %d\n", x, y);
-        printf("p2 %f p1 %f\n", p2.y, p1.y);
-
+        //x_off = (g_game->rays[i].is_facing & HIT_VERTI) ? (int)g_game->rays[i].end.x % TILE_SIZE : (int)g_game->rays[i].end.y;
+        // x_off = (g_game->rays[i].is_facing & HIT_HORIS) ? fmod(g_game->rays[i].end.x, TILE_SIZE) : fmod(g_game->rays[i].end.y,TILE_SIZE);
+        if (fmod(g_game->rays[i].end.x, TILE_SIZE) == 0)
+            x_off = g_game->rays[i].end.y;
+        else
+            x_off = g_game->rays[i].end.x;
+        x_off = fmod(x_off, TILE_SIZE);
+        y_step = y / (p2.y - p1.y);
+        x_off = (x_off /TILE_SIZE) * x;
+      
+        //printf("%d %d\n", x, y);
+    //    printf("x:%d\n", (int)x_off);
+    //    PV(fmod(g_game->rays[i].end.x, TILE_SIZE), "%lf, ");
+    //    PV(fmod(g_game->rays[i].end.y, TILE_SIZE), "%lf\n");
+        //printf("")
+       // printf("\nx:%d", (int)x_off);
         while(++j < p2.y)
-        {
-            // dst_top = j + (int)wall_h/2 - g_game->height/2;
-             //y_off = ((j - p1.y) * y) / (p2.y - p1.y);
-            // if(y_off <0)
-            // y_off *= -1;
-            // if (y_off > y || x_off > x || x_off < 0 )
-            // printf("%f \t %f \t%d %d\n", x_off, y_off, x, y);
+        { 
+             double dist_from_top =  j +  wall_h/2 - g_game->width/2;
+        //     // dst_top = j + (int)wall_h/2 - g_game->height/2;
+            y_off = (dist_from_top  * y) / wall_h;
+              //printf("y:%d ", (int)y_off);
+            if (x_off < 0 || x_off > x || y_off < 0 || y_off > y)
+            1;
+            else
             my_mlx_pixel_put(&(g_game->img), i, j, tab[(y * (int)y_off) + (int)x_off]);
-        //   if(g_game->rays[i].angl <= rad_to_deg(0.5) + g_game->player->rotationangle && g_game->rays[i].angl >= -rad_to_deg(0.5) + g_game->player->rotationangle)
-        //     
-            y_off += y_step; 
-             //printf("%d\n", );
+
+        //     // // y_off *= -1;
+        //     // if (y_off > y  )
+        //     // printf("%f \n", x_off);
+        //     //if(g_game->rays[i].angl <= rad_to_deg(0.5) + g_game->player->rotationangle && g_game->rays[i].angl >= -rad_to_deg(0.5) + g_game->player->rotationangle)
+        //     y_off += y_step;
+        //     //printf("%d\n");
         }
        // printf("\n");
         // ft_render_line(&(g_game->img), p1, p2, 0xffaabb);

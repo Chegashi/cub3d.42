@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/27 17:28:27 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/30 09:24:57 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,13 @@ void		ft_draw_disque(t_data *data, int x, int y, int color)
 void		ft_render_line(t_data *data, t_point p1, t_point p2, int color)
 {
 	int		k;
-	float	xinc;
-	float	yinc;
-	float	steps;
+	double	xinc;
+	double	yinc;
+	double	steps;
 
 	steps = ft_max(fabs(p1.x - p2.x), fabs(p1.y - p2.y));
-	xinc = (p2.x - p1.x) / (float)steps;
-	yinc = (p2.y - p1.y) / (float)steps;
+	xinc = (p2.x - p1.x) / (double)steps;
+	yinc = (p2.y - p1.y) / (double)steps;
 	k = -1;
 	while (++k < steps)
 	{
@@ -68,7 +68,7 @@ void		draw_rect(t_data *data, t_square s)
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;	
-	
+
 	if(x < 0 || y < 0 || x > g_game->width || y > g_game->height)
 		return ;
 	dst = data->addr + (y * data->l_len + x * (data->bpp / 8));
