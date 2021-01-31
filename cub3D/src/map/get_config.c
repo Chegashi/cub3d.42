@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/01/20 17:30:03 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/31 12:56:34 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,13 @@ void	ft_resolution(char *line, t_cub *cub)
 	cub->resolution[1] = ft_atoi_s(&line);
 }
 
-void	ft_read_texture(char *line, char **dest)
+void	ft_read_texture(char *line, t_texture *texture)
 {
-	int	len;
-	int	start;
-	int	i;
+	int			len;
+	int			start;
+	int			i;
+	char		*path;
+	void		*file;
 
 	len = 0;
 	i = 0;
@@ -38,7 +40,13 @@ void	ft_read_texture(char *line, char **dest)
 	start = line[i] ? i + 1 : i;
 	while (line[i++])
 		len++;
-	*dest = ft_substr(line, start, ft_strlen(line));
+	path = ft_substr(line, start, ft_strlen(line));
+	if(!(file = mlx_xpm_file_to_image(g_game->mlx_ptr, path, &(texture->width),
+	&(texture->hight))))
+		g_game->msg = "in valide tecture file";
+	else
+    	texture->color = (int*)mlx_get_data_addr(file, &(texture->bpp),
+		&(texture->l_len), &(texture->endian));
 }
 
 void	ft_read_map(t_cub *cub)

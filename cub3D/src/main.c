@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/29 16:08:41 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/31 17:15:10 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,31 +39,17 @@ int			ft_destroy(int keycode)
 
 void		ft_setup(char *file)
 {
-	// int		sizex;
-	// int		sizey;
-	int		*resol;
-
-	//mlx_get_screen_size(game->mlx_ptr, &sizex, &sizey);
-	// if (game->cube->resolution[0] > sizex || game->cube->resolution[1])
-	// {
-	// 	game->cube->resolution[0] = sizex;
-	// 	game->cube->resolution[1] = sizey;
-	// }
 	g_game = (t_game*)malloc(sizeof(t_game));
-	g_game->cube = ft_read_cub(file);
-	resol = g_game->cube->resolution;
 	g_game->mlx_ptr = mlx_init();
-	g_game->win_ptr = mlx_new_window(g_game->mlx_ptr, resol[0], resol[1], "C");
-	g_game->img.img = mlx_new_image(g_game->mlx_ptr, resol[0], resol[1]);
-	g_game->player = ft_init_player(g_game->cube);
-	g_game->img.addr = mlx_get_data_addr(g_game->img.img, &(g_game->img.bpp),
-	&(g_game->img.l_len), &(g_game->img.endian));
-	g_game->width = g_game->cube->resolution[0];
-	g_game->height = g_game->cube->resolution[1];
-	g_game->rays = (t_ray*)malloc(sizeof(t_ray) * (g_game->width + 1));
-	g_game->plyr.x = g_game->player->x;
-	g_game->plyr.y = g_game->player->y;
-	ft_render();
+	g_game->cube = ft_read_cub(file);
+	if(!g_game->cube->valide)
+		ft_destroy_cub(g_game->cube);
+	else
+	{
+
+		ft_fill_game();
+		ft_render();
+	}
 }
 
 void		ft_render()
@@ -79,4 +65,32 @@ void		ft_render()
 	ft_render_player();
 	mlx_put_image_to_window(g_game->mlx_ptr, g_game->win_ptr,
 	g_game->img.img, 0, 0);
+}
+
+void	ft_fill_game(void)
+{
+	int		*resol;
+
+	// int		sizex;
+	// int		sizey;
+	
+
+	//mlx_get_screen_size(game->mlx_ptr, &sizex, &sizey);
+	//if (game->cube->resolution[0] > sizex || game->cube->resolution[1])
+	//{
+	// 	game->cube->resolution[0] = sizex;
+	// 	game->cube->resolution[1] = sizey;
+	//}
+	resol = g_game->cube->resolution;
+	g_game->win_ptr = mlx_new_window(g_game->mlx_ptr, resol[0],
+	resol[1], "Cub3d");
+	g_game->img.img = mlx_new_image(g_game->mlx_ptr, resol[0], resol[1]);
+	g_game->player = ft_init_player(g_game->cube);
+	g_game->img.addr = mlx_get_data_addr(g_game->img.img,
+	&(g_game->img.bpp), &(g_game->img.l_len), &(g_game->img.endian));
+	g_game->width = g_game->cube->resolution[0];
+	g_game->height = g_game->cube->resolution[1];
+	g_game->rays = (t_ray*)malloc(sizeof(t_ray) * (g_game->width + 1));
+	g_game->plyr.x = g_game->player->x;
+	g_game->plyr.y = g_game->player->y;
 }

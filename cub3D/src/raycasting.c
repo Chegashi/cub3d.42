@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/30 09:24:57 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/31 17:49:39 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void			ft_raycasting()
 	int			clomn_id;
 
 	clomn_id = -1;
-	g_game->rays[0].angl = g_game->player->rotationangle - FOV / 2;
+	g_game->rays[0].angl = g_game->player->rotationangle - FOV_H / 2;
 	while (++clomn_id < g_game->width)
 	{
 		ft_normilised(&(g_game->rays[clomn_id].angl));
 		ft_cast_ray(&(g_game->rays[clomn_id]));
 		g_game->rays[clomn_id + 1].angl = g_game->rays[clomn_id].angl
-		+ FOV / g_game->width;
+		+ FOV_H / g_game->width;
 	}
 }
 
@@ -86,7 +86,7 @@ void			ft_cast_ray(t_ray *ray)
 	t_point		v_pnt;
 	double		h_dist;
 	double		v_dist;
-	static int i =0;
+
 	ray->is_facing = 0;
 	ray->is_facing |= (ray->angl > 0 && ray->angl < PI) ? DOWN : UP;
 	ray->is_facing |= (ray->angl > PI / 2 && ray->angl < (3 * PI) / 2)
@@ -99,5 +99,9 @@ void			ft_cast_ray(t_ray *ray)
 	ft_dis_2point(g_game->plyr, v_pnt) : INT_MAX;
 	ray->end = (h_dist < v_dist) ? h_pnt : v_pnt;
 	ray->dist = (h_dist < v_dist) ? h_dist : v_dist;
-	//printf("%d\t%f\n",i++,ray->dist);
+	ray->is_facing &= (h_dist < v_dist) ? ~HIT_VERTI : ~HIT_HORIS;
+	if (ray->is_facing & HIT_HORIS)
+		ray->data = (ray->is_facing & DOWN) ? 2 : 0;
+	else if(ray->is_facing & HIT_VERTI)
+	 	ray->data = (ray->is_facing & LEFT) ? 3 : 1;
 }

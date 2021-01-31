@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/30 11:09:43 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/31 19:09:24 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@
 # define PI 3.14159265359
 # define COEF 1
 # define TILE_SIZE  20
-# define FOV deg_to_rad(60)
+# define FOV_H deg_to_rad(60)
+# define FOV_V deg_to_rad(50)
 # define UP 1
 # define RIGHT 2
 # define DOWN 4
@@ -52,6 +53,18 @@ typedef struct	s_player
 	double		walkspeed;
 	double		turnspeed;
 }				t_player;
+
+typedef struct s_texture
+{
+	int			is_defined;
+	char		*addr;
+	int			bpp;
+	int			l_len;
+	int			endian;
+	int		*color;
+	int			width;
+	int			hight;
+}				t_texture;
 
 typedef struct	s_line
 {
@@ -88,10 +101,11 @@ typedef struct	s_point
 typedef	struct	s_ray
 {
 	int			is_facing;
+	int			data;
 	double		angl;
 	double		dist;
 	double		wall_start;
-	double		wall_end;
+	double		wall_h;
 	t_point		end;
 }				t_ray;
 
@@ -107,13 +121,8 @@ typedef struct	s_cub
 	int			*player_position;
 	char		*line;
 	char		**map;
-	char		*msg;
 	char		*map_str;
-	char		*north_texture;
-	char		*south_texture;
-	char		*west_texture;
-	char		*east_texture;
-	char		*sprite_texture;
+	t_texture	*textures;
 	char		direction;
 	t_player	*player;
 }				t_cub;
@@ -125,6 +134,7 @@ typedef struct	s_game
 	char		**map;
 	void		*win_ptr;
 	void		*mlx_ptr;
+	char		*msg;
 	t_cub		*cube;
 	t_data		img;
 	t_player	*player;
@@ -144,7 +154,7 @@ int				ft_create_trgb(int t, int r, int g, int b);
 char			*ft_init_str(char *strmem);
 void			ft_fill(char *line, t_cub *cub);
 void			ft_resolution(char *line, t_cub *cub);
-void			ft_read_texture(char *line, char **des);
+void			ft_read_texture(char *line, t_texture *texture);
 void			ft_read_color(char *line, int **tab);
 void			ft_map(t_cub *cub);
 void			print_cub(t_cub *cub);
@@ -182,7 +192,9 @@ t_player		*ft_init_player(t_cub *cub);
 t_point			ft_translate_point(t_point p, double x, double y);
 void		    ft_render_celing();
 void    		ft_render_floor();
-double	rad_to_deg(double x1);
-double	deg_to_rad(double x1);
+double			rad_to_deg(double x1);
+double			deg_to_rad(double x1);
+void	ft_fill_game(void);
+void    ft_wall_texture(t_ray ray, int i);
 t_game			*g_game;
 #endif

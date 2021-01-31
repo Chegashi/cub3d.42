@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/19 11:23:27 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/31 16:57:11 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_cub	*ft_read_cub(char *s)
 	check_map(cub);
 	if (!cub->valide)
 	{
-		ft_putstr(cub->msg);
+		ft_putstr(g_game->msg);
 		ft_destroy_cub(cub);
 		exit(1);
 	}
@@ -37,14 +37,10 @@ void	ft_destroy_cub(t_cub *cub)
 	free(cub->ceilling_color);
 	free(cub->resolution);
 	free(cub->player_position);
-	free(cub->north_texture);
-	free(cub->south_texture);
-	free(cub->west_texture);
-	free(cub->east_texture);
-	free(cub->sprite_texture);
+	free(cub->textures);
 	free(cub->map_str);
 	free(cub->map);
-	free(cub->msg);
+	free(g_game->msg);
 	free(cub);
 }
 
@@ -54,16 +50,16 @@ void	ft_fill(char *line, t_cub *cub)
 		return ;
 	else if (*line == 'R' && cub->resolution[0] == -1)
 		ft_resolution(line, cub);
-	else if (*line == 'N' && !(*cub->north_texture))
-		ft_read_texture(line, &(cub->north_texture));
-	else if (*line == 'E' && !(*cub->east_texture))
-		ft_read_texture(line, &(cub->east_texture));
-	else if (*line == 'W' && !(*cub->west_texture))
-		ft_read_texture(line, &(cub->west_texture));
-	else if (*line == 'S' && line[1] == 'O' && !(*cub->south_texture))
-		ft_read_texture(line, &cub->south_texture);
-	else if (*line == 'S' && line[1] == ' ' && !(*cub->sprite_texture))
-		ft_read_texture(line, &(cub->sprite_texture));
+	else if (*line == 'N' && !(cub->textures[0].is_defined))
+		ft_read_texture(line, &(cub->textures[0]));
+	else if (*line == 'E' && !(cub->textures[1].is_defined))
+		ft_read_texture(line, &(cub->textures[1]));
+	else if (*line == 'W' && !(cub->textures[3].is_defined))
+		ft_read_texture(line, &(cub->textures[3]));
+	else if (*line == 'S' && line[1] == 'O' && !(cub->textures[2].is_defined))
+		ft_read_texture(line, &(cub->textures[2]));
+	else if (*line == 'S' && line[1] == ' ' &&  !(cub->textures[4].is_defined))
+		ft_read_texture(line,  &(cub->textures[4]));
 	else if (*line == 'F' && (cub->floor_color[0] == -1))
 		ft_read_color(line, &(cub->floor_color));
 	else if (*line == 'C' && cub->ceilling_color[0] == -1)

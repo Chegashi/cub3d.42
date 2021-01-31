@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:44:17 by abort             #+#    #+#             */
-/*   Updated: 2021/01/20 17:39:13 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/31 12:58:19 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,15 @@ t_cub	*ft_init_cub(void)
 	cub->resolution = ft_calloc_tab_int(3);
 	cub->player_position = (int*)malloc(sizeof(int) * 2);
 	cub->map_str = (char*)malloc(sizeof(char));
-	cub->msg = (char*)malloc(sizeof(char) * 25);
+	g_game->msg = (char*)malloc(sizeof(char) * 25);
 	cub->resolution[0] = -1;
 	cub->resolution[1] = -1;
-	cub->north_texture = (char*)malloc(sizeof(char));
-	cub->south_texture = (char*)malloc(sizeof(char));
-	cub->west_texture = (char*)malloc(sizeof(char));
-	cub->east_texture = (char*)malloc(sizeof(char));
-	cub->sprite_texture = (char*)malloc(sizeof(char));
-	cub->north_texture[0] = 0;
-	cub->south_texture[0] = 0;
-	cub->west_texture[0] = 0;
-	cub->east_texture[0] = 0;
-	cub->sprite_texture[0] = 0;
+	cub->textures = (t_texture*)malloc(sizeof(t_texture) * 5);
+	cub->textures[0].is_defined = 0;
+	cub->textures[1].is_defined = 0;
+	cub->textures[2].is_defined = 0;
+	cub->textures[3].is_defined = 0;
+	cub->textures[4].is_defined = 0;
 	ft_map(cub);
 	return (cub);
 }
@@ -50,7 +46,7 @@ void	ft_map(t_cub *cub)
 	cub->map_str[0] = '\0';
 	cub->map = NULL;
 	cub->direction = 0;
-	cub->msg = ft_strcpy(cub->msg, "ok");
+	g_game->msg = ft_strcpy(g_game->msg, "ok");
 	cub->valide = 1;
 	cub->fd = -1;
 	cub->player_position[0] = -1;
@@ -78,6 +74,6 @@ char	*ft_init_str(char *str_mem)
 
 void	get_err(t_cub *cub, char *msg)
 {
-	cub->msg = ft_strcpy(cub->msg, msg);
+	g_game->msg = ft_strcpy(g_game->msg, msg);
 	cub->valide = 0;
 }
