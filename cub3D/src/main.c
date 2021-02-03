@@ -6,14 +6,13 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/31 17:15:10 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/03 19:23:33 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-#include <math.h>
 
-int			main(int ac, char **av)
+int		main(int ac, char **av)
 {
 	if (ac != 2)
 		ft_putstr("ereur dargument\n");
@@ -21,15 +20,15 @@ int			main(int ac, char **av)
 	{
 		ft_setup(av[1]);
 		mlx_key_hook(g_game->win_ptr, key_hook, g_game);
-		//mlx_hook(g_game->win_ptr, 2, 0, key_hook, g_game);
-		//mlx_loop_hook(g_game->mlx_ptr, key_hook, g_game);
+	//	mlx_hook(g_game->win_ptr, 2, 0, key_hook, g_game);
+	//	mlx_loop_hook(g_game->mlx_ptr, key_hook, g_game);
 		mlx_loop(g_game->mlx_ptr);
 	}
 	//ft_destroy(1, game);
 	return (0);
 }
 
-int			ft_destroy(int keycode)
+int		ft_destroy(int keycode)
 {
 	printf("%d\n", keycode);
 	mlx_destroy_window(g_game->mlx_ptr, g_game->win_ptr);
@@ -37,32 +36,32 @@ int			ft_destroy(int keycode)
 	return (0);
 }
 
-void		ft_setup(char *file)
+void	ft_setup(char *file)
 {
 	g_game = (t_game*)malloc(sizeof(t_game));
 	g_game->mlx_ptr = mlx_init();
 	g_game->cube = ft_read_cub(file);
-	if(!g_game->cube->valide)
+	if (!g_game->cube->valide)
 		ft_destroy_cub(g_game->cube);
 	else
 	{
-
 		ft_fill_game();
 		ft_render();
 	}
 }
 
-void		ft_render()
+void	ft_render(void)
 {
 	ft_clean_win();
 	ft_raycasting();
 	ft_render_wall();
 	ft_render_celing();
 	ft_render_floor();
-	// ft_render_sprite();
-	ft_render_map();
-	ft_render_rays();
-	ft_render_player();
+	ft_calculate_sprite();
+	//ft_render_sprite();
+	//ft_render_map();
+	//ft_render_rays();
+	//ft_render_player();
 	mlx_put_image_to_window(g_game->mlx_ptr, g_game->win_ptr,
 	g_game->img.img, 0, 0);
 }
@@ -74,7 +73,6 @@ void	ft_fill_game(void)
 	// int		sizex;
 	// int		sizey;
 	
-
 	//mlx_get_screen_size(game->mlx_ptr, &sizex, &sizey);
 	//if (game->cube->resolution[0] > sizex || game->cube->resolution[1])
 	//{
@@ -93,4 +91,16 @@ void	ft_fill_game(void)
 	g_game->rays = (t_ray*)malloc(sizeof(t_ray) * (g_game->width + 1));
 	g_game->plyr.x = g_game->player->x;
 	g_game->plyr.y = g_game->player->y;
+	ft_init_sprite();
+}
+
+void	ft_calculate_sprite(void)
+{
+	int		i;
+
+	i = -1;
+	while (++i < g_game->sprites.nbr)
+	{
+		
+	}
 }

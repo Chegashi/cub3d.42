@@ -6,14 +6,14 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/30 09:24:57 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/01 16:17:05 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 
-void			ft_render_map()
+void			ft_render_map(void)
 {
 	int			i;
 	int			j;
@@ -53,13 +53,14 @@ int				ft_update(t_player *p)
 	new_player->y += sin(p->rotationangle) * move;
 	new_player->rotationangle += p->turndirection * p->turnspeed;
 	ft_normilised(&(new_player->rotationangle));
-	if (!ft_antoured_bywall(new_player->x, new_player->y))
+	if (!ft_antoured_bywall(new_player->x, new_player->y) && !ft_isasprite(new_player->x, new_player->y))
 	{
 		*p = *new_player;
 		g_game->plyr.x = new_player->x;
 		g_game->plyr.y = new_player->y;
 	}
-	if (g_game->player->z > g_game->height || g_game->player->z < -1 * g_game->height)
+	if (g_game->player->z > g_game->height
+	|| g_game->player->z < -1 * g_game->height)
 		g_game->player->z *= -1;
 	free(new_player);
 	return (0);
@@ -75,9 +76,21 @@ int				ft_is_wall(double x, double y)
 	if (x < 0 || y < 0 || x > g_game->cube->resolution[0]
 			|| y > g_game->cube->resolution[1])
 		return (0);
-	return (g_game->cube->map[y_index][x_index] != '0');
+	return (g_game->cube->map[y_index][x_index] == '1');
 }
 
+int				ft_isasprite(double x, double y)
+{
+	int			x_index;
+	int			y_index;
+
+	x_index = floor(x) / TILE_SIZE;
+	y_index = floor(y) / TILE_SIZE;
+	if (x < 0 || y < 0 || x > g_game->cube->resolution[0]
+			|| y > g_game->cube->resolution[1])
+		return (0);
+	return (g_game->cube->map[y_index][x_index] == '2');
+}
 int				ft_antoured_bywall(double x, double y)
 {
 	if (ft_is_wall(x, y) || ft_is_wall(x - 1, y - 1) ||
@@ -96,7 +109,7 @@ int				ft_is_in_map(t_point p)
 	return (1);
 }
 
-void	ft_render_rays()
+void	ft_render_rays(void)
 {
 	int		i;
 	t_point	p1;

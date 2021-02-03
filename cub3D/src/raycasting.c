@@ -6,14 +6,14 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/31 17:49:39 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/01 16:05:43 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 #include <math.h>
 
-void			ft_raycasting()
+void			ft_raycasting(void)
 {
 	int			clomn_id;
 
@@ -51,7 +51,7 @@ t_point			ft_horis_interst(t_ray *ray)
 		else
 			a = ft_translate_point(a, x_step, y_step);
 	a.y += (ray->is_facing & UP) ? 1 : 0;
-	return(a);
+	return (a);
 }
 
 t_point			ft_verti_intersect(t_ray *ray)
@@ -102,6 +102,20 @@ void			ft_cast_ray(t_ray *ray)
 	ray->is_facing &= (h_dist < v_dist) ? ~HIT_VERTI : ~HIT_HORIS;
 	if (ray->is_facing & HIT_HORIS)
 		ray->data = (ray->is_facing & DOWN) ? 2 : 0;
-	else if(ray->is_facing & HIT_VERTI)
-	 	ray->data = (ray->is_facing & LEFT) ? 3 : 1;
+	else if (ray->is_facing & HIT_VERTI)
+		ray->data = (ray->is_facing & LEFT) ? 3 : 1;
+}
+
+void			ft_clean_win(void)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < g_game->cube->resolution[0])
+	{
+		j = -1;
+		while (++j < g_game->cube->resolution[1])
+			my_mlx_pixel_put(&(g_game->img), i, j, 0x0);
+	}
 }

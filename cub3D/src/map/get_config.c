@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/01/31 12:56:34 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/31 19:33:42 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@ void	ft_read_texture(char *line, t_texture *texture)
 	while (line[i++])
 		len++;
 	path = ft_substr(line, start, ft_strlen(line));
-	if(!(file = mlx_xpm_file_to_image(g_game->mlx_ptr, path, &(texture->width),
+	if (!(file = mlx_xpm_file_to_image(g_game->mlx_ptr, path, &(texture->width),
 	&(texture->hight))))
 		g_game->msg = "in valide tecture file";
 	else
-    	texture->color = (int*)mlx_get_data_addr(file, &(texture->bpp),
+		texture->color = (int*)mlx_get_data_addr(file, &(texture->bpp),
 		&(texture->l_len), &(texture->endian));
 }
 

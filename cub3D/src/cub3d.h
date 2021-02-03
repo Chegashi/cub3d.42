@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/31 19:09:24 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/03 19:32:50 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@
 # include <stdio.h>
 # include <unistd.h>
 # include "mlx.h"
+# include <math.h>
 # define PI 3.14159265359
 # define COEF 1
 # define TILE_SIZE  20
 # define FOV_H deg_to_rad(60)
-# define FOV_V deg_to_rad(50)
+# define FOV_V deg_to_rad(60)
 # define UP 1
 # define RIGHT 2
 # define DOWN 4
@@ -61,7 +62,7 @@ typedef struct s_texture
 	int			bpp;
 	int			l_len;
 	int			endian;
-	int		*color;
+	int			*color;
 	int			width;
 	int			hight;
 }				t_texture;
@@ -127,11 +128,27 @@ typedef struct	s_cub
 	t_player	*player;
 }				t_cub;
 
+typedef	struct	s_sprites
+{
+	int		x;
+	int		y;
+	int		nbr;
+	int		*order;
+	double	*z_buffer;
+	t_sprite	*distance;
+	t_texture		texture;;
+}				t_sprites;
+
+typedef struct	s_sprite
+{
+	int		x;
+	int		y;
+}				t_sprite;
+
 typedef struct	s_game
 {
 	int			width;
 	int			height;
-	char		**map;
 	void		*win_ptr;
 	void		*mlx_ptr;
 	char		*msg;
@@ -140,6 +157,7 @@ typedef struct	s_game
 	t_player	*player;
 	t_ray		*rays;
 	t_point		plyr;
+	t_sprites	sprites;
 }				t_game;
 
 int				ft_destroy(int keycode);
@@ -194,7 +212,11 @@ void		    ft_render_celing();
 void    		ft_render_floor();
 double			rad_to_deg(double x1);
 double			deg_to_rad(double x1);
-void	ft_fill_game(void);
-void    ft_wall_texture(t_ray ray, int i);
+void			ft_fill_game(void);
+void			ft_wall_texture(t_ray ray, int i);
+int				ft_isasprite(double x, double y);
+void			ft_init_sprite(void);
+void			ft_counters_sprites(void);
+void			ft_calculate_sprite(void);
 t_game			*g_game;
 #endif

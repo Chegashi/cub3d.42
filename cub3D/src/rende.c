@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/30 19:00:59 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/01 15:32:44 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ void		draw_rect(t_data *data, t_square s)
 
 void		my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
-	char	*dst;	
+	char	*dst;
 
-	if(x < 0 || y < 0 || x >= g_game->width || y >= g_game->height)
+	if (x < 0 || y < 0 || x >= g_game->width || y >= g_game->height)
 		return ;
 	dst = data->addr + (y * data->l_len + x * (data->bpp / 8));
 	*(unsigned int*)dst = color;
@@ -89,20 +89,7 @@ void		ft_render_g_rect(t_data *data, t_rectangle rect)
 			my_mlx_pixel_put(data, i, j, rect.color);
 			j++;
 		}
-			i++;
+		i++;
 	}
 }
 
-void		ft_clean_win()
-{
-	int i;
-	int j;
-
-	i = -1;
-	while (++i < g_game->cube->resolution[0])
-	{
-		j = -1;
-		while (++j < g_game->cube->resolution[1])
-			my_mlx_pixel_put(&(g_game->img) , i, j, 0x0);
-	}	
-}

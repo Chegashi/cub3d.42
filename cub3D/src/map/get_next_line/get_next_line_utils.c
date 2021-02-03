@@ -6,13 +6,13 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 21:37:43 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/20 17:27:41 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/31 19:33:23 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strchr(const char *s, int c)
+char		*ft_strchr(const char *s, int c)
 {
 	int len;
 
@@ -23,7 +23,7 @@ char	*ft_strchr(const char *s, int c)
 	return (0);
 }
 
-char	*ft_strjoin(char *s1, char const *s2)
+char		*ft_strjoin(char *s1, char const *s2)
 {
 	int		s1_len;
 	int		s2_len;
@@ -51,9 +51,9 @@ char	*ft_strjoin(char *s1, char const *s2)
 	return (res);
 }
 
-size_t	ft_strlen(const char *str)
+size_t		ft_strlen(const char *str)
 {
-	int i;
+	int		i;
 
 	i = -1;
 	while (str[++i] != '\0')
@@ -61,10 +61,10 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_char_calloc(size_t cont)
+char		*ft_char_calloc(size_t cont)
 {
 	char	*str;
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	str = (char*)malloc(cont);

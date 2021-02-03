@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/31 16:57:11 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/01/31 19:33:59 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	ft_fill(char *line, t_cub *cub)
 		ft_read_texture(line, &(cub->textures[3]));
 	else if (*line == 'S' && line[1] == 'O' && !(cub->textures[2].is_defined))
 		ft_read_texture(line, &(cub->textures[2]));
-	else if (*line == 'S' && line[1] == ' ' &&  !(cub->textures[4].is_defined))
-		ft_read_texture(line,  &(cub->textures[4]));
+	else if (*line == 'S' && line[1] == ' ' && !(cub->textures[4].is_defined))
+		ft_read_texture(line, &(cub->textures[4]));
 	else if (*line == 'F' && (cub->floor_color[0] == -1))
 		ft_read_color(line, &(cub->floor_color));
 	else if (*line == 'C' && cub->ceilling_color[0] == -1)

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/30 19:28:14 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/01 16:11:35 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int				mouse_hook(int button, int x, int y)
 	return (0);
 }
 
-void			ft_render_player()
+void			ft_render_player(void)
 {
 	t_point		p1;
 	t_point		p2;
