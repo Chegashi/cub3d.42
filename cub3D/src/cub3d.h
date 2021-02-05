@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/03 19:32:50 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/05 19:21:55 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,22 +128,25 @@ typedef struct	s_cub
 	t_player	*player;
 }				t_cub;
 
-typedef	struct	s_sprites
-{
-	int		x;
-	int		y;
-	int		nbr;
-	int		*order;
-	double	*z_buffer;
-	t_sprite	*distance;
-	t_texture		texture;;
-}				t_sprites;
-
 typedef struct	s_sprite
 {
 	int		x;
 	int		y;
+	int		index;
+	double	distance;
+	double	angle;
+	double	hight;
 }				t_sprite;
+
+typedef	struct	s_sprites
+{
+	int			nbr;
+	t_sprite	*sprite_tab;
+	int			*order;
+	double		*z_buffer;
+	// t_sprite	*distance;
+	// t_texture	texture;
+}				t_sprites;
 
 typedef struct	s_game
 {
@@ -218,5 +221,9 @@ int				ft_isasprite(double x, double y);
 void			ft_init_sprite(void);
 void			ft_counters_sprites(void);
 void			ft_calculate_sprite(void);
+void			ft_sprite_distance(void);
+void			ft_sort_sprites(void);
+void			ft_fill_z_buffer(void);
+void			ft_highsprites(void);
 t_game			*g_game;
 #endif

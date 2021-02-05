@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/03 19:23:33 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/05 19:28:05 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_render(void)
 {
 	ft_clean_win();
 	ft_raycasting();
+	ft_sprite_distance();
 	ft_render_wall();
 	ft_render_celing();
 	ft_render_floor();
@@ -92,15 +93,4 @@ void	ft_fill_game(void)
 	g_game->plyr.x = g_game->player->x;
 	g_game->plyr.y = g_game->player->y;
 	ft_init_sprite();
-}
-
-void	ft_calculate_sprite(void)
-{
-	int		i;
-
-	i = -1;
-	while (++i < g_game->sprites.nbr)
-	{
-		
-	}
 }
