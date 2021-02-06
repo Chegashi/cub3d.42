@@ -6,17 +6,43 @@
 #    By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 17:18:52 by mochegri          #+#    #+#              #
-#    Updated: 2020/12/18 02:28:17 by mochegri         ###   ########.fr        #
+#    Updated: 2021/02/06 18:51:07 by mochegri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-C = gcc
 NAME = cub3d
-flags = -Wall -Wextra -Werror
-SRCS = 	main.c
-		get_next_line.c/
-		get_next_line_utils.c/
+
+flags = -Wall -Wextra -Werror -g -fsanitize=address
+
+arg = -I /usr/local/include -L mlx -lmlx -framework opengl -framework appkit -I src/mlx.h src/libmlx.dylib
+
+SRCS = 	src/main.c \
+		src/cub.c \
+		src/math.c \
+		src/player.c \
+		src/raycasting.c \
+		src/rende.c \
+		src/render3d.c \
+		src/sprite.c \
+		src/map/get_config.c \
+		src/map/init_config.c \
+		src/map/print_config.c \
+		src/map/read_map.c \
+		src/map/libft/ft_isdigit.c \
+		src/map/libft/libft.c \
+		src/map/get_next_line/get_next_line.c \
+		src/map/get_next_line/get_next_line_utils.c\
+
 all : $(NAME)
-	gcc -I /usr/local/include -o cub3d main.c read_map.c get_next_line/*.c libft/libft.c cub.c -L ../mlx -lmlx -framework opengl -framework  appkit
+
 $(NAME):
-	all
+	# gcc $(flags) $(SRCS) $(arg) -o $(NAME)
+	gcc  -I /usr/local/include main.c rende.c map/libft/ft_isdigit.c map/libft/libft.c map/get_next_line/get_next_line.c map/get_next_line/get_next_line_utils.c cub.c player.c raycasting.c map/*.c render3d.c sprite.c  math.c -I mlx.h libmlx.dylib -g -fsanitize=address
+
+clean: 
+	rm -rf *.o
+
+fclean: clean
+	rm -rf *.a
+
+re: fclean all

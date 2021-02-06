@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/05 19:21:55 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/05 19:46:19 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ typedef struct	s_sprite
 	double	distance;
 	double	angle;
 	double	hight;
+	double	widht;
 }				t_sprite;
 
 typedef	struct	s_sprites

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:50:29 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/05 19:28:29 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/06 18:28:40 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	ft_init_sprite(void)
 void		ft_sprite_distance(void)
 {
 	int		i;
-	int		k;
 	t_point			p1;
 
 	i = -1;
@@ -73,6 +72,7 @@ void		ft_sprite_distance(void)
 	ft_sort_sprites();
 	ft_fill_z_buffer();
 	ft_highsprites();
+	//ft_width_sprite();
 }
 
 void	ft_sort_sprites(void)
@@ -110,17 +110,15 @@ void	ft_fill_z_buffer(void)
 
 void	ft_highsprites(void)
 {
-	double		dis_sprit;
-	double		sprite_hight;
-	double			dis_wall_p;
+	double		dis_wall_p;
 	int			i;
 
 	i = -1;
 	while (++i < g_game->sprites.nbr)
 	{
 		dis_wall_p = (g_game->cube->resolution[1] / 2) * tan(FOV_V / 2);
-		g_game->sprites.sprite_tab[i].hight = (TILE_SIZE / g_game->sprites.sprite_tab[i].distance)
-			* dis_wall_p;
+		g_game->sprites.sprite_tab[i].hight = (TILE_SIZE
+		/ g_game->sprites.sprite_tab[i].distance) * dis_wall_p;
 		g_game->rays[i].wall_start = ((g_game->cube->resolution[1] / 2)
 				- g_game->sprites.sprite_tab[i].hight / 2);
 	}
