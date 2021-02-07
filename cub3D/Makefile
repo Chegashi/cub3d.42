@@ -6,15 +6,13 @@
 #    By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 17:18:52 by mochegri          #+#    #+#              #
-#    Updated: 2021/02/06 18:49:52 by mochegri         ###   ########.fr        #
+#    Updated: 2021/02/07 17:21:31 by mochegri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME = cub3D
 
 flags = -Wall -Wextra -Werror -g -fsanitize=address
-
-arg = -I /usr/local/include -L mlx -lmlx -framework opengl -framework appkit -I src/mlx.h src/libmlx.dylib
 
 SRCS = 	src/main.c \
 		src/cub.c \
@@ -31,18 +29,24 @@ SRCS = 	src/main.c \
 		src/map/libft/ft_isdigit.c \
 		src/map/libft/libft.c \
 		src/map/get_next_line/get_next_line.c \
-		src/map/get_next_line/get_next_line_utils.c\
+		src/map/get_next_line/get_next_line_utils.c \
+		
+MAND = $(SRC)
 
 all : $(NAME)
 
 $(NAME):
-	# gcc $(flags) $(SRCS) $(arg) -o $(NAME)
+	@gcc $(flags) -c $(SRCS)
+	@ar -rc cub.a *.o
+	@ranlib cub.a 
+	@gcc $(flags) -I /usr/local/include cub.a -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit src/libmlx.dylib -o cub3D
+	@rm *.o
+	@rm cub.a
 	
+clean:
+	@rm -f $(SRC:.c=.o) $(MAND:.c=.o) cub3D
 
-clean: 
-	rm -rf *.o
+fclean:	clean
+	@rm -f $(NAME)
 
-fclean: clean
-	rm -rf *.a
-
-re: fclean all
+re:		fclean all
