@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/07 11:39:01 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/07 19:28:50 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,12 @@
 
 int		main(int ac, char **av)
 {
-	if (ac != 2)
-		ft_putstr("ereur dargument\n");
-	else
-	{
+		ft_check_arg(ac, av);
 		ft_setup(av[1]);
 		mlx_key_hook(g_game->win_ptr, key_hook, g_game);
 		mlx_hook(g_game->win_ptr, 2, 0, key_hook, g_game);
 	//	mlx_loop_hook(g_game->mlx_ptr, key_hook, g_game);
 		mlx_loop(g_game->mlx_ptr);
-	}
 	//ft_destroy(1, game);
 	return (0);
 }
@@ -58,8 +54,7 @@ void	ft_render(void)
 	ft_render_wall();
 	ft_render_celing();
 	ft_render_floor();
-	//ft_calculate_sprite();
-	//ft_render_sprite();
+	ft_render_sprite();
 	//ft_render_map();
 	//ft_render_rays();
 	//ft_render_player();
@@ -71,15 +66,15 @@ void	ft_fill_game(void)
 {
 	int		*resol;
 
-	// int		sizex;
-	// int		sizey;
+	int		sizex;
+	int		sizey;
 	
-	//mlx_get_screen_size(game->mlx_ptr, &sizex, &sizey);
-	//if (game->cube->resolution[0] > sizex || game->cube->resolution[1])
-	//{
-	// 	game->cube->resolution[0] = sizex;
-	// 	game->cube->resolution[1] = sizey;
-	//}
+	mlx_get_screen_size(g_game->mlx_ptr, &sizex, &sizey);
+	if (g_game->cube->resolution[0] > sizex || g_game->cube->resolution[1] > sizey)
+	{
+		g_game->cube->resolution[0] = sizex;
+		g_game->cube->resolution[1] = sizey;
+	}
 	resol = g_game->cube->resolution;
 	g_game->win_ptr = mlx_new_window(g_game->mlx_ptr, resol[0],
 	resol[1], "Cub3d");
@@ -93,4 +88,12 @@ void	ft_fill_game(void)
 	g_game->plyr.x = g_game->player->x;
 	g_game->plyr.y = g_game->player->y;
 	ft_init_sprite();
+}
+
+void	ft_check_arg(int ac, char **av)
+{
+	if (ac < 2 || ac > 3)
+		ft_putstr("ereur dargument\n");
+	if (strcmp(av[3],"-save"))
+		printf("");
 }

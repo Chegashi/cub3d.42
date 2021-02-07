@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/07 16:36:19 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/07 19:29:28 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ typedef struct	s_sprite
 	double	angle;
 	double	hight;
 	double	widht;
+	double	x_offset;
+	double	y_offset;
 }				t_sprite;
 
 typedef	struct	s_sprites
@@ -197,6 +199,7 @@ void			ft_render_line(t_data *data, t_point p1, t_point p2, int color);
 void			ft_render_rays();
 t_point			ft_horis_interst(t_ray *ray);
 t_point			ft_verti_intersect(t_ray *ray);
+void	ft_check_arg(int ac, char **av);
 void			ft_cast_ray(t_ray *ray);
 void			ft_raycasting();
 void			ft_normilised(double *angle);
@@ -226,5 +229,6 @@ void			ft_sprite_distance(void);
 void			ft_sort_sprites(void);
 void			ft_fill_z_buffer(void);
 void			ft_highsprites(void);
+void	ft_render_sprite(void);
 t_game			*g_game;
 #endif
