@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/07 19:28:50 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/08 15:55:41 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	ft_render(void)
 {
 	ft_clean_win();
 	ft_raycasting();
-	ft_sprite_distance();
 	ft_render_wall();
 	ft_render_celing();
 	ft_render_floor();
@@ -92,8 +91,22 @@ void	ft_fill_game(void)
 
 void	ft_check_arg(int ac, char **av)
 {
+	char s[50];
+
+	*s = 0;
 	if (ac < 2 || ac > 3)
-		ft_putstr("ereur dargument\n");
-	if (strcmp(av[3],"-save"))
-		printf("");
+		ft_strcpy(s,"ereur dargument\n");
+	else if (!ft_strcmp(av[1] + ft_strlen(av[1]) - 4, ".cub"))
+		ft_strcpy(s,"ereur extention map file\n");
+	else if (ft_strcmp(av[2], "--save"))
+		ft_scren_shot();
+	else
+		ft_strcpy(s,"ereur dans le troisieme arg\n");
+	if (!*s)
+	exit(1);
+}
+
+void	ft_scren_shot(void)
+{
+	//todo:
 }

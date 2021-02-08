@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/07 19:29:28 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/08 16:43:01 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,8 @@ typedef struct	s_sprite
 	double	distance;
 	double	angle;
 	double	hight;
-	double	widht;
+	double	width;
+	double	size;
 	double	x_offset;
 	double	y_offset;
 }				t_sprite;
@@ -224,11 +225,13 @@ void			ft_wall_texture(t_ray ray, int i);
 int				ft_isasprite(double x, double y);
 void			ft_init_sprite(void);
 void			ft_counters_sprites(void);
-void			ft_calculate_sprite(void);
+void			ft_sprite_calcul(void);
 void			ft_sprite_distance(void);
 void			ft_sort_sprites(void);
 void			ft_fill_z_buffer(void);
 void			ft_highsprites(void);
-void	ft_render_sprite(void);
+void			ft_render_sprite(void);
+void			ft_scren_shot(void);
+void			ft_draw_sprites(void);
 t_game			*g_game;
 #endif
