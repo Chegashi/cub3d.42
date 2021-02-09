@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:50:29 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/09 19:07:46 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/09 19:50:47 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,21 +88,6 @@ void	ft_sort_sprites(void)
 	}
 }
 
-void	ft_highsprites(void)
-{
-	double		dis_wall_p;
-	int			i;
-
-	i = -1;
-	while (++i < g_game->sprites.nbr)
-	{
-		dis_wall_p = (g_game->cube->resolution[1] / 2) * tan(FOV_V / 2);
-		g_game->sprites.sprite_tab[i].hight = (TILE_SIZE
-		/ g_game->sprites.sprite_tab[i].distance) * dis_wall_p;
-		g_game->rays[i].wall_start = ((g_game->cube->resolution[1] / 2)
-				- g_game->sprites.sprite_tab[i].hight / 2);
-	}
-}
 
 void	ft_render_sprite(void)
 {
@@ -147,10 +132,10 @@ void	ft_draw_sprites(t_sprite	sprite)
 		{
 			if (sprite.y_offset + j <= 0 || sprite.y_offset + j >= g_game->height)
 				continue;
-			color = texture.color[(int)(TILE_SIZE * ((TILE_SIZE * j / sprite.size) +
-					(TILE_SIZE * i / sprite.size)))];
+			color = texture.color[(int)((TILE_SIZE * TILE_SIZE) *
+			(j / sprite.size + i / sprite.size))];
 			if(color)
-				my_mlx_pixel_put(&(g_game->img), i, j, color);
+				my_mlx_pixel_put(&(g_game->img), i + sprite.x_offset, j + sprite.y_offset, color);
 			//printf("[%d]\t{%d\t%d\t}\n",color, i,j);
 		}
 	}
