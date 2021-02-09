@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 23:25:25 by abort             #+#    #+#             */
-/*   Updated: 2021/01/30 09:24:57 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:40:34 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,16 @@ double	deg_to_rad(double x1)
 double	rad_to_deg(double x1)
 {
 	return (x1 * 180 / PI);
+}
+
+double	ft_sprite_angl(double y, double x)
+{
+	double	angle;
+
+	angle = atan2f(y - g_game->plyr.y, x - g_game->plyr.x);
+	while (angle - g_game->player->rotationangle < -1 * PI)
+		angle += 2 * PI;
+	while (angle - g_game->player->rotationangle >  PI)
+		angle -= 2 * PI;
+	return (angle);
 }

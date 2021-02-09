@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/08 16:43:01 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:53:35 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,7 @@ void			ft_fill_z_buffer(void);
 void			ft_highsprites(void);
 void			ft_render_sprite(void);
 void			ft_scren_shot(void);
-void			ft_draw_sprites(void);
+void			ft_draw_sprites(t_sprite	sprite);
+double	ft_sprite_angl(double y, double x);
 t_game			*g_game;
 #endif

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/01 16:05:43 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:32:33 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void			ft_raycasting(void)
 		ft_cast_ray(&(g_game->rays[clomn_id]));
 		g_game->rays[clomn_id + 1].angl = g_game->rays[clomn_id].angl
 		+ FOV_H / g_game->width;
+		g_game->sprites.z_buffer[clomn_id] = g_game->rays[clomn_id].dist;
 	}
 }
 
