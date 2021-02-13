@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:08:20 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/09 15:49:23 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/13 18:26:17 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,16 @@
 
 void				ft_render_wall(void)
 {
-	double			dis_wall_p;
-	double			wall_h;
-	double			corect_dist;
-	int				i;
+	int		i;
+	t_ray	ray;
 
 	i = -1;
-	while (++i < g_game->cube->resolution[0])
+	while(++i < g_game->width)
 	{
-		corect_dist = g_game->rays[i].dist *
-			cos(g_game->rays[i].angl - g_game->player->rotationangle);
-		dis_wall_p = (g_game->cube->resolution[1] / 2) * tan(FOV_V / 2);
-		wall_h = (TILE_SIZE / corect_dist) * dis_wall_p;
-		g_game->rays[i].wall_start = ((g_game->cube->resolution[1] / 2)
-				- wall_h / 2);
-		g_game->rays[i].wall_h = wall_h;
+		ray = g_game->rays[i];
 		ft_wall_texture(g_game->rays[i], i);
 	}
+
 }
 
 void				ft_render_celing(void)
@@ -50,7 +43,7 @@ void				ft_render_celing(void)
 		p1.x = i;
 		p1.y = 0;
 		p2.x = i;
-		p2.y = g_game->rays[i].wall_start;
+		p2.y = g_game->rays[i].top_pixel;
 		ft_render_line(&(g_game->img), p1, p2, color);
 	}
 }
@@ -69,7 +62,7 @@ void				ft_render_floor(void)
 	while (++i < g_game->cube->resolution[0])
 	{
 		p1.x = i;
-		p1.y = g_game->rays[i].wall_start + g_game->rays[i].wall_h;
+		p1.y = g_game->rays[i].bottom_pixel;
 		p2.x = i;
 		p2.y = g_game->height;
 		ft_render_line(&(g_game->img), p1, p2, color);
@@ -90,16 +83,15 @@ void				ft_wall_texture(t_ray ray, int i)
 	t_texture		texture;
 
 	texture = g_game->cube->textures[ray.data];
-	j = ((ray.wall_start < 0) ? 0 : ray.wall_start);
-	x_off = (!fmod(ray.end.x, TILE_SIZE))
-		? ray.end.y : ray.end.x;
+	j = (int)ray.top_pixel;
+	x_off = (!fmod(ray.end.x, TILE_SIZE)) ? ray.end.y : ray.end.x;
 	x_off = fmod(x_off, TILE_SIZE);
 	y_step = texture.hight / ray.wall_h;
 	x_off = (x_off / TILE_SIZE) * texture.width;
-	y_off = (g_game->height / 2 - ray.wall_h / 2 > 0) ? 0 :
-		fabs(g_game->height / 2 - ray.wall_h / 2)
-		* texture.width / ray.wall_h;
-	while (++j < ray.wall_start + ray.wall_h)
+	y_off = (g_game->height / 2 - ray.wall_h / 2 > 0) ?
+	0 : fabs(g_game->height / 2 - ray.wall_h / 2)
+	* texture.width / ray.wall_h;
+	while (++j < ray.bottom_pixel)
 	{
 		if (!(x_off < 0 || x_off > texture.width
 					|| y_off < 0 || y_off > texture.hight))

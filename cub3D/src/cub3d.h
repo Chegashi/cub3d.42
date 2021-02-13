@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/09 17:53:35 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/13 17:45:57 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,9 @@ typedef	struct	s_ray
 	int			data;
 	double		angl;
 	double		dist;
-	double		wall_start;
 	double		wall_h;
+	double		top_pixel;
+	double		bottom_pixel;
 	t_point		end;
 }				t_ray;
 
@@ -221,6 +222,7 @@ void    		ft_render_floor();
 double			rad_to_deg(double x1);
 double			deg_to_rad(double x1);
 void			ft_fill_game(void);
+void	ft_3dgenerate(t_ray *ray);
 void			ft_wall_texture(t_ray ray, int i);
 int				ft_isasprite(double x, double y);
 void			ft_init_sprite(void);

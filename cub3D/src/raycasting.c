@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/09 17:32:33 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/13 18:41:34 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,28 @@ void			ft_raycasting(void)
 		ft_cast_ray(&(g_game->rays[clomn_id]));
 		g_game->rays[clomn_id + 1].angl = g_game->rays[clomn_id].angl
 		+ FOV_H / g_game->width;
-		g_game->sprites.z_buffer[clomn_id] = g_game->rays[clomn_id].dist;
+		ft_3dgenerate(&(g_game->rays[clomn_id]));
 	}
+}
+
+void	ft_3dgenerate(t_ray *ray)
+{
+	double	corect_dis;
+	double	dis_wall_p;
+
+	corect_dis = ray->dist * cos(ray->angl - g_game->player->rotationangle);
+	dis_wall_p = (g_game->width / 2) * tan(FOV_V / 2);
+	ray->wall_h = (TILE_SIZE / corect_dis) * dis_wall_p;
+	ray->wall_h *= 3;
+	ray->top_pixel = (g_game->height / 2) - ray->wall_h /2;
+	ray->top_pixel *= (ray->top_pixel < 0) ? 0 : 1;
+	ray->bottom_pixel = (g_game->height / 2) + ray->wall_h /2;
+	ray->bottom_pixel = (ray->bottom_pixel > g_game->height) ? g_game->height
+	: ray->bottom_pixel;
+	
+	//printf("top:%lf\tbottom:%lf\thight:%lf\tdif:%lf\n",
+	// ray->top_pixel, ray->bottom_pixel, ray->wall_h,
+	// ray->wall_h - (ray->bottom_pixel -ray->top_pixel));
 }
 
 t_point			ft_horis_interst(t_ray *ray)

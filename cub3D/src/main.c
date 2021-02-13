@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/08 15:55:41 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/13 18:50:44 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ void	ft_render(void)
 {
 	ft_clean_win();
 	ft_raycasting();
-	ft_render_wall();
 	ft_render_celing();
+	ft_render_wall();
 	ft_render_floor();
-	ft_render_sprite();
+	//ft_render_sprite();
 	//ft_render_map();
 	//ft_render_rays();
 	//ft_render_player();
