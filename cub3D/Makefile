@@ -6,7 +6,7 @@
 #    By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 17:18:52 by mochegri          #+#    #+#              #
-#    Updated: 2021/02/07 17:21:31 by mochegri         ###   ########.fr        #
+#    Updated: 2021/02/15 15:57:56 by mochegri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,3 +50,6 @@ fclean:	clean
 	@rm -f $(NAME)
 
 re:		fclean all
+
+run: re
+	./cub3d maps/1.cub

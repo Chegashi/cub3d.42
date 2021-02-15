@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/15 14:15:59 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/15 17:31:37 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void			ft_raycasting(void)
 
 	clomn_id = -1;
 	g_game->rays[0].angl = g_game->player->rotationangle - FOV_H / 2;
+	g_game->dis_plan = (g_game->width / 2) * tan(FOV_V / 2);
 	while (++clomn_id < g_game->width)
 	{
 		ft_normilised(&(g_game->rays[clomn_id].angl));
@@ -32,11 +33,9 @@ void			ft_raycasting(void)
 void	ft_3dgenerate(t_ray *ray)
 {
 	double	corect_dis;
-	double	dis_wall_p;
 
 	corect_dis = ray->dist * cos(ray->angl - g_game->player->rotationangle);
-	dis_wall_p = (g_game->width / 2) * tan(FOV_V / 2);
-	ray->wall_h = (TILE_SIZE / corect_dis) * dis_wall_p;
+	ray->wall_h = (TILE_SIZE / corect_dis) * g_game->dis_plan;
 	ray->wall_h *= 3;
 	ray->top_pixel = (g_game->height / 2) - ray->wall_h /2;
 	ray->top_pixel *= (ray->top_pixel < 0) ? 0 : 1;

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:50:29 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/15 15:34:42 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/15 18:05:16 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_sort_sprites(void)
 	{
 		p1.x = g_game->sprites.sprite_tab[j].x;
 		p1.y = g_game->sprites.sprite_tab[j].y;
-		g_game->sprites.sprite_tab[j].distance = ft_dst_2pnt(p1,g_game->plyr);
+		g_game->sprites.sprite_tab[j].distance = ft_dst_2pnt(p1,g_game->plyr) - TILE_SIZE/2;
 	}
 	i = g_game->sprites.nbr;
 	while (--i >= 0)
@@ -86,36 +86,42 @@ void	ft_sort_sprites(void)
 void	ft_render_sprite(void)
 {
 	int			i;
-	// double		per_distance;
+	double		per_distance;
 	t_sprite	*sprite;
-	// double	sprite_ngl;
-	// t_point p1,p2;
+	double	sprite_ngl;
+	t_point p1,p2;
 	i = -1;
 	ft_sort_sprites();
 	sprite = (g_game->sprites.sprite_tab);
 	while (++i < g_game->sprites.nbr)
 	{
-		*sprite = g_game->sprites.sprite_tab[i];
-		(*sprite).angle = ft_sprite_angl((*sprite).y, (*sprite).x);
-(		*sprite).is_visible = ((*sprite).angle < (FOV_H / 2) + EPSILON) ? 1 : 0;
-		per_distance = sprite.distance * cos(sprite.angle);
-		sprite.size = (TILE_SIZE / per_distance) * (g_game->width / 2) * tan(FOV_V / 2);
-		// sprite.size *= 3;
-		sprite.top_y = (g_game->height / 2) - (sprite.size / 2);
-		sprite.top_y *= (sprite.top_y < 0) ? 0 : 1;
-		sprite.bottom_y = (g_game->height / 2) + (sprite.size / 2);
-		sprite.bottom_y = (sprite.top_y > g_game->height) ? g_game->height : sprite.bottom_y;
-		sprite_ngl = atan2f(sprite.y - g_game->plyr.y, sprite.x - g_game->plyr.y) - g_game->player->rotationangle;
-		sprite.scren_pos = tan(sprite_ngl) * (g_game->width / 2) * tan(FOV_V / 2);
-		sprite.leeft_x = g_game->width /2 + sprite.scren_pos - sprite.size /2;
-		sprite.right_x = sprite.leeft_x + sprite.size;
-		p1.x = 0;
-		p2.x = 0;
-		p1.y = sprite.top_y;
-		p2.y = sprite.bottom_y;
-		ft_render_line(&(g_game->img), p1, p2, 0x000099);
-		ft_draw_sprites(sprite);0
-		printf("ang:%lf\t\tis_v:%d\n", sprite.angle, sprite.is_visible);
+		sprite = g_game->sprites.sprite_tab + i;
+		sprite->angle = ft_sprite_angl(sprite->y, sprite->x);
+		sprite->is_visible = (sprite->angle < (FOV_H / 2) + 0.05 ) ? 1 : 0;
+		
+		if(sprite->is_visible)
+		{
+			per_distance = sprite->distance * cos(sprite->angle);
+			sprite->size = (TILE_SIZE / per_distance) * g_game->dis_plan;
+			sprite->size *= 3;
+			sprite->top_y = (g_game->height / 2) - (sprite->size / 2);
+			sprite->top_y *= (sprite->top_y < 0) ? 0 : 1;
+			sprite->bottom_y = (g_game->height / 2) + (sprite->size / 2);
+			sprite->bottom_y = (sprite->top_y > g_game->height) ? g_game->height : sprite->bottom_y;
+			sprite_ngl = atan2f(sprite->y - g_game->plyr.y, sprite->x - g_game->plyr.x) - g_game->player->rotationangle;
+			sprite->scren_pos = tan(sprite_ngl) * g_game->dis_plan;
+			sprite->leeft_x = g_game->width /2 + sprite->scren_pos;
+			sprite->right_x = sprite->leeft_x + sprite->size;
+			p1.x = 0;
+			p2.x = 0;
+			p1.y = sprite->top_y;
+			p2.y = sprite->bottom_y;
+			printf("angl:%lf\t\tpos_x:%lf\t\tply:[%lf,%lf]\tpos[%d,%d]\n",
+			rad_to_deg(sprite->angle), sprite->scren_pos, g_game->plyr.x,g_game->plyr.y,sprite->x,sprite->y);
+			ft_draw_sprites(*sprite);
+		}
+		
+		//printf("ang:%lf\t\tis_v:%d\n", sprite->angle, sprite->is_visible);
 	}
 }
 

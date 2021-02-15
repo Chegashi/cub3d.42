@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/15 15:30:22 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/15 17:22:45 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,10 @@ void	ft_render(void)
 	ft_render_wall();
 	ft_render_floor();
 	ft_render_sprite();
-	ft_render_map();
-	ft_render_rays();
-	ft_render_player();
-	ft_rendr_sp_map();
+	// ft_render_map();
+	// ft_render_rays();
+	// ft_render_player();
+	// ft_rendr_sp_map();
 	mlx_put_image_to_window(g_game->mlx_ptr, g_game->win_ptr,
 	g_game->img.img, 0, 0);
 }
@@ -79,7 +79,6 @@ void		ft_rendr_sp_map(void)
 		sqr.y = tiley;
 		sqr.lent = TILE_SIZE;
 		draw_rect(&(g_game->img), sqr);
-		printf("N:%d :is:%d\n", i, g_game->sprites.sprite_tab[i].is_visible);
 	}
 }
 

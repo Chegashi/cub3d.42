@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/15 15:04:24 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/15 17:28:22 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ typedef struct	s_game
 	void		*win_ptr;
 	void		*mlx_ptr;
 	char		*msg;
+	double		dis_plan;
 	t_cub		*cube;
 	t_data		img;
 	t_player	*player;
