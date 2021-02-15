@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/13 18:41:34 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/15 14:15:59 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,6 @@ void	ft_3dgenerate(t_ray *ray)
 	ray->bottom_pixel = (ray->bottom_pixel > g_game->height) ? g_game->height
 	: ray->bottom_pixel;
 	
-	//printf("top:%lf\tbottom:%lf\thight:%lf\tdif:%lf\n",
-	// ray->top_pixel, ray->bottom_pixel, ray->wall_h,
-	// ray->wall_h - (ray->bottom_pixel -ray->top_pixel));
 }
 
 t_point			ft_horis_interst(t_ray *ray)
@@ -115,9 +112,9 @@ void			ft_cast_ray(t_ray *ray)
 	h_pnt = ft_horis_interst(ray);
 	v_pnt = ft_verti_intersect(ray);
 	h_dist = (ray->is_facing & HIT_HORIS) ?
-	ft_dis_2point(g_game->plyr, h_pnt) : INT_MAX;
+	ft_dst_2pnt(g_game->plyr, h_pnt) : INT_MAX;
 	v_dist = (ray->is_facing & HIT_VERTI) ?
-	ft_dis_2point(g_game->plyr, v_pnt) : INT_MAX;
+	ft_dst_2pnt(g_game->plyr, v_pnt) : INT_MAX;
 	ray->end = (h_dist < v_dist) ? h_pnt : v_pnt;
 	ray->dist = (h_dist < v_dist) ? h_dist : v_dist;
 	ray->is_facing &= (h_dist < v_dist) ? ~HIT_VERTI : ~HIT_HORIS;

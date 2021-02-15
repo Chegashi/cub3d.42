@@ -6,14 +6,14 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 23:25:25 by abort             #+#    #+#             */
-/*   Updated: 2021/02/09 17:40:34 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:20:03 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <math.h>
 #include "cub3d.h"
 
-double	ft_dis_2point(t_point p1, t_point p2)
+double	ft_dst_2pnt(t_point p1, t_point p2)
 {
 	return (sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y)
 				* (p1.y - p2.y)));
@@ -57,10 +57,11 @@ double	ft_sprite_angl(double y, double x)
 {
 	double	angle;
 
-	angle = atan2f(y - g_game->plyr.y, x - g_game->plyr.x);
-	while (angle - g_game->player->rotationangle < -1 * PI)
+	angle = g_game->player->rotationangle -
+	atan2f(y - g_game->plyr.y, x - g_game->plyr.x);
+	while (angle < -1 * PI)
 		angle += 2 * PI;
-	while (angle - g_game->player->rotationangle >  PI)
+	while (angle >  PI)
 		angle -= 2 * PI;
-	return (angle);
+	return (fabs(angle));
 }

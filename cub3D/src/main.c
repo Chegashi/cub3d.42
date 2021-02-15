@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/13 18:50:44 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:30:22 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,34 @@ void	ft_render(void)
 	ft_render_celing();
 	ft_render_wall();
 	ft_render_floor();
-	//ft_render_sprite();
-	//ft_render_map();
-	//ft_render_rays();
-	//ft_render_player();
+	ft_render_sprite();
+	ft_render_map();
+	ft_render_rays();
+	ft_render_player();
+	ft_rendr_sp_map();
 	mlx_put_image_to_window(g_game->mlx_ptr, g_game->win_ptr,
 	g_game->img.img, 0, 0);
+}
+
+void		ft_rendr_sp_map(void)
+{
+		int			i;
+	int			tilex;
+	int			tiley;
+	t_square	sqr;
+
+	i = -1;
+	while (++i < g_game->sprites.nbr)
+	{
+		tilex = g_game->sprites.sprite_tab[i].x  ;
+		tiley = g_game->sprites.sprite_tab[i].y  ;
+		sqr.color = (g_game->sprites.sprite_tab[i].is_visible) ? 0xff00 : 0x00000ff;
+		sqr.x = tilex;
+		sqr.y = tiley;
+		sqr.lent = TILE_SIZE;
+		draw_rect(&(g_game->img), sqr);
+		printf("N:%d :is:%d\n", i, g_game->sprites.sprite_tab[i].is_visible);
+	}
 }
 
 void	ft_fill_game(void)

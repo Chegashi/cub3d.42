@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/13 18:51:13 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:24:07 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_player		*ft_init_player(t_cub *cub)
 	player->turndirection = 0;
 	player->walkdirection = 0;
 	player->walkspeed = TILE_SIZE / 3;
-	player->turnspeed = 10 * (PI / 180);
+	player->turnspeed = 5 * (PI / 180);
 	player->z = 0;
 	return (player);
 }

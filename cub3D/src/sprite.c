@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:50:29 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/09 19:50:47 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:34:42 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,28 +41,24 @@ void	ft_init_sprite(void)
 	ft_counters_sprites();
 	g_game->sprites.sprite_tab = (t_sprite*)malloc(sizeof(t_sprite) *
 	g_game->sprites.nbr);
-	g_game->sprites.order = (int*)malloc(sizeof(int) * g_game->sprites.nbr);
-	g_game->sprites.z_buffer = (double*)malloc(sizeof(double) * g_game->width);
 	while (++i < g_game->cube->nbr_ligne)
 	{
 		j = 0;
 		while(++j < g_game->cube->nbr_column)
             if (g_game->cube->map[i][j] == '2')
             {
-				g_game->sprites.sprite_tab[k].x = j * TILE_SIZE;
-				g_game->sprites.sprite_tab[k].y = i * TILE_SIZE;
-				g_game->sprites.sprite_tab[k].index = k;
+				g_game->sprites.sprite_tab[k].x = (j + 1 / 2 )* TILE_SIZE;
+				g_game->sprites.sprite_tab[k].y = (i + 1 / 2 )* TILE_SIZE;
 				k++;
 			}
 	}
 }
 
-
 void	ft_sort_sprites(void)
 {
 	int		i;
 	int		j;
-	double	tmp;
+	t_sprite	tmp;
 	t_point		p1;
 
 	j = -1;
@@ -70,8 +66,7 @@ void	ft_sort_sprites(void)
 	{
 		p1.x = g_game->sprites.sprite_tab[j].x;
 		p1.y = g_game->sprites.sprite_tab[j].y;
-		g_game->sprites.order[j] = j;
-		g_game->sprites.sprite_tab[j].distance = ft_dis_2point(p1,g_game->plyr);
+		g_game->sprites.sprite_tab[j].distance = ft_dst_2pnt(p1,g_game->plyr);
 	}
 	i = g_game->sprites.nbr;
 	while (--i >= 0)
@@ -81,34 +76,46 @@ void	ft_sort_sprites(void)
 			if (g_game->sprites.sprite_tab[j].distance
 			< g_game->sprites.sprite_tab[j + 1].distance)
 			{
-				tmp = g_game->sprites.order[j + 1];
-				g_game->sprites.order[j + 1] = g_game->sprites.order[j];
-				g_game->sprites.order[j] = tmp;
+				tmp = g_game->sprites.sprite_tab[j + 1];
+				g_game->sprites.sprite_tab[j + 1] = g_game->sprites.sprite_tab[j];
+				g_game->sprites.sprite_tab[j] = tmp;
 			}
 	}
 }
 
-
 void	ft_render_sprite(void)
 {
 	int			i;
-	
-	t_sprite	sprite;
-
+	// double		per_distance;
+	t_sprite	*sprite;
+	// double	sprite_ngl;
+	// t_point p1,p2;
 	i = -1;
 	ft_sort_sprites();
-	sprite = *(g_game->sprites.sprite_tab);
+	sprite = (g_game->sprites.sprite_tab);
 	while (++i < g_game->sprites.nbr)
 	{
-		sprite = g_game->sprites.sprite_tab[i];
-		sprite.angle = ft_sprite_angl(sprite.y, sprite.x);
-		sprite.size = (g_game->width / sprite.distance) * TILE_SIZE;
-		sprite.y_offset = g_game->height / 2 - (int)sprite.size / 2;
-		sprite.x_offset = (rad_to_deg(sprite.angle
-		- g_game->player->rotationangle) * g_game->width)
-		/ TILE_SIZE + g_game->width / 2.0f + sprite.size / 2.0f;
-		ft_draw_sprites(sprite);
-		//printf("dis:%l")
+		*sprite = g_game->sprites.sprite_tab[i];
+		(*sprite).angle = ft_sprite_angl((*sprite).y, (*sprite).x);
+(		*sprite).is_visible = ((*sprite).angle < (FOV_H / 2) + EPSILON) ? 1 : 0;
+		per_distance = sprite.distance * cos(sprite.angle);
+		sprite.size = (TILE_SIZE / per_distance) * (g_game->width / 2) * tan(FOV_V / 2);
+		// sprite.size *= 3;
+		sprite.top_y = (g_game->height / 2) - (sprite.size / 2);
+		sprite.top_y *= (sprite.top_y < 0) ? 0 : 1;
+		sprite.bottom_y = (g_game->height / 2) + (sprite.size / 2);
+		sprite.bottom_y = (sprite.top_y > g_game->height) ? g_game->height : sprite.bottom_y;
+		sprite_ngl = atan2f(sprite.y - g_game->plyr.y, sprite.x - g_game->plyr.y) - g_game->player->rotationangle;
+		sprite.scren_pos = tan(sprite_ngl) * (g_game->width / 2) * tan(FOV_V / 2);
+		sprite.leeft_x = g_game->width /2 + sprite.scren_pos - sprite.size /2;
+		sprite.right_x = sprite.leeft_x + sprite.size;
+		p1.x = 0;
+		p2.x = 0;
+		p1.y = sprite.top_y;
+		p2.y = sprite.bottom_y;
+		ft_render_line(&(g_game->img), p1, p2, 0x000099);
+		ft_draw_sprites(sprite);0
+		printf("ang:%lf\t\tis_v:%d\n", sprite.angle, sprite.is_visible);
 	}
 }
 
@@ -117,26 +124,30 @@ void	ft_draw_sprites(t_sprite	sprite)
 	int	i;
 	int j;
 	int color;
+	int dist_top;
 	t_texture texture;
 
-	i = -1;
-	texture = g_game->cube->textures[1];
-	i =-1;
-	while (++i < sprite.size)
+	i = sprite.leeft_x - 1;
+	texture = g_game->cube->textures[4];
+	while (++i < sprite.right_x)
 	{
-		if (sprite.x_offset + i < 0 || sprite.x_offset + i >= g_game->width ||
-		sprite.distance >= g_game->sprites.z_buffer[(int)(sprite.x_offset + i)])
-			continue;
-		j = -1;
-		while(++j < sprite.size)
+		sprite.x_offset = (i - sprite.leeft_x) * (texture.width / sprite.size);
+		j = sprite.top_y - 1;
+		if(sprite.x_offset < 0)
+			sprite.x_offset = 0;
+		while(++j < sprite.bottom_y)
 		{
-			if (sprite.y_offset + j <= 0 || sprite.y_offset + j >= g_game->height)
-				continue;
-			color = texture.color[(int)((TILE_SIZE * TILE_SIZE) *
-			(j / sprite.size + i / sprite.size))];
-			if(color)
-				my_mlx_pixel_put(&(g_game->img), i + sprite.x_offset, j + sprite.y_offset, color);
-			//printf("[%d]\t{%d\t%d\t}\n",color, i,j);
+			if (i > 0 && i < g_game->width && j > 0 && j < g_game->height)
+			{
+				dist_top = j + sprite.size / 2 - g_game->height / 2;
+				sprite.y_offset = dist_top * (texture.hight /sprite.size);
+				color = texture.color[(texture.width * sprite.y_offset) + sprite.x_offset];
+				if(color)
+				//printf("%d\t%d\t\t[%d, %d]\n",sprite.x_offset,sprite.y_offset , texture.hight, texture.width);
+				my_mlx_pixel_put(&(g_game->img), i, j, color);
+		
+		}	
+		
 		}
 	}
 }

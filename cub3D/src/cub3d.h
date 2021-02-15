@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/13 17:45:57 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:04:24 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define HIT_HORIS 16
 # define HIT_VERTI 32
 # define INT_MAX 2147483647
-
+# define EPSILON 0.2
 typedef struct	s_data
 {
 	void		*img;
@@ -133,14 +133,17 @@ typedef struct	s_sprite
 {
 	int		x;
 	int		y;
-	int		index;
+	int		is_visible;
 	double	distance;
 	double	angle;
-	double	hight;
-	double	width;
 	double	size;
-	double	x_offset;
-	double	y_offset;
+	double	top_y;
+	double	bottom_y;
+	double	scren_pos;
+	double	right_x;
+	double	leeft_x;
+	int	x_offset;
+	int	y_offset;
 }				t_sprite;
 
 typedef	struct	s_sprites
@@ -209,7 +212,7 @@ void			ft_destroy_cub(t_cub *cub);
 void    		ft_render_wall();
 void			ft_render_g_rect(t_data *data, t_rectangle rect);
 void			ft_clean_win();
-double			ft_dis_2point(t_point p1, t_point p2);
+double			ft_dst_2pnt(t_point p1, t_point p2);
 double			ft_min(double x1, double x2);
 double			ft_max(double x1, double x2);
 t_cub			*ft_read_cub(char *s);
@@ -235,6 +238,7 @@ void			ft_highsprites(void);
 void			ft_render_sprite(void);
 void			ft_scren_shot(void);
 void			ft_draw_sprites(t_sprite	sprite);
+void		ft_rendr_sp_map(void);
 double	ft_sprite_angl(double y, double x);
 t_game			*g_game;
 #endif
