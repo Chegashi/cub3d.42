@@ -1,1 +1,0 @@
-gcc -Wall -Wextra -Werror -I /usr/local/include -o cub3d main.c rende.c map/libft/ft_isdigit.c map/libft/libft.c map/get_next_line/get_next_line.c map/get_next_line/get_next_line_utils.c cub.c player.c raycasting.c map/*.c -I mlx.h libmlx.dylib && ./cub3d ../maps/1.cub

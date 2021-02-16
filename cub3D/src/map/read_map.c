@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/31 19:33:59 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/16 12:27:21 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,6 @@ t_cub	*ft_read_cub(char *s)
 	while (get_next_line(cub->fd, &(cub->line)) > 0)
 		ft_fill(cub->line, cub);
 	check_map(cub);
-	if (!cub->valide)
-	{
-		ft_putstr(g_game->msg);
-		ft_destroy_cub(cub);
-		exit(1);
-	}
 	return (cub);
 }
 
@@ -40,7 +34,6 @@ void	ft_destroy_cub(t_cub *cub)
 	free(cub->textures);
 	free(cub->map_str);
 	free(cub->map);
-	free(g_game->msg);
 	free(cub);
 }
 
@@ -67,7 +60,7 @@ void	ft_fill(char *line, t_cub *cub)
 	else if ((*line == ' ' || *line == '1') && !(cub->map))
 		ft_read_map(cub);
 	else
-		get_err(cub, "ereur in cub file\t start of a line\n");
+		get_err("ereur in cub file\t start of a line\n");
 }
 
 void	ft_tomap(t_cub *cub)
@@ -110,6 +103,6 @@ void	ft_set_player(char direct, int x, int y, t_cub *cub)
 	else
 	{
 		cub->valide = 0;
-		get_err(cub, "Multiplayer or missing player\n");
+		get_err("Multiplayer or missing player\n");
 	}
 }

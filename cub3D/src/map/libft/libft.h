@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 17:21:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/08 15:42:23 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/16 16:10:46 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char		*ft_strchr(const char *str, int c);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 void		ft_putstr(char *str);
 int			ft_isdigit(int c);
-int			ft_atoi_s(char **s);
 int			get_next_line(int fd, char **line);
 int			get_buffer(int fd, char **line);
 void		ft_end(char **line, char **tmp, int end);
@@ -35,4 +34,5 @@ char		*ft_strjoinn(char *s1, char const *s2);
 int			ft_isin(char *s, char c);
 char		*ft_strcpy(char *dest, char *src);
 int         ft_strcmp(char *s1, char *s2);
+int		ft_atoi_s(char **s);
 #endif

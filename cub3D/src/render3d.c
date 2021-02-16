@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:08:20 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/13 18:26:17 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/16 18:26:54 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ void				ft_wall_texture(t_ray ray, int i)
 	{
 		if (!(x_off < 0 || x_off > texture.width
 					|| y_off < 0 || y_off > texture.hight))
-			my_mlx_pixel_put(&(g_game->img), i, j, texture.color[(texture.hight
-						* (int)y_off) + (int)x_off]);
+			my_mlx_pixel_put(&(g_game->img), i, j, texture.color[(int)(texture.hight
+						* (int)y_off + (int)x_off)]);
 		y_off += y_step;
 	}
 }

@@ -6,12 +6,12 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 19:00:11 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/04 19:00:31 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/16 13:00:34 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
+#include <stdio.h>
 void	ft_putstr(char *str)
 {
 	int i;
@@ -23,21 +23,6 @@ void	ft_putstr(char *str)
 			write(1, &str[i], 1);
 			i++;
 		}
-}
-
-int		ft_atoi_s(char **s)
-{
-	int nbr;
-
-	nbr = 0;
-	while (!ft_isdigit(**s))
-		(*s)++;
-	while (ft_isdigit(**s))
-	{
-		nbr = nbr * 10 + **s - '0';
-		(*s)++;
-	}
-	return (nbr);
 }
 
 char	*ft_strjoinn(char *s1, char const *s2)

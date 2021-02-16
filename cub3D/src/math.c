@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 23:25:25 by abort             #+#    #+#             */
-/*   Updated: 2021/02/15 17:01:04 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/16 19:08:47 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ double	ft_sprite_angl(double y, double x)
 
 	angle = g_game->player->rotationangle -
 	atan2f(y - g_game->plyr.y, x - g_game->plyr.x);
-	while (angle < -1 * PI)
+	if (angle < -1 * PI)
 		angle += (2 * PI);
-	while (angle >  PI)
+	if (angle >  PI)
 		angle -= (2 * PI);
 	return (fabs(angle));
 }

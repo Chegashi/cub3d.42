@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/15 17:08:51 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/16 18:19:16 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_player		*ft_init_player(t_cub *cub)
 	t_player	*player;
 
 	player = (t_player*)malloc(sizeof(t_player));
-	player->x = (cub->player_position[1]) * TILE_SIZE + 10;
-	player->y = (cub->player_position[0]) * TILE_SIZE + 10;
+	player->x = (cub->player_position[1]) * TILE_SIZE + TILE_SIZE / 2;
+	player->y = (cub->player_position[0]) * TILE_SIZE + TILE_SIZE / 2;
 	if (cub->direction == 'N')
 		player->rotationangle = (3 * PI) / 2;
 	if (cub->direction == 'E')
@@ -30,8 +30,8 @@ t_player		*ft_init_player(t_cub *cub)
 		player->rotationangle = PI;
 	player->turndirection = 0;
 	player->walkdirection = 0;
-	player->walkspeed = TILE_SIZE / 3;
-	player->turnspeed = 8 * (PI / 180);
+	player->walkspeed = 1;
+	player->turnspeed = 1 * (PI / 180);
 	player->z = 0;
 	return (player);
 }
@@ -43,14 +43,26 @@ int				key_hook(int keycode)
 	p = g_game->player;
 	p->turndirection = 0;
 	p->walkdirection = 0;
-	if (keycode == 13 || keycode == 65362)
+	if (keycode == 13 || keycode == 126)
 		p->walkdirection++;
-	if (keycode == 0 || keycode == 123 || keycode == 65363)
+	if (keycode == 123)
 		p->turndirection--;
-	if (keycode == 1 || keycode == 65364)
+	if (keycode == 1 || keycode == 125)
 		p->walkdirection--;
-	if (keycode == 2 || keycode == 124 || keycode == 65361)
+	if (keycode == 124)
 		p->turndirection++;
+	if (keycode == 0)
+	{
+		p->walkdirection++;
+		p->turndirection--;
+	}
+	if (keycode == 2)
+	{
+		p->walkdirection++;
+		p->turndirection++;
+	}
+	if (keycode ==53)
+		ft_exit(EXIT_SUCCESS);
 	ft_update(g_game->player);
 	ft_render();
 	return (0);
@@ -82,4 +94,10 @@ void			ft_render_player(void)
 	p2.x *= COEF;
 	p2.y *= COEF;
 	ft_render_line(&(g_game->img), p1, p2, 0xf00000);
+}
+
+int		ft_exit(int i)
+{
+	mlx_destroy_image(g_game->mlx_ptr, g_game->img.img);
+	exit(i);
 }

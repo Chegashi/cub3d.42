@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/15 17:22:45 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/16 18:50:14 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,8 @@ int		main(int ac, char **av)
 		ft_setup(av[1]);
 		mlx_key_hook(g_game->win_ptr, key_hook, g_game);
 		mlx_hook(g_game->win_ptr, 2, 0, key_hook, g_game);
-	//	mlx_loop_hook(g_game->mlx_ptr, key_hook, g_game);
+		mlx_hook(g_game->win_ptr, 17, 0, ft_exit, EXIT_SUCCESS);
 		mlx_loop(g_game->mlx_ptr);
-	//ft_destroy(1, game);
 	return (0);
 }
 
@@ -37,13 +36,8 @@ void	ft_setup(char *file)
 	g_game = (t_game*)malloc(sizeof(t_game));
 	g_game->mlx_ptr = mlx_init();
 	g_game->cube = ft_read_cub(file);
-	if (!g_game->cube->valide)
-		ft_destroy_cub(g_game->cube);
-	else
-	{
-		ft_fill_game();
-		ft_render();
-	}
+	ft_fill_game();
+	ft_render();
 }
 
 void	ft_render(void)
@@ -54,10 +48,10 @@ void	ft_render(void)
 	ft_render_wall();
 	ft_render_floor();
 	ft_render_sprite();
-	// ft_render_map();
-	// ft_render_rays();
-	// ft_render_player();
-	// ft_rendr_sp_map();
+	ft_render_map();
+	ft_render_rays();
+	ft_render_player();
+	ft_rendr_sp_map();
 	mlx_put_image_to_window(g_game->mlx_ptr, g_game->win_ptr,
 	g_game->img.img, 0, 0);
 }
@@ -72,12 +66,12 @@ void		ft_rendr_sp_map(void)
 	i = -1;
 	while (++i < g_game->sprites.nbr)
 	{
-		tilex = g_game->sprites.sprite_tab[i].x  ;
-		tiley = g_game->sprites.sprite_tab[i].y  ;
+		tilex = g_game->sprites.sprite_tab[i].x - TILE_SIZE / 2;
+		tiley = g_game->sprites.sprite_tab[i].y - TILE_SIZE / 2;
 		sqr.color = (g_game->sprites.sprite_tab[i].is_visible) ? 0xff00 : 0x00000ff;
-		sqr.x = tilex;
-		sqr.y = tiley;
-		sqr.lent = TILE_SIZE;
+		sqr.x = tilex * COEF;
+		sqr.y = tiley * COEF;
+		sqr.lent = TILE_SIZE * COEF;
 		draw_rect(&(g_game->img), sqr);
 	}
 }
@@ -112,19 +106,12 @@ void	ft_fill_game(void)
 
 void	ft_check_arg(int ac, char **av)
 {
-	char s[50];
-
-	*s = 0;
 	if (ac < 2 || ac > 3)
-		ft_strcpy(s,"ereur dargument\n");
-	else if (!ft_strcmp(av[1] + ft_strlen(av[1]) - 4, ".cub"))
-		ft_strcpy(s,"ereur extention map file\n");
-	else if (ft_strcmp(av[2], "--save"))
+		get_err("ereur dargument\n");
+	else if (strcmp(av[1] + strlen(av[1]) - 4, ".cub"))
+		get_err("ereur extention map file\n");
+	else if (ac == 3 && !ft_strcmp(av[2], "--save"))
 		ft_scren_shot();
-	else
-		ft_strcpy(s,"ereur dans le troisieme arg\n");
-	if (!*s)
-	exit(1);
 }
 
 void	ft_scren_shot(void)

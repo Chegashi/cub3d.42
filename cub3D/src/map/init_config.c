@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:44:17 by abort             #+#    #+#             */
-/*   Updated: 2021/01/31 12:58:19 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/16 12:20:39 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ t_cub	*ft_init_cub(void)
 	cub->resolution = ft_calloc_tab_int(3);
 	cub->player_position = (int*)malloc(sizeof(int) * 2);
 	cub->map_str = (char*)malloc(sizeof(char));
-	g_game->msg = (char*)malloc(sizeof(char) * 25);
 	cub->resolution[0] = -1;
 	cub->resolution[1] = -1;
 	cub->textures = (t_texture*)malloc(sizeof(t_texture) * 5);
@@ -46,7 +45,6 @@ void	ft_map(t_cub *cub)
 	cub->map_str[0] = '\0';
 	cub->map = NULL;
 	cub->direction = 0;
-	g_game->msg = ft_strcpy(g_game->msg, "ok");
 	cub->valide = 1;
 	cub->fd = -1;
 	cub->player_position[0] = -1;
@@ -72,8 +70,7 @@ char	*ft_init_str(char *str_mem)
 	return (ft_strdup(""));
 }
 
-void	get_err(t_cub *cub, char *msg)
+void	get_err(char *msg)
 {
-	g_game->msg = ft_strcpy(g_game->msg, msg);
-	cub->valide = 0;
+	ft_putstr(msg);
 }

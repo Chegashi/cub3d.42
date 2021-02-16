@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/15 16:18:39 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/16 16:53:05 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int				ft_update(t_player *p)
 	new_player = (t_player *)malloc(sizeof(t_player));
 	*new_player = *p;
 	move = p->walkdirection * p->walkspeed;
+	new_player->rotationangle += p->turndirection * p->turnspeed;
 	new_player->x += cos(p->rotationangle) * move;
 	new_player->y += sin(p->rotationangle) * move;
-	new_player->rotationangle += p->turndirection * p->turnspeed;
 	ft_normilised(&(new_player->rotationangle));
 	if (!ft_antoured_bywall(new_player->x, new_player->y)
 	&& !ft_isasprite(new_player->x, new_player->y))

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/15 17:28:22 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/16 18:29:11 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "mlx.h"
 # include <math.h>
 # define PI 3.14159265359
-# define COEF 1
-# define TILE_SIZE  20
+# define COEF 0.5
+# define TILE_SIZE  32
 # define FOV_H deg_to_rad(60)
 # define FOV_V deg_to_rad(60)
 # define UP 1
@@ -34,6 +34,7 @@
 # define HIT_VERTI 32
 # define INT_MAX 2147483647
 # define EPSILON 0.2
+
 typedef struct	s_data
 {
 	void		*img;
@@ -78,10 +79,10 @@ typedef struct	s_line
 
 typedef struct	s_square
 {
-	int			x;
-	int			y;
-	int			lent;
-	int			color;
+	double			x;
+	double			y;
+	double			lent;
+	double			color;
 }				t_square;
 
 typedef struct	s_rectangle
@@ -131,8 +132,8 @@ typedef struct	s_cub
 
 typedef struct	s_sprite
 {
-	int		x;
-	int		y;
+	double		x;
+	double		y;
 	int		is_visible;
 	double	distance;
 	double	angle;
@@ -142,16 +143,14 @@ typedef struct	s_sprite
 	double	scren_pos;
 	double	right_x;
 	double	leeft_x;
-	int	x_offset;
-	int	y_offset;
+	double	x_offset;
+	double	y_offset;
 }				t_sprite;
 
 typedef	struct	s_sprites
 {
 	int			nbr;
 	t_sprite	*sprite_tab;
-	int			*order;
-	double		*z_buffer;
 	// t_sprite	*distance;
 	// t_texture	texture;
 }				t_sprites;
@@ -162,7 +161,6 @@ typedef struct	s_game
 	int			height;
 	void		*win_ptr;
 	void		*mlx_ptr;
-	char		*msg;
 	double		dis_plan;
 	t_cub		*cube;
 	t_data		img;
@@ -191,7 +189,7 @@ void			print_cub(t_cub *cub);
 void			ft_read_map(t_cub *cub);
 void			ft_tomap(t_cub *cub);
 void			check_map(t_cub *cub);
-void			get_err(t_cub *cub, char *msg);
+void			get_err(char *msg);
 void			ft_init_game(t_game *game);
 void			my_mlx_pixel_put(t_data *data, int x, int y, int color);
 void			ft_render_map();
@@ -241,5 +239,6 @@ void			ft_scren_shot(void);
 void			ft_draw_sprites(t_sprite	sprite);
 void		ft_rendr_sp_map(void);
 double	ft_sprite_angl(double y, double x);
+int		ft_exit(int i);
 t_game			*g_game;
 #endif
