@@ -6,7 +6,7 @@
 #    By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 17:18:52 by mochegri          #+#    #+#              #
-#    Updated: 2021/02/15 15:57:56 by mochegri         ###   ########.fr        #
+#    Updated: 2021/02/17 14:26:10 by mochegri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS = 	src/main.c \
 		src/rende.c \
 		src/render3d.c \
 		src/sprite.c \
+		src/save.c \
 		src/map/get_config.c \
 		src/map/init_config.c \
 		src/map/print_config.c \
@@ -53,3 +54,5 @@ re:		fclean all
 
 run: re
 	./cub3d maps/1.cub
+save : re
+	./cub3D maps/1.cub --save

@@ -6,9 +6,11 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 03:02:31 by abort             #+#    #+#             */
-/*   Updated: 2021/02/16 16:57:24 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 12:44:37 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int		ft_isdigit(int c)
 {
@@ -43,4 +45,40 @@ int		ft_atoi_s(char **s)
 	if(nbr > 2147483647)
 		return(2147483);
 	return (nbr);
+}
+
+void		*ft_memset(void *b, int c, size_t n)
+{
+	int				i;
+	unsigned char	m;
+	unsigned char	*str;
+
+	i = 0;
+	str = b;
+	m = (unsigned char)c;
+	while (i < (int)n)
+	{
+		*(str++) = m;
+		i++;
+	}
+	return (b);
+}
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	int				i;
+	unsigned char	*tmp;
+
+	tmp = (unsigned char*)dst;
+	i = 0;
+	if (dst == src)
+		return (dst);
+	if (dst == NULL && src == NULL)
+		return (NULL);
+	while (i < (int)n)
+	{
+		ft_memset(tmp, ((char*)src)[i], 1);
+		i++;
+		tmp++;
+	}
+	return (dst);
 }

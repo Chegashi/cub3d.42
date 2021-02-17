@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/16 18:29:11 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 12:41:12 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,6 +155,25 @@ typedef	struct	s_sprites
 	// t_texture	texture;
 }				t_sprites;
 
+typedef struct		s_bitmap
+{
+	int				w;
+	int				he;
+	int				bc;
+	int				wb;
+	int				imgs;
+	int				bs;
+	int				bob;
+	int				fs;
+	int				bp;
+	unsigned char	h[54];
+	unsigned char	* buf;
+	int				ro;
+	int				co;
+	int				*color;
+	int				fd;
+}	t_bitmap;
+
 typedef struct	s_game
 {
 	int			width;
@@ -168,7 +187,10 @@ typedef struct	s_game
 	t_ray		*rays;
 	t_point		plyr;
 	t_sprites	sprites;
+	t_bitmap	bitm;
 }				t_game;
+
+
 
 int				ft_destroy(int keycode);
 int				key_hook(int keycode);
@@ -203,7 +225,7 @@ void			ft_render_line(t_data *data, t_point p1, t_point p2, int color);
 void			ft_render_rays();
 t_point			ft_horis_interst(t_ray *ray);
 t_point			ft_verti_intersect(t_ray *ray);
-void	ft_check_arg(int ac, char **av);
+void			ft_check_arg(int ac, char **av);
 void			ft_cast_ray(t_ray *ray);
 void			ft_raycasting();
 void			ft_normilised(double *angle);
@@ -224,7 +246,7 @@ void    		ft_render_floor();
 double			rad_to_deg(double x1);
 double			deg_to_rad(double x1);
 void			ft_fill_game(void);
-void	ft_3dgenerate(t_ray *ray);
+void			ft_3dgenerate(t_ray *ray);
 void			ft_wall_texture(t_ray ray, int i);
 int				ft_isasprite(double x, double y);
 void			ft_init_sprite(void);
@@ -235,10 +257,15 @@ void			ft_sort_sprites(void);
 void			ft_fill_z_buffer(void);
 void			ft_highsprites(void);
 void			ft_render_sprite(void);
-void			ft_scren_shot(void);
+void			ft_scren_shot();
 void			ft_draw_sprites(t_sprite	sprite);
-void		ft_rendr_sp_map(void);
-double	ft_sprite_angl(double y, double x);
-int		ft_exit(int i);
+void			ft_rendr_sp_map(void);
+double			ft_sprite_angl(double y, double x);
+int				ft_exit(int i);
+int				ft_save(void);
+void	ft_header(void);
+void	ft_save_file(void);
+void	ft_initialize_save(void);
 t_game			*g_game;
+int				g_save;
 #endif

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:44:17 by abort             #+#    #+#             */
-/*   Updated: 2021/02/16 12:20:39 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 14:39:55 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,5 @@ char	*ft_init_str(char *str_mem)
 void	get_err(char *msg)
 {
 	ft_putstr(msg);
+	exit(EXIT_SUCCESS);
 }

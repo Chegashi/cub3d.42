@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/16 18:50:14 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 14:42:52 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	ft_setup(char *file)
 	g_game->cube = ft_read_cub(file);
 	ft_fill_game();
 	ft_render();
+
 }
 
 void	ft_render(void)
@@ -52,8 +53,15 @@ void	ft_render(void)
 	ft_render_rays();
 	ft_render_player();
 	ft_rendr_sp_map();
+	if (g_save)
+	{
+		ft_scren_shot();
+	}
+	else
 	mlx_put_image_to_window(g_game->mlx_ptr, g_game->win_ptr,
 	g_game->img.img, 0, 0);
+
+	
 }
 
 void		ft_rendr_sp_map(void)
@@ -107,14 +115,17 @@ void	ft_fill_game(void)
 void	ft_check_arg(int ac, char **av)
 {
 	if (ac < 2 || ac > 3)
-		get_err("ereur dargument\n");
+		get_err("error \tdargument\n");
 	else if (strcmp(av[1] + strlen(av[1]) - 4, ".cub"))
-		get_err("ereur extention map file\n");
+		get_err("error extention map file\n");
 	else if (ac == 3 && !ft_strcmp(av[2], "--save"))
-		ft_scren_shot();
+		g_save = 1;
+	else
+		g_save = 0;
 }
 
-void	ft_scren_shot(void)
+void	ft_scren_shot()
 {
-	//todo:
+	ft_save();
+	ft_exit(EXIT_SUCCESS);
 }

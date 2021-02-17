@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/16 12:27:21 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 14:42:52 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_fill(char *line, t_cub *cub)
 	else if ((*line == ' ' || *line == '1') && !(cub->map))
 		ft_read_map(cub);
 	else
-		get_err("ereur in cub file\t start of a line\n");
+		get_err("error in cub file\t start of a line\n");
 }
 
 void	ft_tomap(t_cub *cub)

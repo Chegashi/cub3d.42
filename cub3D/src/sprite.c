@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:50:29 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/17 10:42:41 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 10:47:51 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void	ft_draw_sprites(t_sprite	sprite)
 				dist_top = j + sprite.size / 2 - g_game->height / 2;
 				sprite.y_offset = dist_top * (texture.hight /sprite.size);
 				color = texture.color[(texture.width * (int)sprite.y_offset) + (int)sprite.x_offset];
-				if(color)
+				if(color && g_game->rays[i].dist > sprite.distance)
 					my_mlx_pixel_put(&(g_game->img), i, j, color);
 		
 			}
