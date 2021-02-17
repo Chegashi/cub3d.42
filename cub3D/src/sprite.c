@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:50:29 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/17 10:47:51 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 17:21:53 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	ft_init_sprite(void)
 		while(++j < g_game->cube->nbr_column)
             if (g_game->cube->map[i][j] == '2')
             {
-				g_game->sprites.sprite_tab[k].x = (j + 1. / 2 ) * TILE_SIZE;
-				g_game->sprites.sprite_tab[k].y = (i + 1. / 2 ) * TILE_SIZE;
+				g_game->sprites.sprite_tab[k].x = (j + 1. / 2 ) * g_game->ts;
+				g_game->sprites.sprite_tab[k].y = (i + 1. / 2 ) * g_game->ts;
 				k++;
 			}
 	}
@@ -100,7 +100,7 @@ void	ft_render_sprite(void)
 		if(sprite->is_visible)
 		{
 			per_distance = sprite->distance * cos(sprite->angle);
-			sprite->size = (TILE_SIZE / per_distance) * g_game->dis_plan;
+			sprite->size = (g_game->ts / per_distance) * g_game->dis_plan;
 			sprite->size *= 3;
 			sprite->top_y = (g_game->height / 2) - (sprite->size / 2);
 			sprite->top_y *= (sprite->top_y < 0) ? 0 : 1;

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/17 14:42:52 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 19:33:54 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,33 @@ t_cub	*ft_read_cub(char *s)
 	while (get_next_line(cub->fd, &(cub->line)) > 0)
 		ft_fill(cub->line, cub);
 	check_map(cub);
+	close(cub->fd);
+
+	
+	int j;
+    int i;
+    
+    i = -1;
+	printf("\n resolution [%d, %d]", cub->resolution[0], cub->resolution[1]);
+    j = -1;
+    printf("\n north texture \t %d", cub->textures[0].is_defined);
+    printf("\n south texture \t %d", cub->textures[1].is_defined);
+    printf("\n west texture \t %d", cub->textures[2].is_defined);
+    printf("\n east texture \t %d", cub->textures[3].is_defined);
+    printf("\n sprit texture \t %d", cub->textures[4].is_defined);
+	printf("\n floor_color \t\t [%d, %d, %d]", cub->floor_color[0], cub->floor_color[1], cub->floor_color[2]);
+	printf("\n ceilling_color \t [%d, %d, %d]", cub->ceilling_color[0], cub->ceilling_color[1], cub->ceilling_color[2]);
+	printf("\n is valid %d %c", cub->valide, cub->direction);
+	printf("\n line : %d, colomn : %d\n", cub->nbr_ligne , cub->nbr_column);
+    printf("player: (%d,%d)\n", cub->player_position[0], cub->player_position[1]);
+	printf("\n valide : %d\n\n", cub->valide);
+	while (++i < cub->nbr_ligne)
+	{
+		j=-1;
+		while (++j < cub->nbr_column)
+			printf("%c",cub->map[i][j]);
+		printf("\n");
+	}
 	return (cub);
 }
 
@@ -39,13 +66,17 @@ void	ft_destroy_cub(t_cub *cub)
 
 void	ft_fill(char *line, t_cub *cub)
 {
+	static int i=0;
+	while (*line && *line == ' ')
+		line++;
+	printf("%d\t%s\n", ++i, line);
 	if (*line == '\0')
 		return ;
 	else if (*line == 'R' && cub->resolution[0] == -1)
 		ft_resolution(line, cub);
-	else if (*line == 'N' && !(cub->textures[0].is_defined))
+	else if (*line == 'N' && line[1] == 'O' && !(cub->textures[0].is_defined))
 		ft_read_texture(line, &(cub->textures[0]));
-	else if (*line == 'E' && !(cub->textures[1].is_defined))
+	else if (*line == 'E' && line[1] == 'A' && !(cub->textures[1].is_defined))
 		ft_read_texture(line, &(cub->textures[1]));
 	else if (*line == 'W' && !(cub->textures[3].is_defined))
 		ft_read_texture(line, &(cub->textures[3]));
@@ -57,7 +88,7 @@ void	ft_fill(char *line, t_cub *cub)
 		ft_read_color(line, &(cub->floor_color));
 	else if (*line == 'C' && cub->ceilling_color[0] == -1)
 		ft_read_color(line, &(cub->ceilling_color));
-	else if ((*line == ' ' || *line == '1') && !(cub->map))
+	else if ((strchr(line, '1')) && !(cub->map))
 		ft_read_map(cub);
 	else
 		get_err("error in cub file\t start of a line\n");

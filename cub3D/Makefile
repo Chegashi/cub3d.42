@@ -6,7 +6,7 @@
 #    By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 17:18:52 by mochegri          #+#    #+#              #
-#    Updated: 2021/02/17 14:26:10 by mochegri         ###   ########.fr        #
+#    Updated: 2021/02/17 18:38:30 by mochegri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ SRCS = 	src/main.c \
 		src/save.c \
 		src/map/get_config.c \
 		src/map/init_config.c \
-		src/map/print_config.c \
 		src/map/read_map.c \
 		src/map/libft/ft_isdigit.c \
 		src/map/libft/libft.c \

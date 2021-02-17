@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:08:20 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/16 18:26:54 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 17:21:53 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ void				ft_wall_texture(t_ray ray, int i)
 
 	texture = g_game->cube->textures[ray.data];
 	j = (int)ray.top_pixel;
-	x_off = (!fmod(ray.end.x, TILE_SIZE)) ? ray.end.y : ray.end.x;
-	x_off = fmod(x_off, TILE_SIZE);
+	x_off = (!fmod(ray.end.x, g_game->ts)) ? ray.end.y : ray.end.x;
+	x_off = fmod(x_off, g_game->ts);
 	y_step = texture.hight / ray.wall_h;
-	x_off = (x_off / TILE_SIZE) * texture.width;
+	x_off = (x_off / g_game->ts) * texture.width;
 	y_off = (g_game->height / 2 - ray.wall_h / 2 > 0) ?
 	0 : fabs(g_game->height / 2 - ray.wall_h / 2)
 	* texture.width / ray.wall_h;

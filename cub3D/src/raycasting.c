@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/16 18:23:17 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 17:21:53 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_3dgenerate(t_ray *ray)
 	double	corect_dis;
 
 	corect_dis = ray->dist * cos(ray->angl - g_game->player->rotationangle);
-	ray->wall_h = (TILE_SIZE / corect_dis) * g_game->dis_plan;
+	ray->wall_h = (g_game->ts / corect_dis) * g_game->dis_plan;
 	ray->wall_h *= 3;
 	ray->top_pixel = (g_game->height / 2) - ray->wall_h /2;
 	ray->top_pixel *= (ray->top_pixel < 0) ? 0 : 1;
@@ -51,11 +51,11 @@ t_point			ft_horis_interst(t_ray *ray)
 	double		x_step;
 	double		y_step;
 
-	a.y = floor(g_game->player->y / TILE_SIZE) * TILE_SIZE;
-	a.y += (ray->is_facing & DOWN) ? TILE_SIZE : 0;
+	a.y = floor(g_game->player->y / g_game->ts) * g_game->ts;
+	a.y += (ray->is_facing & DOWN) ? g_game->ts : 0;
 	a.x = g_game->player->x + (a.y - g_game->player->y) / tan(ray->angl);
-	y_step = TILE_SIZE * ((ray->is_facing & UP) ? -1 : 1);
-	x_step = TILE_SIZE / tan(ray->angl);
+	y_step = g_game->ts * ((ray->is_facing & UP) ? -1 : 1);
+	x_step = g_game->ts / tan(ray->angl);
 	x_step *= ((ray->is_facing & LEFT) && x_step > 0) ? -1 : 1;
 	x_step *= ((ray->is_facing & RIGHT) && x_step < 0) ? -1 : 1;
 	a.y -= (ray->is_facing & UP) ? 1 : 0;
@@ -77,11 +77,11 @@ t_point			ft_verti_intersect(t_ray *ray)
 	double		x_step;
 	double		y_step;
 
-	a.x = floor(g_game->player->x / TILE_SIZE) * TILE_SIZE;
-	a.x += (ray->is_facing & RIGHT) ? TILE_SIZE : 0;
+	a.x = floor(g_game->player->x / g_game->ts) * g_game->ts;
+	a.x += (ray->is_facing & RIGHT) ? g_game->ts : 0;
 	a.y = g_game->player->y + (a.x - g_game->player->x) * tan(ray->angl);
-	x_step = TILE_SIZE * ((ray->is_facing & LEFT) ? -1 : 1);
-	y_step = TILE_SIZE * tan(ray->angl);
+	x_step = g_game->ts * ((ray->is_facing & LEFT) ? -1 : 1);
+	y_step = g_game->ts * tan(ray->angl);
 	y_step *= ((ray->is_facing & UP) && y_step > 0) ? -1 : 1;
 	y_step *= ((ray->is_facing & DOWN) && y_step < 0) ? -1 : 1;
 	a.x -= (ray->is_facing & LEFT) ? 1 : 0;

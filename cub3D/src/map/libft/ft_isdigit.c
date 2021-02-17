@@ -6,12 +6,13 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 03:02:31 by abort             #+#    #+#             */
-/*   Updated: 2021/02/17 12:44:37 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 18:04:29 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
+#include "../../cub3d.h"
+#include <stdio.h>
 int		ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
@@ -34,17 +35,18 @@ int		ft_atoi_s(char **s)
 {
 	int nbr;
 
-	nbr = 0;
-	while (!ft_isdigit(**s))
+	nbr = 0;		
+	while (*s && **s == ' ')
 		(*s)++;
-	while (ft_isdigit(**s))
+	if (*s)
+		if (!ft_isdigit(**s))
+			get_err("error\t in resolution\n");
+	while (*s && ft_isdigit(**s))
 	{
 		nbr = nbr * 10 + **s - '0';
 		(*s)++;
 	}
-	if(nbr > 2147483647)
-		return(2147483);
-	return (nbr);
+	return ((nbr > 2147483647) ? 2147483 : nbr);
 }
 
 void		*ft_memset(void *b, int c, size_t n)

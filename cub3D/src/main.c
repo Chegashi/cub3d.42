@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/17 14:42:52 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 18:49:34 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int		main(int ac, char **av)
 {
-		ft_check_arg(ac, av);
-		ft_setup(av[1]);
-		mlx_key_hook(g_game->win_ptr, key_hook, g_game);
-		mlx_hook(g_game->win_ptr, 2, 0, key_hook, g_game);
-		mlx_hook(g_game->win_ptr, 17, 0, ft_exit, EXIT_SUCCESS);
-		mlx_loop(g_game->mlx_ptr);
+	ft_check_arg(ac, av);
+	ft_setup(av[1]);
+	// mlx_key_hook(g_game->win_ptr, key_hook, g_game);
+	// mlx_hook(g_game->win_ptr, 2, 0, key_hook, g_game);
+	// mlx_hook(g_game->win_ptr, 17, 0, ft_exit, EXIT_SUCCESS);
+	// mlx_loop(g_game->mlx_ptr);
 	return (0);
 }
 
@@ -38,30 +38,28 @@ void	ft_setup(char *file)
 	g_game->cube = ft_read_cub(file);
 	ft_fill_game();
 	ft_render();
-
 }
 
 void	ft_render(void)
 {
 	ft_clean_win();
-	ft_raycasting();
-	ft_render_celing();
-	ft_render_wall();
-	ft_render_floor();
-	ft_render_sprite();
-	ft_render_map();
-	ft_render_rays();
-	ft_render_player();
-	ft_rendr_sp_map();
+	//ft_raycasting();
+	//ft_render_celing();
+	//ft_render_wall();
+	//ft_render_floor();
+	// ft_render_sprite();
+	//ft_render_map();
+	// ft_render_rays();
+	// ft_render_player();
+	// ft_rendr_sp_map();
 	if (g_save)
 	{
 		ft_scren_shot();
 	}
 	else
+	;
 	mlx_put_image_to_window(g_game->mlx_ptr, g_game->win_ptr,
-	g_game->img.img, 0, 0);
-
-	
+	g_game->img.img, 0, 0);	
 }
 
 void		ft_rendr_sp_map(void)
@@ -74,12 +72,12 @@ void		ft_rendr_sp_map(void)
 	i = -1;
 	while (++i < g_game->sprites.nbr)
 	{
-		tilex = g_game->sprites.sprite_tab[i].x - TILE_SIZE / 2;
-		tiley = g_game->sprites.sprite_tab[i].y - TILE_SIZE / 2;
-		sqr.color = (g_game->sprites.sprite_tab[i].is_visible) ? 0xff00 : 0x00000ff;
+		tilex = g_game->sprites.sprite_tab[i].x - g_game->ts / 2;
+		tiley = g_game->sprites.sprite_tab[i].y - g_game->ts / 2;
+		sqr.color = (g_game->sprites.sprite_tab[i].is_visible) ? 0xffff : 0x0ff;
 		sqr.x = tilex * COEF;
 		sqr.y = tiley * COEF;
-		sqr.lent = TILE_SIZE * COEF;
+		sqr.lent = g_game->ts * COEF;
 		draw_rect(&(g_game->img), sqr);
 	}
 }
@@ -88,15 +86,7 @@ void	ft_fill_game(void)
 {
 	int		*resol;
 
-	int		sizex;
-	int		sizey;
-	
-	mlx_get_screen_size(g_game->mlx_ptr, &sizex, &sizey);
-	if (g_game->cube->resolution[0] > sizex || g_game->cube->resolution[1] > sizey)
-	{
-		g_game->cube->resolution[0] = sizex;
-		g_game->cube->resolution[1] = sizey;
-	}
+	ft_get_tilesize();
 	resol = g_game->cube->resolution;
 	g_game->win_ptr = mlx_new_window(g_game->mlx_ptr, resol[0],
 	resol[1], "Cub3d");
@@ -128,4 +118,31 @@ void	ft_scren_shot()
 {
 	ft_save();
 	ft_exit(EXIT_SUCCESS);
+}
+
+void	ft_get_tilesize(void)
+{
+	int res;
+	int	rows;
+	int		sizex;
+	int		sizey;
+
+	mlx_get_screen_size(g_game->mlx_ptr, &sizex, &sizey);
+	if (g_game->cube->resolution[0] > sizex
+	|| g_game->cube->resolution[1] > sizey)
+	{
+		g_game->cube->resolution[0] = sizex;
+		g_game->cube->resolution[1] = sizey;
+	}
+	if (g_game->cube->resolution[0] < 500
+	|| g_game->cube->resolution[1] < 355)
+	{
+		g_game->cube->resolution[0] = 500;
+		g_game->cube->resolution[1] = 355;
+	}
+	res = (g_game->width < g_game->height) ? g_game->width : g_game->height;
+	rows = (g_game->cube->nbr_column > g_game->cube->nbr_ligne)
+	? g_game->cube->nbr_column : g_game->cube->nbr_ligne;
+	g_game->ts = res / rows;
+	
 }

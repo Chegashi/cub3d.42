@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/17 12:41:12 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 18:35:41 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <math.h>
 # define PI 3.14159265359
 # define COEF 0.5
-# define TILE_SIZE  32
 # define FOV_H deg_to_rad(60)
 # define FOV_V deg_to_rad(60)
 # define UP 1
@@ -151,8 +150,6 @@ typedef	struct	s_sprites
 {
 	int			nbr;
 	t_sprite	*sprite_tab;
-	// t_sprite	*distance;
-	// t_texture	texture;
 }				t_sprites;
 
 typedef struct		s_bitmap
@@ -188,6 +185,7 @@ typedef struct	s_game
 	t_point		plyr;
 	t_sprites	sprites;
 	t_bitmap	bitm;
+	int			ts;
 }				t_game;
 
 
@@ -207,7 +205,6 @@ void			ft_resolution(char *line, t_cub *cub);
 void			ft_read_texture(char *line, t_texture *texture);
 void			ft_read_color(char *line, int **tab);
 void			ft_map(t_cub *cub);
-void			print_cub(t_cub *cub);
 void			ft_read_map(t_cub *cub);
 void			ft_tomap(t_cub *cub);
 void			check_map(t_cub *cub);
@@ -266,6 +263,8 @@ int				ft_save(void);
 void	ft_header(void);
 void	ft_save_file(void);
 void	ft_initialize_save(void);
+void	ft_get_tilesize(void);
+
 t_game			*g_game;
 int				g_save;
 #endif

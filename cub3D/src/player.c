@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/17 11:57:01 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 17:21:53 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_player		*ft_init_player(t_cub *cub)
 	t_player	*player;
 
 	player = (t_player*)malloc(sizeof(t_player));
-	player->x = (cub->player_position[1]) * TILE_SIZE + TILE_SIZE / 2;
-	player->y = (cub->player_position[0]) * TILE_SIZE + TILE_SIZE / 2;
+	player->x = (cub->player_position[1]) * g_game->ts + g_game->ts / 2;
+	player->y = (cub->player_position[0]) * g_game->ts + g_game->ts / 2;
 	if (cub->direction == 'N')
 		player->rotationangle = (3 * PI) / 2;
 	if (cub->direction == 'E')
@@ -30,7 +30,7 @@ t_player		*ft_init_player(t_cub *cub)
 		player->rotationangle = PI;
 	player->turndirection = 0;
 	player->walkdirection = 0;
-	player->walkspeed = TILE_SIZE / 2;
+	player->walkspeed = g_game->ts / 2;
 	player->turnspeed = 10 * (PI / 180);
 	player->z = 0;
 	return (player);

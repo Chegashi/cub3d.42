@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/16 16:53:05 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 17:21:53 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ void			ft_render_map(void)
 		j = -1;
 		while (++j < g_game->cube->nbr_column)
 		{
-			tilex = j * TILE_SIZE * COEF;
-			tiley = i * TILE_SIZE * COEF;
+			tilex = j * g_game->ts * COEF;
+			tiley = i * g_game->ts * COEF;
 			sqr.color = (g_game->cube->map[i][j] == '1') ? 0x8b1c62 : 0xff7256;
 			if (g_game->cube->map[i][j] != ' ')
 			{
 				sqr.x = tilex;
 				sqr.y = tiley;
-				sqr.lent = TILE_SIZE;
+				sqr.lent = g_game->ts;
 				draw_rect(&(g_game->img), sqr);
 			}
 		}
@@ -72,8 +72,8 @@ int				ft_is_wall(double x, double y)
 	int			x_index;
 	int			y_index;
 
-	x_index = floor(x) / TILE_SIZE;
-	y_index = floor(y) / TILE_SIZE;
+	x_index = floor(x) / g_game->ts;
+	y_index = floor(y) / g_game->ts;
 	if (x < 0 || y < 0 || x > g_game->cube->resolution[0]
 			|| y > g_game->cube->resolution[1])
 		return (0);
@@ -85,8 +85,8 @@ int				ft_isasprite(double x, double y)
 	int			x_index;
 	int			y_index;
 
-	x_index = floor(x) / TILE_SIZE;
-	y_index = floor(y) / TILE_SIZE;
+	x_index = floor(x) / g_game->ts;
+	y_index = floor(y) / g_game->ts;
 	if (x < 0 || y < 0 || x > g_game->cube->resolution[0]
 			|| y > g_game->cube->resolution[1])
 		return (0);
@@ -105,8 +105,8 @@ int				ft_antoured_bywall(double x, double y)
 
 int				ft_is_in_map(t_point p)
 {
-	if (p.x < 0 || p.y < 0 || floor(p.x / TILE_SIZE) > g_game->cube->nbr_column
-	- 1 || floor(p.y / TILE_SIZE) > g_game->cube->nbr_ligne - 1)
+	if (p.x < 0 || p.y < 0 || floor(p.x / g_game->ts) > g_game->cube->nbr_column
+	- 1 || floor(p.y / g_game->ts) > g_game->cube->nbr_ligne - 1)
 		return (0);
 	return (1);
 }
@@ -125,5 +125,6 @@ void	ft_render_rays(void)
 		p2.x = (g_game->rays[i].end.x) * COEF;
 		p2.y = g_game->rays[i].end.y * COEF;
 		ft_render_line(&(g_game->img), p1, p2, 0xff1245);
+		printf("%d{%d}\n", g_game->width,i);
 	}
 }
