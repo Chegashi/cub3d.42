@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:50:29 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/16 19:51:14 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/17 10:42:41 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,15 +107,12 @@ void	ft_render_sprite(void)
 			sprite->bottom_y = (g_game->height / 2) + (sprite->size / 2);
 			sprite->bottom_y = (sprite->top_y > g_game->height) ? g_game->height : sprite->bottom_y;
 			sprite_ngl = atan2f(sprite->y - g_game->plyr.y, sprite->x - g_game->plyr.x) - g_game->player->rotationangle;
-			sprite_ngl = fmod(sprite_ngl, PI / 4);
 			sprite->scren_pos = (tan(sprite_ngl) * g_game->dis_plan);
-				printf("pl:%lf\n", sprite->scren_pos);
-			sprite->leeft_x = g_game->width /2 + sprite->scren_pos - (sprite->size / 2);
+			sprite->scren_pos *= -3; 
+			sprite->leeft_x = g_game->width/2  - sprite->scren_pos - (sprite->size / 2);
 			sprite->right_x = sprite->leeft_x + sprite->size;
 			ft_draw_sprites(*sprite);
 		}
-		
-		//printf("ang:%lf\t\tis_v:%d\n", sprite->angle, sprite->is_visible);
 	}
 }
 
