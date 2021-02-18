@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/01 15:32:44 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:25:04 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,3 @@ void		ft_render_g_rect(t_data *data, t_rectangle rect)
 		i++;
 	}
 }
-

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 23:25:25 by abort             #+#    #+#             */
-/*   Updated: 2021/02/16 19:08:47 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:14:29 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,34 +34,4 @@ void	ft_normilised(double *angle)
 double	ft_max(double x1, double x2)
 {
 	return ((x1 > x2) ? x1 : x2);
-}
-
-t_point	ft_translate_point(t_point p, double x, double y)
-{
-	p.x += x;
-	p.y += y;
-	return (p);
-}
-
-double	deg_to_rad(double x1)
-{
-	return (x1 * PI / 180);
-}
-
-double	rad_to_deg(double x1)
-{
-	return (x1 * 180 / PI);
-}
-
-double	ft_sprite_angl(double y, double x)
-{
-	double	angle;
-
-	angle = g_game->player->rotationangle -
-	atan2f(y - g_game->plyr.y, x - g_game->plyr.x);
-	if (angle < -1 * PI)
-		angle += (2 * PI);
-	if (angle >  PI)
-		angle -= (2 * PI);
-	return (fabs(angle));
 }

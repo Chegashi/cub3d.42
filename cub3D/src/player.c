@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/17 17:21:53 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/18 17:22:13 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,17 +51,12 @@ int				key_hook(int keycode)
 		p->walkdirection--;
 	if (keycode == 124)
 		p->turndirection++;
-	if (keycode == 0)
+	if (keycode == 0 || keycode == 2)
 	{
 		p->walkdirection++;
-		p->turndirection--;
+		(keycode == 0) ? p->turndirection-- : p->turndirection++;
 	}
-	if (keycode == 2)
-	{
-		p->walkdirection++;
-		p->turndirection++;
-	}
-	if (keycode ==53)
+	if (keycode == 53)
 		ft_exit(EXIT_SUCCESS);
 	ft_update(g_game->player);
 	ft_render();
@@ -96,8 +91,15 @@ void			ft_render_player(void)
 	ft_render_line(&(g_game->img), p1, p2, 0xf00000);
 }
 
-int		ft_exit(int i)
+void			ft_set_player(char direct, int x, int y, t_cub *cub)
 {
-	mlx_destroy_image(g_game->mlx_ptr, g_game->img.img);
-	exit(i);
+	if (!cub->direction)
+	{
+		cub->direction = direct;
+		cub->map[x][y] = '0';
+		cub->player_position[0] = x;
+		cub->player_position[1] = y;
+	}
+	else
+		get_err("Multiplayer or missing player\n");
 }

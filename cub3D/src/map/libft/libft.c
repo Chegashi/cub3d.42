@@ -6,12 +6,12 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 19:00:11 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/16 13:00:34 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/18 15:55:59 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
 void	ft_putstr(char *str)
 {
 	int i;

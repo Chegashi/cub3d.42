@@ -6,50 +6,63 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/02/17 19:38:20 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/18 16:03:54 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
 void	ft_read_color(char *line, int **tab)
-{	line++;
-	(*tab)[0] = ft_atoi_s(&line);
-	line++;
-	(*tab)[1] = ft_atoi_s(&line);
-	line++;
-	(*tab)[2] = ft_atoi_s(&line);
+{
+	int i;
+	int color;
+
+	i = -1;
+	while (++i < 3)
+	{
+		while (*line && (*line == ' ' || *line == ',' || *line == '+'))
+			line++;
+		if (*line && !ft_isdigit(*line))
+			get_err("error\t in color\n");
+		color = ft_atoi_s(&line);
+		if (color < 0 || color > 255)
+			get_err("error\t in color\n");
+		else
+			(*tab)[i] = color;
+	}
 }
 
 void	ft_resolution(char *line, t_cub *cub)
 {
-	line++;
-	cub->resolution[0] = ft_atoi_s(&line);
-	line++;
-	cub->resolution[1] = ft_atoi_s(&line);
+	int i;
+
+	i = -1;
+	while (++i < 2)
+	{
+		while (*line && *line == ' ')
+			line++;
+		if (*line && !ft_isdigit(*line))
+			get_err("error\t in resolution\n");
+		cub->resolution[i] = ft_atoi_s(&line);
+	}
 }
 
 void	ft_read_texture(char *line, t_texture *texture)
 {
 	int			len;
-	int			start;
 	int			i;
 	char		*path;
 	void		*file;
 
-	//printf("%s\n",line);
+	while (*line && *line == ' ')
+		line++;
 	len = 0;
 	i = 0;
-	if (line[2] != '0')
-		get_err("error\tinvalide texture file\n");
-	while (line[i] && line[i] != ' ')
-		i++;
-	start = line[i] ? i + 1 : i;
-	while (line[i++])
+	while (line[len] && line[len] != ' ')
 		len++;
-	path = ft_substr(line, start, ft_strlen(line));
-	if (!(file = mlx_xpm_file_to_image(g_game->mlx_ptr, path, &(texture->width),
-	&(texture->hight))))
+	path = ft_substr(line, 0, len);
+	if (!(file = mlx_xpm_file_to_image(g_game->mlx_ptr,
+		path, &(texture->width), &(texture->hight))))
 		get_err("error\tinvalide texture file\n");
 	else
 		texture->color = (int*)mlx_get_data_addr(file, &(texture->bpp),
@@ -62,10 +75,9 @@ void	ft_read_map(t_cub *cub)
 	int		len;
 	char	*tmp;
 
-static int i = 0;
 	len = 0;
 	gnl_return = 1;
-	while (gnl_return && cub->valide && cub->line[0])
+	while (gnl_return && ft_is_amap(cub->line))
 	{
 		if (*(cub->line) == ' ' || *(cub->line) == '1')
 		{
@@ -78,7 +90,6 @@ static int i = 0;
 			cub->map_str = tmp;
 			cub->line = ft_init_str(cub->line);
 			gnl_return = get_next_line(cub->fd, &(cub->line));
-			printf("%d\t%s\n",++i, cub->line);
 		}
 		else if (!gnl_return)
 			get_err("error\tthe map must tart with '1' or ' '\n");
@@ -93,19 +104,21 @@ void	check_map(t_cub *cub)
 
 	i = -1;
 	if (!(cub->direction))
-		cub->valide = 0;
-	while (++i < cub->nbr_ligne && cub->valide)
+		get_err("error\tmissing the player direction\n");
+	while (++i < cub->nbr_ligne)
 	{
 		j = -1;
-		while (++j < cub->nbr_column && cub->valide)
+		while (++j < cub->nbr_column)
 		{
-			if (((i == 0 || j == 0 || i == (cub->nbr_ligne - 1)
-			|| j == (cub->nbr_column - 1)) && (cub->map[i][j] != '1'
-			&& cub->map[i][j] != ' ')) && (ft_isin("0NSWE2", cub->map[i][j])
-			&& (cub->map[i - 1][j - 1] == ' ' && cub->map[i - 1][j + 1] == ' '
-			&& cub->map[i + 1][j + 1] == ' '
-			&& cub->map[i + 1][j - 1] == ' ')))
+			if ((!i || !j || i == cub->nbr_ligne - 1
+				|| j == cub->nbr_column - 1)
+				&& (cub->map[i][j] != '1' && cub->map[i][j] != ' '))
 				get_err("error\tthe map must be ontoured by 1\n");
+			if ((cub->map[i][j] == '0' || cub->map[i][j] == 2)
+				&& (cub->map[i][j - 1] == ' ' || cub->map[i][j + 1] == ' '
+				|| cub->map[i + 1][j] == ' '
+				|| cub->map[i - 1][j] == ' '))
+				get_err("error\tyou have a file,the 0 entoured with 0 or 1\n");
 		}
 	}
 }

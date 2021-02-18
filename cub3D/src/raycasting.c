@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/17 17:21:53 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/18 18:31:41 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,30 @@ void			ft_raycasting(void)
 	int			clomn_id;
 
 	clomn_id = -1;
-	g_game->rays[0].angl = g_game->player->rotationangle - FOV_H / 2;
-	g_game->dis_plan = (g_game->width / 2) * tan(FOV_V / 2);
+	g_game->rays[0].angl = g_game->player->rotationangle - FOV / 2;
+	g_game->dis_plan = (g_game->width / 2) * tan(FOV / 2);
 	while (++clomn_id < g_game->width)
 	{
 		ft_normilised(&(g_game->rays[clomn_id].angl));
 		ft_cast_ray(&(g_game->rays[clomn_id]));
 		g_game->rays[clomn_id + 1].angl = g_game->rays[clomn_id].angl
-		+ FOV_H / g_game->width;
+		+ FOV / g_game->width;
 		ft_3dgenerate(&(g_game->rays[clomn_id]));
 	}
 }
 
-void	ft_3dgenerate(t_ray *ray)
+void			ft_3dgenerate(t_ray *ray)
 {
 	double	corect_dis;
 
 	corect_dis = ray->dist * cos(ray->angl - g_game->player->rotationangle);
 	ray->wall_h = (g_game->ts / corect_dis) * g_game->dis_plan;
 	ray->wall_h *= 3;
-	ray->top_pixel = (g_game->height / 2) - ray->wall_h /2;
+	ray->top_pixel = (g_game->height / 2) - ray->wall_h / 2;
 	ray->top_pixel *= (ray->top_pixel < 0) ? 0 : 1;
-	ray->bottom_pixel = (g_game->height / 2) + ray->wall_h /2;
+	ray->bottom_pixel = (g_game->height / 2) + ray->wall_h / 2;
 	ray->bottom_pixel = (ray->bottom_pixel > g_game->height) ? g_game->height
 	: ray->bottom_pixel;
-	
 }
 
 t_point			ft_horis_interst(t_ray *ray)
@@ -121,18 +120,4 @@ void			ft_cast_ray(t_ray *ray)
 		ray->data = (ray->is_facing & DOWN) ? 2 : 0;
 	else if (ray->is_facing & HIT_VERTI)
 		ray->data = (ray->is_facing & LEFT) ? 3 : 1;
-}
-
-void			ft_clean_win(void)
-{
-	int i;
-	int j;
-
-	i = -1;
-	while (++i < g_game->cube->resolution[0])
-	{
-		j = -1;
-		while (++j < g_game->cube->resolution[1])
-			my_mlx_pixel_put(&(g_game->img), i, j, 0x0);
-	}
 }

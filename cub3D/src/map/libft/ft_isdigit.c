@@ -6,23 +6,22 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 03:02:31 by abort             #+#    #+#             */
-/*   Updated: 2021/02/17 18:04:29 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/18 15:55:49 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "../../cub3d.h"
-#include <stdio.h>
-int		ft_isdigit(int c)
+
+int			ft_isdigit(int c)
 {
 	if (c >= '0' && c <= '9')
 		return (1);
 	return (0);
 }
 
-int	ft_strcmp(char *s1, char *s2)
+int			ft_strcmp(char *s1, char *s2)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (s1[i] != '\0' && s2[i] != '\0')
@@ -31,16 +30,11 @@ int	ft_strcmp(char *s1, char *s2)
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
-int		ft_atoi_s(char **s)
+int			ft_atoi_s(char **s)
 {
-	int nbr;
+	int		nbr;
 
-	nbr = 0;		
-	while (*s && **s == ' ')
-		(*s)++;
-	if (*s)
-		if (!ft_isdigit(**s))
-			get_err("error\t in resolution\n");
+	nbr = 0;
 	while (*s && ft_isdigit(**s))
 	{
 		nbr = nbr * 10 + **s - '0';
@@ -65,7 +59,8 @@ void		*ft_memset(void *b, int c, size_t n)
 	}
 	return (b);
 }
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+
+void		*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	int				i;
 	unsigned char	*tmp;

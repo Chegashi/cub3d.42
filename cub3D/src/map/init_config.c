@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:44:17 by abort             #+#    #+#             */
-/*   Updated: 2021/02/17 14:39:55 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/18 12:49:19 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ t_cub	*ft_init_cub(void)
 	cub->resolution[0] = -1;
 	cub->resolution[1] = -1;
 	cub->textures = (t_texture*)malloc(sizeof(t_texture) * 5);
-	cub->textures[0].is_defined = 0;
-	cub->textures[1].is_defined = 0;
-	cub->textures[2].is_defined = 0;
-	cub->textures[3].is_defined = 0;
-	cub->textures[4].is_defined = 0;
+	cub->textures[0].define = 0;
+	cub->textures[1].define = 0;
+	cub->textures[2].define = 0;
+	cub->textures[3].define = 0;
+	cub->textures[4].define = 0;
 	ft_map(cub);
 	return (cub);
 }
@@ -45,7 +45,6 @@ void	ft_map(t_cub *cub)
 	cub->map_str[0] = '\0';
 	cub->map = NULL;
 	cub->direction = 0;
-	cub->valide = 1;
 	cub->fd = -1;
 	cub->player_position[0] = -1;
 	cub->player_position[1] = -1;
