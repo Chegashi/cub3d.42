@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:13:38 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/18 18:29:15 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 18:46:23 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,10 @@ void			ft_clean_win(void)
 	int		j;
 
 	i = -1;
-	while (++i < g_game->cube->resolution[0])
+	while (++i < g_game->width)
 	{
 		j = -1;
-		while (++j < g_game->cube->resolution[1])
+		while (++j < g_game->height)
 			my_mlx_pixel_put(&(g_game->img), i, j, 0x0);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/02/19 17:10:02 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 18:44:08 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ void	ft_read_color(char *line, int **tab)
 		else
 			(*tab)[i] = color;
 	}
+	while (*line && *line == ' ')
+		line++;
+	if (*line)
+		get_err("error\tdon't add extra information in color\n");
 }
 
 void	ft_resolution(char *line, t_cub *cub)
@@ -45,6 +49,10 @@ void	ft_resolution(char *line, t_cub *cub)
 			get_err("error\t in resolution\n");
 		cub->resolution[i] = ft_atoi_s(&line);
 	}
+	while (*line && *line == ' ')
+		line++;
+	if (*line)
+		get_err("error\tdon't add extra information in resloution\n");
 }
 
 void	ft_read_texture(char *line, t_texture *texture)
@@ -92,10 +100,10 @@ void	ft_read_map(t_cub *cub)
 			free(cub->map_str);
 			cub->map_str = tmp;
 			cub->line = ft_init_str(cub->line);
-			gnl_return = get_next_line(cub->fd, &(cub->line));
 		}
-		else if (gnl_return)
+		else if (gnl_return && *(cub->line))
 			get_err("the map must be the last in the file\n");
+		gnl_return = get_next_line(cub->fd, &(cub->line));
 	}
 	ft_tomap(cub);
 }

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/18 17:25:04 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 18:53:18 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void		my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || y < 0 || x >= g_game->width || y >= g_game->height)
+	if (x <= 0 || y <= 0 || x >= g_game->width || y >= g_game->height)
 		return ;
 	dst = data->addr + (y * data->l_len + x * (data->bpp / 8));
 	*(unsigned int*)dst = color;

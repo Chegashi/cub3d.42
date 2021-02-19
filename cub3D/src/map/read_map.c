@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/19 16:58:17 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 18:16:24 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,9 @@ t_cub	*ft_read_cub(char *s)
 		if (*(cub->line))
 			ft_fill(cub->line, cub);
 	close(cub->fd);
-	if (cub->floor_color[0] == -1 || cub->ceilling_color[0] == -1)
-		get_err("Error\tmissing color\n");
+	if (cub->floor_color[0] == -1 || cub->ceilling_color[0] == -1 ||
+		cub->resolution[0] == -1 || cub->resolution[1] == -1)
+		get_err("Error\tmissing color or resolution\n");
 	check_map(cub);
 	return (cub);
 }

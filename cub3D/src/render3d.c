@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:08:20 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/18 17:26:36 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 18:43:52 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void				ft_render_celing(void)
 	i = -1;
 	tab = g_game->cube->ceilling_color;
 	color = ft_create_trgb(1, tab[0], tab[1], tab[2]);
-	while (++i < g_game->cube->resolution[0])
+	while (++i < g_game->width)
 	{
 		p1.x = i;
 		p1.y = 0;
@@ -58,7 +58,7 @@ void				ft_render_floor(void)
 	i = -1;
 	tab = g_game->cube->floor_color;
 	color = ft_create_trgb(1, tab[0], tab[1], tab[2]);
-	while (++i < g_game->cube->resolution[0])
+	while (++i < g_game->width)
 	{
 		p1.x = i;
 		p1.y = g_game->rays[i].bottom_pixel;

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 03:02:31 by abort             #+#    #+#             */
-/*   Updated: 2021/02/19 15:24:19 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 18:56:15 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,16 @@ int			ft_atoi_s(char **s)
 	int		nbr;
 
 	nbr = 0;
-	while (*s && ft_isdigit(**s))
+	if (!ft_isdigit(**s))
+		get_err("error\t in resolution or color\n");
+	while (*s && ft_isdigit(**s) && nbr < 50000)
 	{
 		nbr = nbr * 10 + **s - '0';
 		(*s)++;
 	}
-	return ((nbr > 2147483647) ? 2147483 : nbr);
+	while (*s && ft_isdigit(**s))
+		(*s)++;
+	return ((int)nbr);
 }
 
 void		*ft_memset(void *b, int c, size_t n)
