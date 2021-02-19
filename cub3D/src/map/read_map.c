@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/19 16:50:13 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 16:58:17 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	ft_fill(char *line, t_cub *cub)
 	else if (*line == 'C' && cub->ceilling_color[0] == -1)
 		ft_read_color(line + 1, &(cub->ceilling_color));
 	else if ((ft_is_amap(cub->line)) && !(cub->map))
-		ft_read_map(cub); 
+		ft_read_map(cub);
 	else
 		get_err("error in cub file\tstart of a line\n");
 }
