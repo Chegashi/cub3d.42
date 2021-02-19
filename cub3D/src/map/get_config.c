@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/02/19 16:45:36 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 17:10:02 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_read_map(t_cub *cub)
 
 	len = 0;
 	gnl_return = 1;
-	while (gnl_return && *(cub->line))
+	while (gnl_return)
 	{
 		if ((*(cub->line) == ' ' || *(cub->line) == '1'))
 		{
