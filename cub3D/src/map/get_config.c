@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/02/19 15:31:11 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 16:45:36 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	ft_read_color(char *line, int **tab)
 		else
 			(*tab)[i] = color;
 	}
-	if ((*tab)[0] == -1 || (*tab)[1] == -1 || (*tab)[2] == -1)
-		get_err("Error\tmising e element of color\n");
 }
 
 void	ft_resolution(char *line, t_cub *cub)
