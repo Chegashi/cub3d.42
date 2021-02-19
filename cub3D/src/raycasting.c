@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/18 18:31:41 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 14:56:43 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void			ft_cast_ray(t_ray *ray)
 	ray->dist = (h_dist < v_dist) ? h_dist : v_dist;
 	ray->is_facing &= (h_dist < v_dist) ? ~HIT_VERTI : ~HIT_HORIS;
 	if (ray->is_facing & HIT_HORIS)
-		ray->data = (ray->is_facing & DOWN) ? 2 : 0;
+		ray->data = (ray->is_facing & DOWN) ? 0 : 2;
 	else if (ray->is_facing & HIT_VERTI)
-		ray->data = (ray->is_facing & LEFT) ? 3 : 1;
+		ray->data = (ray->is_facing & LEFT) ? 1 : 3;
 }

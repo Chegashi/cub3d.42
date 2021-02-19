@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/10 17:21:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/18 15:57:53 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 16:38:21 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,6 @@ int			ft_strcmp(char *s1, char *s2);
 int			ft_atoi_s(char **s);
 void		*ft_memcpy(void *dst, const void *src, size_t n);
 size_t		ft_strlen(const char *str);
+void		*ft_memset(void *b, int c, size_t n);
+void	    ft_bzero(void *s, size_t len);
 #endif

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/02/18 16:03:54 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 15:31:11 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,16 @@ void	ft_read_color(char *line, int **tab)
 	{
 		while (*line && (*line == ' ' || *line == ',' || *line == '+'))
 			line++;
-		if (*line && !ft_isdigit(*line))
+		if (*line == 0 || !ft_isdigit(*line))
 			get_err("error\t in color\n");
 		color = ft_atoi_s(&line);
 		if (color < 0 || color > 255)
-			get_err("error\t in color\n");
+			get_err("error\t in color must > 0 and  < 255\n");
 		else
 			(*tab)[i] = color;
 	}
+	if ((*tab)[0] == -1 || (*tab)[1] == -1 || (*tab)[2] == -1)
+		get_err("Error\tmising e element of color\n");
 }
 
 void	ft_resolution(char *line, t_cub *cub)
@@ -65,8 +67,11 @@ void	ft_read_texture(char *line, t_texture *texture)
 		path, &(texture->width), &(texture->hight))))
 		get_err("error\tinvalide texture file\n");
 	else
+	{
 		texture->color = (int*)mlx_get_data_addr(file, &(texture->bpp),
 		&(texture->l_len), &(texture->endian));
+		texture->define = 1;
+	}
 }
 
 void	ft_read_map(t_cub *cub)
@@ -77,9 +82,9 @@ void	ft_read_map(t_cub *cub)
 
 	len = 0;
 	gnl_return = 1;
-	while (gnl_return && ft_is_amap(cub->line))
+	while (gnl_return && *(cub->line))
 	{
-		if (*(cub->line) == ' ' || *(cub->line) == '1')
+		if ((*(cub->line) == ' ' || *(cub->line) == '1'))
 		{
 			(cub->nbr_ligne)++;
 			len = ft_strlen(cub->line);
@@ -91,8 +96,8 @@ void	ft_read_map(t_cub *cub)
 			cub->line = ft_init_str(cub->line);
 			gnl_return = get_next_line(cub->fd, &(cub->line));
 		}
-		else if (!gnl_return)
-			get_err("error\tthe map must tart with '1' or ' '\n");
+		else if (gnl_return)
+			get_err("the map must be the last in the file\n");
 	}
 	ft_tomap(cub);
 }
@@ -119,6 +124,8 @@ void	check_map(t_cub *cub)
 				|| cub->map[i + 1][j] == ' '
 				|| cub->map[i - 1][j] == ' '))
 				get_err("error\tyou have a file,the 0 entoured with 0 or 1\n");
+			if (!ft_isin(" 120", cub->map[i][j]))
+				get_err("error\tbad caracter in the map\n");
 		}
 	}
 }

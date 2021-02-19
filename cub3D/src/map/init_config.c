@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:44:17 by abort             #+#    #+#             */
-/*   Updated: 2021/02/18 12:49:19 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 15:22:27 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	ft_map(t_cub *cub)
 	cub->fd = -1;
 	cub->player_position[0] = -1;
 	cub->player_position[1] = -1;
-	while (++i < 2)
+	while (++i < 3)
 	{
 		cub->floor_color[i] = -1;
 		cub->ceilling_color[i] = -1;

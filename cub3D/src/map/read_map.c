@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/18 19:16:23 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 14:51:32 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,8 @@ t_cub	*ft_read_cub(char *s)
 	cub = ft_init_cub();
 	cub->fd = open(s, O_RDONLY);
 	while (get_next_line(cub->fd, &(cub->line)) > 0)
-	{
-		if ((ft_is_amap(cub->line)) && !(cub->map))
-			ft_read_map(cub);
-		else
-		{
-			while (*(cub->line) && *(cub->line) == ' ')
-				(cub->line)++;
-			if (*(cub->line) != '\0')
-				ft_fill(cub->line, cub);
-		}
-	}
+		if (*(cub->line))
+			ft_fill(cub->line, cub);
 	close(cub->fd);
 	check_map(cub);
 	return (cub);
@@ -50,22 +41,26 @@ void	ft_destroy_cub(t_cub *cub)
 
 void	ft_fill(char *line, t_cub *cub)
 {
+	while (*line && !ft_is_amap(cub->line) && *line == ' ')
+		line++;
 	if (*line == 'R' && cub->resolution[0] == -1)
 		ft_resolution(line + 1, cub);
 	else if (*line == 'N' && line[1] == 'O' && !(cub->textures[0].define))
-		ft_read_texture(line + 2, &(cub->textures[1]));
-	else if (*line == 'E' && line[1] == 'A' && !(cub->textures[1].define))
-		ft_read_texture(line + 2, &(cub->textures[3]));
-	else if (*line == 'W' && line[1] == 'E' && !(cub->textures[3].define))
-		ft_read_texture(line + 2, &(cub->textures[2]));
-	else if (*line == 'S' && line[1] == 'O' && !(cub->textures[2].define))
 		ft_read_texture(line + 2, &(cub->textures[0]));
+	else if (*line == 'E' && line[1] == 'A' && !(cub->textures[1].define))
+		ft_read_texture(line + 2, &(cub->textures[1]));
+	else if (*line == 'W' && line[1] == 'E' && !(cub->textures[2].define))
+		ft_read_texture(line + 2, &(cub->textures[2]));
+	else if (*line == 'S' && line[1] == 'O' && !(cub->textures[3].define))
+		ft_read_texture(line + 2, &(cub->textures[3]));
 	else if (*line == 'S' && !(cub->textures[4].define))
 		ft_read_texture(line + 1, &(cub->textures[4]));
 	else if (*line == 'F' && (cub->floor_color[0] == -1))
 		ft_read_color(line + 1, &(cub->floor_color));
 	else if (*line == 'C' && cub->ceilling_color[0] == -1)
 		ft_read_color(line + 1, &(cub->ceilling_color));
+	else if ((ft_is_amap(cub->line)) && !(cub->map))
+		ft_read_map(cub);
 	else
 		get_err("error in cub file\tstart of a line\n");
 }

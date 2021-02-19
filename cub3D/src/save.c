@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 12:09:12 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/18 17:28:50 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 16:35:40 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int			ft_save(void)
 	int *pixel;
 	int pos;
 
-	bzero(g_game->bitm.h, 54);
+	ft_bzero(g_game->bitm.h, 54);
 	ft_initialize_save();
 	ft_header();
 	g_game->bitm.fd = open("cub3d.bmp", O_WRONLY | O_CREAT, 0644);

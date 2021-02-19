@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/18 17:22:13 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 15:36:28 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_player		*ft_init_player(t_cub *cub)
 	player->turndirection = 0;
 	player->walkdirection = 0;
 	player->walkspeed = g_game->ts / 2;
-	player->turnspeed = 10 * (PI / 180);
+	player->turnspeed = 5 * (PI / 180);
 	player->z = 0;
 	return (player);
 }

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:04:12 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/18 17:06:49 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 16:18:39 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int				ft_update(t_player *p)
 	new_player->y += sin(p->rotationangle) * move;
 	ft_normilised(&(new_player->rotationangle));
 	if (!ft_antoured_bywall(new_player->x, new_player->y)
-	&& !ft_isasprite(new_player->x, new_player->y))
+		&& !ft_isasprite(new_player->x, new_player->y))
 	{
 		*p = *new_player;
 		g_game->plyr.x = new_player->x;
@@ -48,7 +48,7 @@ int				ft_is_wall(double x, double y)
 	if (x < 0 || y < 0 || x > g_game->cube->resolution[0]
 			|| y > g_game->cube->resolution[1])
 		return (0);
-	return (g_game->cube->map[y_index][x_index] == '1');
+	return (ft_isin("1 ", g_game->cube->map[y_index][x_index]));
 }
 
 int				ft_antoured_bywall(double x, double y)

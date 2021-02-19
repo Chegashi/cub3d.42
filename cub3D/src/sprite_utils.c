@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:50:22 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/18 18:26:01 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 16:39:47 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,3 +49,9 @@ void			ft_put_pixel_sprit(t_sprite sprite, t_texture txt, int i, int j)
 			my_mlx_pixel_put(&(g_game->img), i, j, color);
 	}
 }
+
+void	ft_bzero(void *s, size_t len)
+{
+	ft_memset(s, 0, len);
+}
+
