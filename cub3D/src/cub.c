@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/19 18:59:54 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/19 19:01:50 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_get_tilesize(void)
 
 void	ft_render(void)
 {
-	// ft_clean_win();
+	ft_clean_win();
 	ft_raycasting();
 	ft_render_celing();
 	ft_render_wall();
