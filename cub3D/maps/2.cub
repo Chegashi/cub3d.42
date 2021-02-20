@@ -1,15 +1,17 @@
-R  1000 800
-        NO textures/2.xpm
-                SO textures/2.xpm  
+R  901 901
+        NO textures/2.exe
+
+                SO textures/2.exe
                         WE textures/3.xpm
-                        EA textures/4.xpm
+                        EA textures/s.xpm
                 S  textures/s.xpm
         F       202,161,22
-C       119,181,245
+C       119 ,181 ,1
 
-
-
-
- 1
-1N1
- 1
+     
+11111111111
+ 1111111111111 
+1N00000000001
+1000002000001
+1000000000001
+11111111111111

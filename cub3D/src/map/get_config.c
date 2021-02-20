@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/02/19 18:44:08 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 11:21:42 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,21 @@ void	ft_read_color(char *line, int **tab)
 	int color;
 
 	i = -1;
+	while (*line && *line == ' ')
+		line++;
 	while (++i < 3)
 	{
-		while (*line && (*line == ' ' || *line == ',' || *line == '+'))
-			line++;
-		if (*line == 0 || !ft_isdigit(*line))
+		if (!*line || !ft_isdigit(*line))
 			get_err("error\t in color\n");
 		color = ft_atoi_s(&line);
 		if (color < 0 || color > 255)
 			get_err("error\t in color must > 0 and  < 255\n");
 		else
 			(*tab)[i] = color;
+		if ((i == 0 || i == 1) && *line != ',')
+			get_err("Error \n the file must be seperated bey ',");
+		(*line) ? line++ : 0;
+		printf("l|%s\n", line);
 	}
 	while (*line && *line == ' ')
 		line++;
@@ -69,6 +73,8 @@ void	ft_read_texture(char *line, t_texture *texture)
 	while (line[len] && line[len] != ' ')
 		len++;
 	path = ft_substr(line, 0, len);
+	if (strcmp(path + strlen(path) - 4, ".xpm"))
+		get_err("error extention texture file\n");
 	if (!(file = mlx_xpm_file_to_image(g_game->mlx_ptr,
 		path, &(texture->width), &(texture->hight))))
 		get_err("error\tinvalide texture file\n");
@@ -101,7 +107,7 @@ void	ft_read_map(t_cub *cub)
 			cub->map_str = tmp;
 			cub->line = ft_init_str(cub->line);
 		}
-		else if (gnl_return && *(cub->line))
+		else if (gnl_return && !*(cub->line))
 			get_err("the map must be the last in the file\n");
 		gnl_return = get_next_line(cub->fd, &(cub->line));
 	}

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/19 18:16:24 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 10:30:26 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,11 @@ void	ft_fill(char *line, t_cub *cub)
 		ft_read_color(line + 1, &(cub->ceilling_color));
 	else if ((ft_is_amap(cub->line)) && !(cub->map))
 		ft_read_map(cub);
-	else
+	else if (*line)
+	{
+		printf("%s\n", line);
 		get_err("error in cub file\tstart of a line\n");
+	}
 }
 
 int		ft_is_amap(char *str)
