@@ -1,6 +1,6 @@
 /* XPM */
 static char *_f94df53c3e3417d85ccf6ea9add5da9hNXZir5HlwTtmEKe[] = {
-/* columns rows colors chars-per-pixel */
+/* columns rows colors chars-per-pixl */
 "64 64 46 1 ",
 "  c #28200C",
 ". c #202020",
@@ -48,7 +48,7 @@ static char *_f94df53c3e3417d85ccf6ea9add5da9hNXZir5HlwTtmEKe[] = {
 "h c gray55",
 "j c #989898",
 "k c gray66",
-/* pixels */
+/* pixls */
 "++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++",
 "2+2<<<<<2<<<<<<2<+<<<<<<<222222<<<<<<<<<2222222<<<<+++<<22<<<<<+",
 "+99888888888&<<2kkjjjjjjjjjjjjjjjjjj6<+2yyyyttttttrrrrreeeewww9<",

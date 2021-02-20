@@ -1,6 +1,6 @@
 /* XPM */
 static char *_0861_99d89603e2f7e6dd351bff00a0b35afd38122bd3662d54d7d53b139832eee2fa[] = {
-/* columns rows colors chars-per-pixel */
+/* columns rows colors chars-per-pixl */
 "64 64 216 2 ",
 "   c #010101",
 ".  c #090603",
@@ -218,7 +218,7 @@ static char *_0861_99d89603e2f7e6dd351bff00a0b35afd38122bd3662d54d7d53b139832eee
 "qX c #FCF6F0",
 "wX c #FFF9F4",
 "eX c #FFFEF9",
-/* pixels */
+/* pixls */
 "K.).(.).).~.~.(.(.).(.(.(.~.(.).~.~.).W.(.(.(.Q.(.(.T.(.W.W.T.(.T.T.T.T.R.R.T.R.R.T.T.K.K.L.K.P.K.P.K.P.K.K.K.K.K.K.K.K.K.K.K.K.",
 "(.<XoXoX.X.X.X.X.X.XoX.XoX.XoX+XoX+X+X.X+XoX;X;X.X.X.X.X.X.X.X;X+X#X+X#XoX.X;X;XoX:XXX;X>X>X#X<X<X,XoX;XoXoX+X;X.X+X;X;X;X,X,X,X",
 "(.,X.X<X0X1X1X7X7X7X7X7X2X2X,X`.+X.X+X2X2X2X2X2X2X2X2X2X8X8X2X8XoX.X.X.X:X:X=X=X3X3X3X3X5X:X X|..X.X2X0X8X7X8X0X2XqX8X8X2X.X_..X",

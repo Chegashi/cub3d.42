@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 15:00:47 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/19 18:53:18 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 15:39:36 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void		ft_draw_disque(t_data *data, int x, int y, int color)
 		while (++j < y + r)
 		{
 			if (pow(i - x, 2) + pow(j - y, 2) < pow(r, 2))
-				my_mlx_pixel_put(data, i, j, color);
+				my_mlx_pixl_put(data, i, j, color);
 		}
 	}
 }
@@ -45,7 +45,7 @@ void		ft_render_line(t_data *data, t_point p1, t_point p2, int color)
 	k = -1;
 	while (++k < steps)
 	{
-		my_mlx_pixel_put(data, p1.x, p1.y, color);
+		my_mlx_pixl_put(data, p1.x, p1.y, color);
 		p1.x += xinc;
 		p1.y += yinc;
 	}
@@ -61,15 +61,15 @@ void		draw_rect(t_data *data, t_square s)
 	{
 		j = s.y - 1;
 		while (++j < s.y + s.lent)
-			my_mlx_pixel_put(data, i, j, s.color);
+			my_mlx_pixl_put(data, i, j, s.color);
 	}
 }
 
-void		my_mlx_pixel_put(t_data *data, int x, int y, int color)
+void		my_mlx_pixl_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x <= 0 || y <= 0 || x >= g_game->width || y >= g_game->height)
+	if (x <= 0 || y <= 0 || x >= g_game->width || y >= g_game->hight)
 		return ;
 	dst = data->addr + (y * data->l_len + x * (data->bpp / 8));
 	*(unsigned int*)dst = color;
@@ -86,7 +86,7 @@ void		ft_render_g_rect(t_data *data, t_rectangle rect)
 		j = rect.y;
 		while (j < rect.y + rect.lent_y)
 		{
-			my_mlx_pixel_put(data, i, j, rect.color);
+			my_mlx_pixl_put(data, i, j, rect.color);
 			j++;
 		}
 		i++;

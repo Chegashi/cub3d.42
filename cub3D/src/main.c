@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/19 18:57:38 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 15:39:36 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	ft_fill_game(void)
 {
 	ft_get_tilesize();
 	g_game->win_ptr = mlx_new_window(g_game->mlx_ptr, g_game->width,
-						g_game->height, "Cub3d");
+						g_game->hight, "Cub3d");
 	g_game->img.img = mlx_new_image(g_game->mlx_ptr,
-	g_game->width, g_game->height);
+	g_game->width, g_game->hight);
 	g_game->player = ft_init_player(g_game->cube);
 	g_game->img.addr = mlx_get_data_addr(g_game->img.img,
 	&(g_game->img.bpp), &(g_game->img.l_len), &(g_game->img.endian));

@@ -1,6 +1,6 @@
 /* XPM */
 static char *bbded08c277f4b34a9b1f8ac5fdd4487[] = {
-/* columns rows colors chars-per-pixel */
+/* columns rows colors chars-per-pixl */
 "64 64 27 1 ",
 "  c black",
 ". c gray11",
@@ -29,7 +29,7 @@ static char *bbded08c277f4b34a9b1f8ac5fdd4487[] = {
 "6 c #9D623B",
 "7 c #A4693F",
 "8 c gray52",
-/* pixels */
+/* pixls */
 "                                                                ",
 "                                                                ",
 "                                                                ",

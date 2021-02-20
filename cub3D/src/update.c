@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:04:12 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 15:26:39 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 16:01:25 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int				ft_update(t_player *p)
 		g_game->plyr.x = new_player->x;
 		g_game->plyr.y = new_player->y;
 	}
-	if (g_game->player->z > g_game->height
-	|| g_game->player->z < -1 * g_game->height)
+	if (g_game->player->z > g_game->hight
+	|| g_game->player->z < -1 * g_game->hight)
 		g_game->player->z *= -1;
 	free(new_player);
 	return (0);
@@ -43,10 +43,10 @@ int				ft_is_wall(double x, double y)
 	int			x_index;
 	int			y_index;
 
-	x_index = floor(x) / g_game->ts;
-	y_index = floor(y) / g_game->ts;
 	if (x < 0 || y < 0 || x > g_game->width || y > g_game->width)
 		return (0);
+	x_index = floor(x) / g_game->ts;
+	y_index = floor(y) / g_game->ts;
 	return (ft_isin("1 ", g_game->cube->map[y_index][x_index]));
 }
 

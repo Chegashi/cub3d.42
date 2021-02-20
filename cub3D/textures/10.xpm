@@ -1,6 +1,6 @@
 /* XPM */
 static char *_8969_06448b2490786a027870872373bb269b697f4e2501b9c1765a17dea7c7c2a10f[] = {
-/* columns rows colors chars-per-pixel */
+/* columns rows colors chars-per-pixl */
 "64 64 252 2 ",
 "   c #010300",
 ".  c #0B0100",
@@ -254,7 +254,7 @@ static char *_8969_06448b2490786a027870872373bb269b697f4e2501b9c1765a17dea7c7c2a
 "HX c #FFFFF9",
 "JX c #F7FAF2",
 "KX c #EDF7EB",
-/* pixels */
+/* pixls */
 "& @ i.qX9.7.7.m.}.$ < *XY.m K lXT.F D P lXL.N *.lXL.S D K lXJ.M K lXJ.D D *.lXK.S *.lXK.D D L lXJ.m &.zXQ O E iXq.7.7.l.uX< $ 5 ",
 "  . d wX3.7.9.n.i.    >.C.j B 1X=.v n m oXZ.h b 1X=.b b B ,XV.j A 1X&.v n m 2X:.j B 1X` n n B ,X=.v Z +X%   1 0Xd.8.8.w.c.    $ ",
 "a u c.n.h.n.c.i.).{ W <X2X>.G.+XA.D.|.' '.].;.I.+X>.G..X' `.+X_ G.+X>.F..X-.'.`.;.L.+X| G._.' `..X>.I.1X>._ u.}.e.v.z.l.9X^ r E ",

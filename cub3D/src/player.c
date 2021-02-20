@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 12:52:27 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 15:37:20 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,21 @@ t_player		*ft_init_player(t_cub *cub)
 
 int				key_hook(int keycode)
 {
-	t_player *p;
-
-	p = g_game->player;
-	p->turndirection = 0;
-	p->walkdirection = 0;
+	g_game->player->turndirection = 0;
+	g_game->player->walkdirection = 0;
 	if (keycode == 13)
-		p->walkdirection++;
+		g_game->player->walkdirection++;
 	else if (keycode == 123)
-		p->turndirection--;
+		g_game->player->turndirection--;
 	else if (keycode == 1)
-		p->walkdirection--;
+		g_game->player->walkdirection--;
 	else if (keycode == 124)
-		p->turndirection++;
+		g_game->player->turndirection++;
 	else if (keycode == 0 || keycode == 2)
 	{
-		p->walkdirection++;
-		(keycode == 0) ? p->turndirection-- : p->turndirection++;
+		g_game->player->walkdirection++;
+		(keycode == 0)
+		? g_game->player->turndirection-- : g_game->player->turndirection++;
 	}
 	else if (keycode == 53)
 		ft_exit(EXIT_SUCCESS);

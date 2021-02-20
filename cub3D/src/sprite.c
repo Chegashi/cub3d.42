@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/03 15:50:29 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 15:16:45 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 15:43:10 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,6 @@ void			ft_draw_sprites(t_sprite *sprite)
 		j = sprite->top_y - 1;
 		sprite->x_offset *= (sprite->x_offset < 0) ? 0 : 1;
 		while (++j < sprite->bottom_y)
-			ft_put_pixel_sprit(*sprite, texture, i, j);
+			ft_put_pixl_sprit(*sprite, texture, i, j);
 	}
 }

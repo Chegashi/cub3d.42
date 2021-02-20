@@ -1,6 +1,6 @@
 /* XPM */
 static char *e6f9e8ffe429475b8369d2ce0f4d37b5A1Sj3MrxwClzju5G[] = {
-/* columns rows colors chars-per-pixel */
+/* columns rows colors chars-per-pixl */
 "64 64 73 1 ",
 "  c gray11",
 ". c #28200C",
@@ -75,7 +75,7 @@ static char *e6f9e8ffe429475b8369d2ce0f4d37b5A1Sj3MrxwClzju5G[] = {
 "I c #B4B4B4",
 "U c #C0C0C0",
 "Y c #D0D0D0",
-/* pixels */
+/* pixls */
 "rtrLPIUYYYYYYYYYYYYYYYYYYYYYUIPLrtrLPIUYYYYYYYYYYYYYYYYYYYYYUIPL",
 "rtrpUUUUUUUUUUUUIIIIUIUIUIUIUIUKrtrpUUUUUUUUUUUUIIIIUIUIUIUIUIUK",
 "rtrpUUIUUUIIUIIIIIIIIUIUIUIIIUIKrtrpUUIUUUIIUIIIIIIIIUIUIUIIIUIK",

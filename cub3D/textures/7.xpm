@@ -1,6 +1,6 @@
 /* XPM */
 static char *_278_0d56a26f5ec13dc4ed8c3b10eb6bf59732e5d1d6c6d0e359b312c2fd49d9ec99[] = {
-/* columns rows colors chars-per-pixel */
+/* columns rows colors chars-per-pixl */
 "64 64 239 2 ",
 "   c #020102",
 ".  c #0A0502",
@@ -241,7 +241,7 @@ static char *_278_0d56a26f5ec13dc4ed8c3b10eb6bf59732e5d1d6c6d0e359b312c2fd49d9ec
 "nX c #C2EBE0",
 "mX c #FAFFE7",
 "MX c #F0F5EA",
-/* pixels */
+/* pixls */
 "| ! ~ ~ ~ / | :X/ ) ~ ~ ~ ~ ~ / ).>XY ) ~ ~ ~ !  .dX~ ~ ~ ~ ~ ~ ~ ^ ~ ~ / F.^./ ~ ^ ~ ) U | cX} ^ ~ ~ ~ ~ ~ ! S.(.Y ~ ~ ~ ~ ^ dX",
 "q       o   j E.o o     o       % Q.} o         8 !.                      ) S.  o       : :X!     o           Y I.  o         /.",
 "w   O O O o I E.  O o o o o o O   @ dX|   O #   8 ^.  O o o o o o o O O   { S.  @ @ o < hX^ . O O o o O o O   ! K.  O o o # X /.",

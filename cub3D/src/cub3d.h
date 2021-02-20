@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 15:01:14 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 15:39:36 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ typedef	struct		s_ray
 	double			angl;
 	double			dist;
 	double			wall_h;
-	double			top_pixel;
-	double			bottom_pixel;
+	double			top_pixl;
+	double			bottom_pixl;
 	t_point			end;
 }					t_ray;
 
@@ -170,7 +170,7 @@ typedef struct		s_bitmap
 typedef struct		s_game
 {
 	int				width;
-	int				height;
+	int				hight;
 	void			*win_ptr;
 	void			*mlx_ptr;
 	double			dis_plan;
@@ -208,7 +208,7 @@ void				ft_tomap(t_cub *cub);
 void				check_map(t_cub *cub);
 void				get_err(char *msg);
 void				ft_init_game(t_game *game);
-void				my_mlx_pixel_put(t_data *data, int x, int y, int color);
+void				my_mlx_pixl_put(t_data *data, int x, int y, int color);
 void				ft_render_map();
 void				draw_rect(t_data *data, t_square s);
 void				ft_set_player(char direct, int x, int y, t_cub *cub);
@@ -235,7 +235,7 @@ void				ft_save_file(void);
 void				ft_initialize_save(void);
 void				ft_get_tilesize(void);
 void				ft_sprite_config(t_sprite *sprite);
-void				ft_put_pixel_sprit(t_sprite sprite,
+void				ft_put_pixl_sprit(t_sprite sprite,
 										t_texture texture, int i, int j);
 void				ft_fill_game(void);
 void				ft_3dgenerate(t_ray *ray);

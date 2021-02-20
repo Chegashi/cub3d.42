@@ -1,6 +1,6 @@
 /* XPM */
 static char *_8172_784ae380de287f047a28803534f2c7e9238dae03543c97cc18817e6a2055d7a3[] = {
-/* columns rows colors chars-per-pixel */
+/* columns rows colors chars-per-pixl */
 "64 64 243 2 ",
 "   c #020102",
 ".  c #050409",
@@ -245,7 +245,7 @@ static char *_8172_784ae380de287f047a28803534f2c7e9238dae03543c97cc18817e6a2055d
 "BX c #F4FFFA",
 "VX c #FEFEFA",
 "CX c #F8EFF0",
-/* pixels */
+/* pixls */
 "E E | | E | E ) ! U.gXpXVXN   X . . .   > tXmXCXCXMXqXl y 2.F 2.2.2.2.q M.BXyXnXpXVXh.  . . . . . X +XNXjX:XX.E } } | E | E ] S ",
 "E W ~ ( ( ~ W ) / T.4XyXVXb   X . . .     3 pXmXCXsX0XP y i q q q e F q M.vXpXpXVXj.  .   . . .   . +XmXaX-X%.R R T ~ T T )  .S ",
 "| T &.,.,.,.&./ ~ <.5XlXVXV   X . . . . X   1 iXmXzX.Xk w 7.F.m.N.a.p q s.vXbXVXh.    . . . . X   @ ,XjX4X~.[ ^ ] 1.:.,.;.' [ S ",

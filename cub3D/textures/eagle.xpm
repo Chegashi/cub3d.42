@@ -1,6 +1,6 @@
 /* XPM */
 static char *_832aa764d464016d1343c840f912677[] = {
-/* columns rows colors chars-per-pixel */
+/* columns rows colors chars-per-pixl */
 "64 64 56 1 ",
 "  c #202020",
 ". c #2C2C2C",
@@ -58,7 +58,7 @@ static char *_832aa764d464016d1343c840f912677[] = {
 "m c #B4B4B4",
 "M c #C0C0C0",
 "N c #D0D0D0",
-/* pixels */
+/* pixls */
 "oooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",
 "4o433333433333343o333333344444433333333344444443333ooo334433333o",
 "oyyrrrrrrrrr0334yyrrrrrrrrrrrrrrrrrr03o4yyyyttttttrrrrreeeewww03",

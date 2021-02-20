@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 12:09:12 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/19 16:35:40 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 15:39:36 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void		ft_initialize_save(void)
 {
 	g_game->bitm.w = g_game->width;
-	g_game->bitm.he = g_game->height;
+	g_game->bitm.he = g_game->hight;
 	g_game->bitm.bc = 32;
 	g_game->bitm.imgs = g_game->bitm.w * g_game->bitm.he * 4;
 	g_game->bitm.bs = 40;
@@ -43,7 +43,7 @@ void		ft_header(void)
 
 int			ft_save(void)
 {
-	int *pixel;
+	int *pixl;
 	int pos;
 
 	ft_bzero(g_game->bitm.h, 54);
@@ -56,8 +56,8 @@ int			ft_save(void)
 		while (g_game->bitm.co < g_game->width)
 		{
 			pos = g_game->bitm.ro * g_game->bitm.w + g_game->bitm.co;
-			pixel = (int *)(g_game->img.addr) + pos;
-			write(g_game->bitm.fd, pixel, 4);
+			pixl = (int *)(g_game->img.addr) + pos;
+			write(g_game->bitm.fd, pixl, 4);
 			g_game->bitm.co++;
 		}
 		g_game->bitm.ro--;
