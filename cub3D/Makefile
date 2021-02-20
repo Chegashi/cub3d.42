@@ -6,7 +6,7 @@
 #    By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 17:18:52 by mochegri          #+#    #+#              #
-#    Updated: 2021/02/20 12:13:42 by mochegri         ###   ########.fr        #
+#    Updated: 2021/02/20 17:33:45 by mochegri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,9 +35,9 @@ SRCS = 	src/main.c \
 		src/map/get_next_line/get_next_line.c \
 		src/map/get_next_line/get_next_line_utils.c \
 		
-MAND = $(SRC)
+MAND = $(SRCS)
 
-$(NAME):
+$(NAME): $(SRCS)
 	@gcc $(flags) -c $(SRCS) -D BONUS=0
 	@ar -rc cub.a *.o
 	@ranlib cub.a 
@@ -46,7 +46,7 @@ $(NAME):
 	@rm *.o
 	@rm cub.a
 
-$(NAME_b):
+$(NAME_b): $(SRCS)
 	gcc $(flags) -c $(SRCS) -D BONUS=1
 	@ar -rc cub.a *.o
 	@ranlib cub.a 

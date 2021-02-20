@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 15:37:20 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 17:40:33 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ int				key_hook(int keycode)
 	else if (keycode == 53)
 		ft_exit(EXIT_SUCCESS);
 	else if (keycode == 126 && BONUS)
-		g_game->player->z -= 10;
-	else if (keycode == 125 && BONUS)
 		g_game->player->z += 10;
+	else if (keycode == 125 && BONUS)
+		g_game->player->z -= 10;
 	ft_update(g_game->player);
 	ft_render();
 	return (0);
