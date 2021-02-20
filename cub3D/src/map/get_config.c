@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/02/20 15:32:26 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 18:01:32 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ void	ft_read_texture(char *line, t_texture *texture)
 	char		*path;
 	void		*file;
 
+	if (*line != ' ')
+		(get_err("error\nerror in texture\n"));
 	while (*line && *line == ' ')
 		line++;
 	len = 0;
@@ -130,11 +132,10 @@ void	check_map(t_cub *cub)
 				|| j == cub->nbr_column - 1)
 				&& (cub->map[i][j] != '1' && cub->map[i][j] != ' '))
 				get_err("error\tthe map must be ontoured by 1\n");
-			if ((cub->map[i][j] == '0' || cub->map[i][j] == 2)
+			if ((cub->map[i][j] == '0' || cub->map[i][j] == '2')
 				&& (cub->map[i][j - 1] == ' ' || cub->map[i][j + 1] == ' '
-				|| cub->map[i + 1][j] == ' '
-				|| cub->map[i - 1][j] == ' '))
-				get_err("error\tyou have a file,the 0 entoured with 0 or 1\n");
+				|| cub->map[i + 1][j] == ' ' || cub->map[i - 1][j] == ' '))
+				get_err("error\tyou the 0,2 entoured with 0 or 1\n");
 			if (!ft_isin(" 120", cub->map[i][j]))
 				get_err("error\tbad caracter in the map\n");
 		}

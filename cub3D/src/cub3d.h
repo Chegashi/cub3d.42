@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 15:39:36 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 18:19:12 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <unistd.h>
 # include "mlx.h"
 # include <math.h>
+# include <signal.h>
+# include <sys/types.h>
+# include <sys/stat.h>
 # define PI 3.14159265359
 # define FOV 1.0472
 # define COEF 1
@@ -184,6 +187,8 @@ typedef struct		s_game
 	int				ts;
 }					t_game;
 
+int					g_save;
+int					g_pid;
 int					ft_destroy(int keycode);
 int					key_hook(int keycode);
 int					*ft_calloc_tab_int(int n);
@@ -264,5 +269,4 @@ t_point				ft_horis_interst(t_ray *ray);
 t_point				ft_verti_intersect(t_ray *ray);
 t_player			*ft_init_player(t_cub *cub);
 t_game				*g_game;
-int					g_save;
 #endif

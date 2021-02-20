@@ -6,7 +6,7 @@
 #    By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 17:18:52 by mochegri          #+#    #+#              #
-#    Updated: 2021/02/20 17:33:45 by mochegri         ###   ########.fr        #
+#    Updated: 2021/02/20 18:02:15 by mochegri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ all : $(NAME)
 
 clean:
 	@rm -f $(SRC:.c=.o) $(MAND:.c=.o) cub3D
+	@rm -f cub3d.bmp
 
 fclean:	clean
 	@rm -f $(NAME)

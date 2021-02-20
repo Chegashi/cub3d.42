@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:42:36 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 11:41:04 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 18:19:18 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,3 +81,4 @@ void			ft_rendr_sp_map(void)
 		draw_rect(&(g_game->img), sqr);
 	}
 }
+
