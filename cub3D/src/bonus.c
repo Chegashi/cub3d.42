@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:42:36 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/18 17:46:03 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 11:41:04 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void			ft_render_map(void)
 			}
 		}
 	}
-	ft_render_rays();
 }
 
 void			ft_render_rays(void)
@@ -53,8 +52,6 @@ void			ft_render_rays(void)
 	t_point p2;
 
 	i = -1;
-	ft_render_player();
-	ft_rendr_sp_map();
 	while (++i < g_game->width)
 	{
 		p1.x = g_game->plyr.x * COEF;

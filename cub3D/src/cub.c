@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/19 19:01:50 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 11:41:41 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,13 @@ void	ft_render(void)
 	ft_render_wall();
 	ft_render_floor();
 	ft_render_sprite();
+	if (BONUS)
+	{
+		ft_render_map();
+		ft_render_rays();
+		ft_render_player();
+		ft_rendr_sp_map();
+	}
 	if (g_save)
 		ft_scren_shot();
 	mlx_put_image_to_window(g_game->mlx_ptr, g_game->win_ptr,

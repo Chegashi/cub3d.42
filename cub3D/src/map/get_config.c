@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/02/20 11:21:42 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 11:25:37 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	ft_read_color(char *line, int **tab)
 		if ((i == 0 || i == 1) && *line != ',')
 			get_err("Error \n the file must be seperated bey ',");
 		(*line) ? line++ : 0;
-		printf("l|%s\n", line);
 	}
 	while (*line && *line == ' ')
 		line++;

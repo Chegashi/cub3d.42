@@ -6,13 +6,12 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/18 18:53:44 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 12:07:22 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef __CUB3D_H
 # define __CUB3D_H
-
 # include "map/get_next_line/get_next_line.h"
 # include "map/libft/libft.h"
 # include <fcntl.h>

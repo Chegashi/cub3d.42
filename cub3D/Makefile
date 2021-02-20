@@ -6,7 +6,7 @@
 #    By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 17:18:52 by mochegri          #+#    #+#              #
-#    Updated: 2021/02/18 17:55:23 by mochegri         ###   ########.fr        #
+#    Updated: 2021/02/20 12:13:42 by mochegri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = 	src/main.c \
 		src/sprite.c \
 		src/save.c \
 		src/update.c \
+		src/bonus.c \
 		src/math_utils.c \
 		src/sprite_utils.c \
 		src/map/get_config.c \
@@ -36,16 +37,26 @@ SRCS = 	src/main.c \
 		
 MAND = $(SRC)
 
-all : $(NAME)
-
 $(NAME):
-	@gcc $(flags) -c $(SRCS)
+	@gcc $(flags) -c $(SRCS) -D BONUS=0
 	@ar -rc cub.a *.o
 	@ranlib cub.a 
-	@gcc $(flags) -I /usr/local/include cub.a -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit src/libmlx.dylib -o cub3D
+	@gcc $(flags) -I /usr/local/include cub.a -L /usr/local/lib/ \
+	-lmlx -framework OpenGL -framework AppKit src/libmlx.dylib -o cub3D
 	@rm *.o
 	@rm cub.a
-	
+
+$(NAME_b):
+	gcc $(flags) -c $(SRCS) -D BONUS=1
+	@ar -rc cub.a *.o
+	@ranlib cub.a 
+	@gcc $(flags) -I /usr/local/include cub.a -L /usr/local/lib/ \
+	-lmlx -framework OpenGL -framework AppKit src/libmlx.dylib -o cub3D
+	@rm *.o
+	@rm cub.a
+
+all : $(NAME)
+
 clean:
 	@rm -f $(SRC:.c=.o) $(MAND:.c=.o) cub3D
 
@@ -58,3 +69,13 @@ run: re
 	./cub3d maps/1.cub
 save : re
 	./cub3D maps/1.cub --save
+
+bonus : clean
+	@gcc $(flags) -c $(SRCS) -D BONUS=1
+	@ar -rc cub.a *.o
+	@ranlib cub.a 
+	@gcc $(flags) -I /usr/local/include cub.a -L /usr/local/lib/ \
+	-lmlx -framework OpenGL -framework AppKit src/libmlx.dylib -o cub3D
+	@rm *.o
+	@rm cub.a
+	./cub3D maps/1.cub 
