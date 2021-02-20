@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/19 15:36:28 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 12:52:27 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,21 +43,25 @@ int				key_hook(int keycode)
 	p = g_game->player;
 	p->turndirection = 0;
 	p->walkdirection = 0;
-	if (keycode == 13 || keycode == 126)
+	if (keycode == 13)
 		p->walkdirection++;
-	if (keycode == 123)
+	else if (keycode == 123)
 		p->turndirection--;
-	if (keycode == 1 || keycode == 125)
+	else if (keycode == 1)
 		p->walkdirection--;
-	if (keycode == 124)
+	else if (keycode == 124)
 		p->turndirection++;
-	if (keycode == 0 || keycode == 2)
+	else if (keycode == 0 || keycode == 2)
 	{
 		p->walkdirection++;
 		(keycode == 0) ? p->turndirection-- : p->turndirection++;
 	}
-	if (keycode == 53)
+	else if (keycode == 53)
 		ft_exit(EXIT_SUCCESS);
+	else if (keycode == 126 && BONUS)
+		g_game->player->z -= 10;
+	else if (keycode == 125 && BONUS)
+		g_game->player->z += 10;
 	ft_update(g_game->player);
 	ft_render();
 	return (0);

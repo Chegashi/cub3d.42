@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 12:07:22 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 15:01:14 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # include "mlx.h"
 # include <math.h>
 # define PI 3.14159265359
-# define UP 1
 # define FOV 1.0472
 # define COEF 1
+# define UP 1
 # define RIGHT 2
 # define DOWN 4
 # define LEFT 8

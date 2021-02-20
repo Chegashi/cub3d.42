@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:04:12 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/19 16:18:39 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 15:26:39 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,7 @@ int				ft_is_wall(double x, double y)
 
 	x_index = floor(x) / g_game->ts;
 	y_index = floor(y) / g_game->ts;
-	if (x < 0 || y < 0 || x > g_game->cube->resolution[0]
-			|| y > g_game->cube->resolution[1])
+	if (x < 0 || y < 0 || x > g_game->width || y > g_game->width)
 		return (0);
 	return (ft_isin("1 ", g_game->cube->map[y_index][x_index]));
 }
@@ -63,8 +62,9 @@ int				ft_antoured_bywall(double x, double y)
 
 int				ft_is_in_map(t_point p)
 {
-	if (p.x < 0 || p.y < 0 || floor(p.x / g_game->ts) > g_game->cube->nbr_column
-	- 1 || floor(p.y / g_game->ts) > g_game->cube->nbr_ligne - 1)
+	if (p.x < 0 || p.y < 0
+		|| floor(p.x / g_game->ts) > g_game->cube->nbr_column - 1
+		|| floor(p.y / g_game->ts) > g_game->cube->nbr_ligne - 1)
 		return (0);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:50:22 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/19 16:58:47 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 14:20:06 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ void			ft_sprite_config(t_sprite *sprite)
 	per_dist = sprite->dist * cos(sprite->angle);
 	sprite->size = (g_game->ts / per_dist) * g_game->dis_plan;
 	sprite->size *= 3;
-	sprite->top_y = (g_game->height / 2) - (sprite->size / 2);
+	sprite->top_y = (g_game->height / 2) - (sprite->size / 2) + g_game->player->z;
 	sprite->top_y *= (sprite->top_y < 0) ? 0 : 1;
-	sprite->bottom_y = (g_game->height / 2) + (sprite->size / 2);
+	sprite->bottom_y = (g_game->height / 2) + (sprite->size / 2) + g_game->player->z;
 	sprite->bottom_y = (sprite->top_y > g_game->height)
 		? g_game->height : sprite->bottom_y;
 	sprite_ngl = atan2f(sprite->y - g_game->plyr.y, sprite->x - g_game->plyr.x)

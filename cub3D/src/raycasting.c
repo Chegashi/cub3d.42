@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/18 10:13:57 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/19 14:56:43 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 15:17:31 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void			ft_3dgenerate(t_ray *ray)
 	corect_dis = ray->dist * cos(ray->angl - g_game->player->rotationangle);
 	ray->wall_h = (g_game->ts / corect_dis) * g_game->dis_plan;
 	ray->wall_h *= 3;
-	ray->top_pixel = (g_game->height / 2) - ray->wall_h / 2;
+	ray->top_pixel = (g_game->height / 2) - ray->wall_h / 2 + g_game->player->z;
 	ray->top_pixel *= (ray->top_pixel < 0) ? 0 : 1;
-	ray->bottom_pixel = (g_game->height / 2) + ray->wall_h / 2;
+	ray->bottom_pixel = (g_game->height / 2) + ray->wall_h / 2 + g_game->player->z;
 	ray->bottom_pixel = (ray->bottom_pixel > g_game->height) ? g_game->height
 	: ray->bottom_pixel;
 }
@@ -118,6 +118,6 @@ void			ft_cast_ray(t_ray *ray)
 	ray->is_facing &= (h_dist < v_dist) ? ~HIT_VERTI : ~HIT_HORIS;
 	if (ray->is_facing & HIT_HORIS)
 		ray->data = (ray->is_facing & DOWN) ? 0 : 2;
-	else if (ray->is_facing & HIT_VERTI)
+	else
 		ray->data = (ray->is_facing & LEFT) ? 1 : 3;
 }

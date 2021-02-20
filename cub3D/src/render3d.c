@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 19:08:20 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/19 18:43:52 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 15:03:00 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void				ft_render_celing(void)
 	i = -1;
 	tab = g_game->cube->ceilling_color;
 	color = ft_create_trgb(1, tab[0], tab[1], tab[2]);
-	while (++i < g_game->width)
+	while (++i <= g_game->width)
 	{
 		p1.x = i;
 		p1.y = 0;
@@ -80,7 +80,7 @@ void				ft_wall_texture(t_ray ray, int i)
 	double			y_off;
 	double			y_step;
 	t_texture		texture;
-
+	i +=0;
 	texture = g_game->cube->textures[ray.data];
 	j = (int)ray.top_pixel;
 	x_off = (!fmod(ray.end.x, g_game->ts)) ? ray.end.y : ray.end.x;
