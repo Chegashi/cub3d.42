@@ -6,7 +6,7 @@
 #    By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 17:18:52 by mochegri          #+#    #+#              #
-#    Updated: 2021/02/22 10:54:46 by mochegri         ###   ########.fr        #
+#    Updated: 2021/02/20 18:02:15 by mochegri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ SRCS = 	src/main.c \
 		src/save.c \
 		src/update.c \
 		src/bonus.c \
-		src/keys.c \
 		src/math_utils.c \
 		src/sprite_utils.c \
 		src/map/get_config.c \

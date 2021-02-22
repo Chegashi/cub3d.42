@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 18:19:30 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/22 11:34:24 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 void	ft_check_arg(int ac, char **av)
 {
 	if (ac < 2 || ac > 3)
-		get_err("error \tdargument\n");
+		get_err("Error \ndargument\n");
 	else if (strcmp(av[1] + strlen(av[1]) - 4, ".cub"))
-		get_err("error extention map file\n");
+		get_err("Error \nextention map file\n");
 	else if (ac == 3)
 		(ft_strcmp(av[2], "--save")) ?
-			get_err("error\t invalid arg\n") : (g_save = 1);
+			get_err("Error \n invalid arg\n") : (g_save = 1);
 	else
 		g_save = 0;
 }

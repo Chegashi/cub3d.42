@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 12:09:12 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 15:39:36 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/22 11:34:31 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void		ft_initialize_save(void)
 	g_game->bitm.fs = 54 + g_game->bitm.imgs;
 	g_game->bitm.bp = 1;
 	if (!(g_game->bitm.buf = malloc(g_game->bitm.imgs)))
-		get_err("error\tmemory problem\n");
+		get_err("Error \nmemory problem\n");
 	g_game->bitm.ro = g_game->bitm.he - 1;
 	g_game->bitm.co = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 03:02:31 by abort             #+#    #+#             */
-/*   Updated: 2021/02/20 17:29:48 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/22 11:35:10 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int			ft_isdigit(int c)
 	return (0);
 }
 
-int	ft_strcmp(char *s1, char *s2)
+int			ft_strcmp(char *s1, char *s2)
 {
 	int i;
 
@@ -42,7 +42,7 @@ int			ft_atoi_s(char **s)
 
 	nbr = 0;
 	if (!ft_isdigit(**s))
-		get_err("error\t in resolution or color\n");
+		get_err("Error \n in resolution or color\n");
 	while (*s && ft_isdigit(**s) && nbr < 50000)
 	{
 		nbr = nbr * 10 + **s - '0';

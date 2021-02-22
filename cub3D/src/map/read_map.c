@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 17:40:04 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/22 11:35:10 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ t_cub	*ft_read_cub(char *s)
 		|| !(cub->textures[0].define) || !(cub->textures[1].define)
 		|| !(cub->textures[2].define) || !(cub->textures[3].define)
 		|| !(cub->textures[4].define))
-		get_err("Error\tmissing color or resolution or texture\n");
+		get_err("Error \nmissing color or resolution or texture\n");
+	ft_tomap(cub);
 	check_map(cub);
 	return (cub);
 }

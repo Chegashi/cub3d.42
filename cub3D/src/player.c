@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/02 09:55:17 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 17:40:33 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/22 10:54:22 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,13 @@ t_player		*ft_init_player(t_cub *cub)
 
 int				key_hook(int keycode)
 {
-	g_game->player->turndirection = 0;
-	g_game->player->walkdirection = 0;
-	if (keycode == 13)
-		g_game->player->walkdirection++;
-	else if (keycode == 123)
-		g_game->player->turndirection--;
-	else if (keycode == 1)
-		g_game->player->walkdirection--;
-	else if (keycode == 124)
-		g_game->player->turndirection++;
-	else if (keycode == 0 || keycode == 2)
-	{
-		g_game->player->walkdirection++;
-		(keycode == 0)
-		? g_game->player->turndirection-- : g_game->player->turndirection++;
-	}
-	else if (keycode == 53)
-		ft_exit(EXIT_SUCCESS);
-	else if (keycode == 126 && BONUS)
-		g_game->player->z += 10;
-	else if (keycode == 125 && BONUS)
-		g_game->player->z -= 10;
-	ft_update(g_game->player);
-	ft_render();
+	t_player	*p;
+
+	p = (t_player *)malloc(sizeof(t_player));
+	*p = *g_game->player;
+	p->turndirection = 0;
+	ft_key_utils(keycode, p);
+	ft_update(p);
 	return (0);
 }
 

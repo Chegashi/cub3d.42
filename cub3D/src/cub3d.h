@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 02:12:27 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 18:19:12 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/22 11:28:52 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -256,6 +256,7 @@ void				ft_render_sprite(void);
 void				ft_scren_shot();
 void				ft_draw_sprites(t_sprite *sprite);
 void				ft_rendr_sp_map(void);
+void				ft_key_utils(int keycode, t_player *p);
 double				ft_dst_2pnt(t_point p1, t_point p2);
 double				ft_min(double x1, double x2);
 double				ft_max(double x1, double x2);

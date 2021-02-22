@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 17:04:12 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 16:01:25 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/20 19:49:32 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,26 +15,24 @@
 int				ft_update(t_player *p)
 {
 	double		move;
-	t_player	*new_player;
 
-	new_player = (t_player *)malloc(sizeof(t_player));
-	*new_player = *p;
 	move = p->walkdirection * p->walkspeed;
-	new_player->rotationangle += p->turndirection * p->turnspeed;
-	new_player->x += cos(p->rotationangle) * move;
-	new_player->y += sin(p->rotationangle) * move;
-	ft_normilised(&(new_player->rotationangle));
-	if (!ft_antoured_bywall(new_player->x, new_player->y)
-		&& !ft_isasprite(new_player->x, new_player->y))
+	p->rotationangle += p->turndirection * p->turnspeed;
+	if (!p->turndirection)
 	{
-		*p = *new_player;
-		g_game->plyr.x = new_player->x;
-		g_game->plyr.y = new_player->y;
+		p->x += cos(p->rotationangle) * move;
+		p->y += sin(p->rotationangle) * move;
 	}
+	ft_normilised(&(p->rotationangle));
+	if (!ft_antoured_bywall(p->x, p->y) && !ft_isasprite(p->x, p->y))
+		*(g_game->player) = *p;
 	if (g_game->player->z > g_game->hight
 	|| g_game->player->z < -1 * g_game->hight)
 		g_game->player->z *= -1;
-	free(new_player);
+	g_game->plyr.x = g_game->player->x;
+	g_game->plyr.y = g_game->player->y;
+	free(p);
+	ft_render();
 	return (0);
 }
 

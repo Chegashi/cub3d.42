@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/20 18:19:03 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/22 11:32:57 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@ void	ft_get_tilesize(void)
 	{
 		g_game->width = sizex;
 		g_game->hight = sizey;
-	}
-	else if (g_game->width < 250 || g_game->hight < 255)
-	{
-		g_game->width = 500;
-		g_game->hight = 355;
 	}
 	res = (g_game->width < g_game->hight) ? g_game->width : g_game->hight;
 	rows = (g_game->cube->nbr_column > g_game->cube->nbr_ligne)

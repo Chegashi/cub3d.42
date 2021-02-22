@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/02/20 18:01:32 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/22 14:42:50 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	ft_read_color(char *line, int **tab)
 	while (++i < 3)
 	{
 		if (!*line || !ft_isdigit(*line))
-			get_err("error\t in color\n");
+			get_err("Error \n in color\n");
 		color = ft_atoi_s(&line);
 		if (color < 0 || color > 255)
-			get_err("error\t in color must > 0 and  < 255\n");
+			get_err("Error \nin color must > 0 and  < 255\n");
 		else
 			(*tab)[i] = color;
 		if ((i == 0 || i == 1) && *line != ',')
@@ -36,7 +36,7 @@ void	ft_read_color(char *line, int **tab)
 	while (*line && *line == ' ')
 		line++;
 	if (*line)
-		get_err("error\tdon't add extra information in color\n");
+		get_err("Error \ndon't add extra information in color\n");
 }
 
 void	ft_resolution(char *line, t_cub *cub)
@@ -49,13 +49,15 @@ void	ft_resolution(char *line, t_cub *cub)
 		while (*line && *line == ' ')
 			line++;
 		if (*line && !ft_isdigit(*line))
-			get_err("error\t in resolution\n");
+			get_err("Error \n in resolution\n");
 		cub->resolution[i] = ft_atoi_s(&line);
 	}
 	while (*line && *line == ' ')
 		line++;
 	if (*line)
-		get_err("error\tdon't add extra information in resloution\n");
+		get_err("Error \ndon't add extra information in resloution\n");
+	if (cub->resolution[0] < 255 || cub->resolution[1] < 255)
+		get_err("Error\n sorry we dont accept resolution less than 255*255\n");
 }
 
 void	ft_read_texture(char *line, t_texture *texture)
@@ -71,14 +73,14 @@ void	ft_read_texture(char *line, t_texture *texture)
 		line++;
 	len = 0;
 	i = 0;
-	while (line[len] && line[len] != ' ')
+	while (line[len])
 		len++;
 	path = ft_substr(line, 0, len);
 	if (strcmp(path + strlen(path) - 4, ".xpm"))
 		get_err("error extention texture file\n");
 	if (!(file = mlx_xpm_file_to_image(g_game->mlx_ptr,
 		path, &(texture->width), &(texture->hight))))
-		get_err("error\tinvalide texture file\n");
+		get_err("Error \ninvalide texture file\n");
 	else
 	{
 		texture->color = (int*)mlx_get_data_addr(file, &(texture->bpp),
@@ -111,8 +113,9 @@ void	ft_read_map(t_cub *cub)
 		else if (gnl_return && !*(cub->line))
 			get_err("the map must be the last in the file\n");
 		gnl_return = get_next_line(cub->fd, &(cub->line));
+		if (*(cub->line) && !ft_isin("1 ", *(cub->line)))
+			get_err("error\n in the map\n");
 	}
-	ft_tomap(cub);
 }
 
 void	check_map(t_cub *cub)
@@ -122,7 +125,7 @@ void	check_map(t_cub *cub)
 
 	i = -1;
 	if (!(cub->direction))
-		get_err("error\tmissing the player direction\n");
+		get_err("Error \nmissing the player direction\n");
 	while (++i < cub->nbr_ligne)
 	{
 		j = -1;
@@ -131,13 +134,13 @@ void	check_map(t_cub *cub)
 			if ((!i || !j || i == cub->nbr_ligne - 1
 				|| j == cub->nbr_column - 1)
 				&& (cub->map[i][j] != '1' && cub->map[i][j] != ' '))
-				get_err("error\tthe map must be ontoured by 1\n");
+				get_err("Error \nthe map must be ontoured by 1\n");
 			if ((cub->map[i][j] == '0' || cub->map[i][j] == '2')
 				&& (cub->map[i][j - 1] == ' ' || cub->map[i][j + 1] == ' '
 				|| cub->map[i + 1][j] == ' ' || cub->map[i - 1][j] == ' '))
-				get_err("error\tyou the 0,2 entoured with 0 or 1\n");
+				get_err("Error \nyou the 0,2 entoured with 0 or 1\n");
 			if (!ft_isin(" 120", cub->map[i][j]))
-				get_err("error\tbad caracter in the map\n");
+				get_err("Error \nbad caracter in the map\n");
 		}
 	}
 }
