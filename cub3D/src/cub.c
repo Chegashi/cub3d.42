@@ -60,6 +60,7 @@ void	ft_render(void)
 		ft_render_rays();
 		ft_render_player();
 		ft_rendr_sp_map();
+		ft_render_scoop();
 	}
 	if (g_save)
 		ft_scren_shot();
@@ -71,4 +72,33 @@ int		ft_exit(int i)
 {
 	mlx_destroy_image(g_game->mlx_ptr, g_game->img.img);
 	exit(i);
+}
+
+void	ft_render_scoop(void)
+{
+	t_point	p[9];
+	t_point c;
+
+	c.x = g_game->width / 2;
+	c.y = g_game->hight / 2;
+	p[1].x = c.x;
+	p[1].y = c.y - 40;
+	p[2].x = c.x;
+	p[2].y = c.y - 20;
+	p[3].x = c.x;
+	p[3].y = c.y + 40;
+	p[4].x = c.x;
+	p[4].y = c.y + 20;
+	p[5].y = c.x;
+	p[5].x = c.y - 40;
+	p[6].y = c.x;
+	p[6].x = c.y - 20;
+	p[7].y = c.x;
+	p[7].x = c.y + 40;
+	p[8].y = c.x;
+	p[8].x = c.y + 20;
+	ft_render_line(&(g_game->img), p[1], p[2], 0xff0000);
+	ft_render_line(&(g_game->img), p[3], p[4], 0xff0000);
+	ft_render_line(&(g_game->img), p[5], p[6], 0xff0000);
+	ft_render_line(&(g_game->img), p[7], p[8], 0xff0000);
 }

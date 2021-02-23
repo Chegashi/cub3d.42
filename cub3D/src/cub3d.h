@@ -269,5 +269,6 @@ t_point				ft_translate_point(t_point p, double x, double y);
 t_point				ft_horis_interst(t_ray *ray);
 t_point				ft_verti_intersect(t_ray *ray);
 t_player			*ft_init_player(t_cub *cub);
+void				ft_render_scoop(void);
 t_game				*g_game;
 #endif

@@ -14,6 +14,7 @@
 
 void	ft_key_utils(int keycode, t_player *p)
 {
+	p->walkdirection = 0;
 	if (keycode == 13)
 		p->walkdirection = 1;
 	else if (keycode == 123)

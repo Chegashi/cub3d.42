@@ -94,7 +94,7 @@ void			ft_render_sprite(void)
 	{
 		sprite = g_game->sprites.tab + i;
 		sprite->angle = ft_sprite_angl(sprite->y, sprite->x);
-		sprite->is_visible = (sprite->angle <= (FOV / 2)) ? 1 : 0;
+		sprite->is_visible = (sprite->angle <= ((FOV + 0.5) / 2)) ? 1 : 0;
 		if (sprite->is_visible)
 		{
 			ft_sprite_config(sprite);

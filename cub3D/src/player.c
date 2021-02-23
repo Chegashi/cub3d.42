@@ -30,7 +30,7 @@ t_player		*ft_init_player(t_cub *cub)
 		player->rotationangle = PI;
 	player->turndirection = 0;
 	player->walkdirection = 0;
-	player->walkspeed = g_game->ts / 2;
+	player->walkspeed = g_game->ts / 3;
 	player->turnspeed = 5 * (PI / 180);
 	player->z = 0;
 	return (player);
