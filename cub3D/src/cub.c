@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 01:55:37 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/22 11:32:57 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/24 19:38:19 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,11 @@ void	ft_render(void)
 int		ft_exit(int i)
 {
 	mlx_destroy_image(g_game->mlx_ptr, g_game->img.img);
+	ft_destroy_cub(g_game->cube);
+	free(g_game->player);
+	free(g_game->rays);
+	free(g_game->sprites.tab);
+	free(g_game);
 	exit(i);
 }
 
@@ -89,14 +94,14 @@ void	ft_render_scoop(void)
 	p[3].y = c.y + 40;
 	p[4].x = c.x;
 	p[4].y = c.y + 20;
-	p[5].y = c.x;
-	p[5].x = c.y - 40;
-	p[6].y = c.x;
-	p[6].x = c.y - 20;
-	p[7].y = c.x;
-	p[7].x = c.y + 40;
-	p[8].y = c.x;
-	p[8].x = c.y + 20;
+	p[5].x = c.x - 20;
+	p[5].y = c.y;
+	p[6].x = c.x - 40;
+	p[6].y = c.y;
+	p[7].x = c.x + 20;
+	p[7].y = c.y;
+	p[8].x = c.x + 40;
+	p[8].y = c.y;
 	ft_render_line(&(g_game->img), p[1], p[2], 0xff0000);
 	ft_render_line(&(g_game->img), p[3], p[4], 0xff0000);
 	ft_render_line(&(g_game->img), p[5], p[6], 0xff0000);

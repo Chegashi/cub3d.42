@@ -12,7 +12,7 @@
 
 NAME = cub3D
 
-flags = -Wall -Wextra -Werror -g -fsanitize=address
+flags = -Wall -Wextra -Werror
 
 SRCS = 	src/main.c \
 		src/cub.c \

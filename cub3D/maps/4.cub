@@ -1,15 +1,15 @@
-R  600 600
 
-NO textures/purplestone.xpm
-SO textures/bluestone.xpm
-WE textures/1.xpm
-EA textures/eagle.xpm
-S path_to_the_sprite_texture
+R 110990 1100
 
-S ../textures.64/vase.xpm
+        NO textures/3.xpm
+                SO textures/8.xpm
+                        WE textures/9.xpm
+                        EA textures/15.xpm
+                S  textures/s.xpm
+        F       202,161,22  
+  C       119,181,245
+ 
 
-F 0,0,0
-C 255,255,255
 
 
 111                                                     1111111111111111111111111111111111111111111

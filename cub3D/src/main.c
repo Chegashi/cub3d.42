@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/05 01:44:13 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/22 11:34:24 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/24 19:25:36 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ft_fill_game(void)
 	g_game->player = ft_init_player(g_game->cube);
 	g_game->img.addr = mlx_get_data_addr(g_game->img.img,
 	&(g_game->img.bpp), &(g_game->img.l_len), &(g_game->img.endian));
-	g_game->rays = (t_ray*)malloc(sizeof(t_ray) * (g_game->width + 1));
+	g_game->rays = (t_ray*)malloc(sizeof(t_ray) * (g_game->width));
 	g_game->plyr.x = g_game->player->x;
 	g_game->plyr.y = g_game->player->y;
 	ft_init_sprite();
