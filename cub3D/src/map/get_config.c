@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:47:36 by abort             #+#    #+#             */
-/*   Updated: 2021/02/22 14:42:50 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/25 17:23:39 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,16 +76,16 @@ void	ft_read_texture(char *line, t_texture *texture)
 	while (line[len])
 		len++;
 	path = ft_substr(line, 0, len);
-	if (strcmp(path + strlen(path) - 4, ".xpm"))
+	if (strcmp(path + strlen(path) - 4, ".xpm")
+		|| !(file = mlx_xpm_file_to_image(g_game->mlx_ptr, path,
+		&(texture->width), &(texture->hight))))
 		get_err("error extention texture file\n");
-	if (!(file = mlx_xpm_file_to_image(g_game->mlx_ptr,
-		path, &(texture->width), &(texture->hight))))
-		get_err("Error \ninvalide texture file\n");
 	else
 	{
 		texture->color = (int*)mlx_get_data_addr(file, &(texture->bpp),
 		&(texture->l_len), &(texture->endian));
 		texture->define = 1;
+		free(path);
 	}
 }
 

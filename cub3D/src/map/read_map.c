@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/04 04:57:35 by mochegri          #+#    #+#             */
-/*   Updated: 2021/02/24 19:23:07 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/25 17:18:27 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,12 @@ t_cub	*ft_read_cub(char *s)
 	cub = ft_init_cub();
 	cub->fd = open(s, O_RDONLY);
 	while (get_next_line(cub->fd, &(cub->line)) > 0)
+	{
 		if (*(cub->line))
 			ft_fill(cub->line, cub);
+		free(cub->line);
+		cub->line = (char*)malloc(sizeof(char*));
+	}
 	close(cub->fd);
 	if (cub->floor_color[0] == -1 || cub->ceilling_color[0] == -1
 		|| cub->resolution[0] == -1 || cub->resolution[1] == -1

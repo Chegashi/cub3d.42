@@ -6,14 +6,13 @@
 #    By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/04 17:18:52 by mochegri          #+#    #+#              #
-#    Updated: 2021/02/22 10:54:46 by mochegri         ###   ########.fr        #
+#    Updated: 2021/02/25 17:16:34 by mochegri         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
 flags = -Wall -Wextra -Werror
-
 SRCS = 	src/main.c \
 		src/cub.c \
 		src/math.c \
@@ -43,7 +42,7 @@ $(NAME): $(SRCS)
 	@ar -rc cub.a *.o
 	@ranlib cub.a 
 	@gcc $(flags) -I /usr/local/include cub.a -L /usr/local/lib/ \
-	-lmlx -framework OpenGL -framework AppKit src/libmlx.dylib -o cub3D
+	-lmlx -framework OpenGL -framework AppKit src/libmlx.dylib -o $(NAME)
 	@rm *.o
 	@rm cub.a
 
@@ -52,7 +51,7 @@ $(NAME_b): $(SRCS)
 	@ar -rc cub.a *.o
 	@ranlib cub.a 
 	@gcc $(flags) -I /usr/local/include cub.a -L /usr/local/lib/ \
-	-lmlx -framework OpenGL -framework AppKit src/libmlx.dylib -o cub3D
+	-lmlx -framework OpenGL -framework AppKit src/libmlx.dylib -o $(NAME)
 	@rm *.o
 	@rm cub.a
 
@@ -68,7 +67,7 @@ fclean:	clean
 re:		fclean all
 
 run: re
-	./cub3d maps/1.cub
+	./cub3D maps/1.cub
 save : re
 	./cub3D maps/1.cub --save
 

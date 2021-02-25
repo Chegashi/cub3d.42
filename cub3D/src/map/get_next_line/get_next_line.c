@@ -6,7 +6,7 @@
 /*   By: mochegri <mochegri@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/08 21:37:16 by mochegri          #+#    #+#             */
-/*   Updated: 2021/01/20 17:37:56 by mochegri         ###   ########.fr       */
+/*   Updated: 2021/02/25 17:14:41 by mochegri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int		get_next_line(int fd, char **line)
 	**line = '\0';
 	if (fd < 0 || !line || BUFFER_SIZE < 0 || read(fd, NULL, 0))
 		return (-1);
+	free(*line);
 	n = get_buffer(fd, line);
 	return (!n && **line != '\0') ? 1 : n;
 }
