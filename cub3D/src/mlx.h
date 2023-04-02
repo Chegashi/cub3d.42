@@ -16,6 +16,8 @@
 # define MLX_SYNC_IMAGE_WRITABLE 1
 # define MLX_SYNC_WIN_FLUSH_CMD 2
 # define MLX_SYNC_WIN_CMD_COMPLETED 3
+# define WIDTH 1920
+# define HIGHT 1080
 
 void			*mlx_init();
 void			*mlx_new_window(void *mlx_ptr, int size_x, int size_y,

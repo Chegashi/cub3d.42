@@ -25,17 +25,4 @@ Imperative programming
 Algorithms & AI
 Rigor
 
-# how to use
-![docs](asset/howtouse.gif)
-
-# project page
-![docs](asset/note.png)
-
-## map2D
-![docs](asset/map2d.png)
-
-## 3D
-![docs](asset/map1.png)
-
-## bonus
-![docs](asset/map4.png)
+![docs](asset/bonus.png)

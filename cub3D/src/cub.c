@@ -32,7 +32,8 @@ void	ft_get_tilesize(void)
 	int		sizex;
 	int		sizey;
 
-	mlx_get_screen_size(g_game->mlx_ptr, &sizex, &sizey);
+	sizex = HIGHT;
+	sizey = WIDTH;
 	g_game->width = g_game->cube->resolution[0];
 	g_game->hight = g_game->cube->resolution[1];
 	if (g_game->width > sizex || g_game->hight > sizey)
